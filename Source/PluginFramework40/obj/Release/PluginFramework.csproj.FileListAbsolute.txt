@@ -1,0 +1,5 @@
+E:\dmktop\pmint12121\dmk\plugins.dev\framework\PluginFramework40\bin\Release\PluginFramework.dll
+E:\dmktop\pmint12121\dmk\plugins.dev\framework\PluginFramework40\bin\Release\PluginFramework.pdb
+E:\dmktop\pmint12121\dmk\plugins.dev\framework\PluginFramework40\obj\Release\PluginFramework.csprojResolveAssemblyReference.cache
+E:\dmktop\pmint12121\dmk\plugins.dev\framework\PluginFramework40\obj\Release\PluginFramework.dll
+E:\dmktop\pmint12121\dmk\plugins.dev\framework\PluginFramework40\obj\Release\PluginFramework.pdb

@@ -1,0 +1,16 @@
+C:\Users\liyujie1\Documents\MY_exe\AtCam\PluginFramework40\bin\Debug\PluginFramework.dll
+C:\Users\liyujie1\Documents\MY_exe\AtCam\PluginFramework40\obj\Debug\PluginFramework.csprojAssemblyReference.cache
+C:\Users\liyujie1\Documents\MY_exe\AtCam\PluginFramework40\obj\Debug\PluginFramework.dll
+E:\liu lee\Documents\Develop application\ATCam_Dev\AtCam\PluginFramework40\bin\Debug\PluginFramework.dll
+E:\liu lee\Documents\Develop application\ATCam_Dev\AtCam\PluginFramework40\obj\Debug\PluginFramework.csprojAssemblyReference.cache
+E:\liu lee\Documents\Develop application\ATCam_Dev\AtCam\PluginFramework40\obj\Debug\PluginFramework.csproj.CoreCompileInputs.cache
+E:\liu lee\Documents\Develop application\ATCam_Dev\AtCam\PluginFramework40\obj\Debug\PluginFramework.dll
+C:\Users\liyujie1\Documents\MY_exe\ATCam_Dev\PluginFramework40\obj\Debug\PluginFramework.dll
+C:\Users\liyujie1\Documents\MY_exe\ATCam_Dev\PluginFramework40\obj\Debug\PluginFramework.csproj.CoreCompileInputs.cache
+C:\Users\liyujie1\Documents\MY_exe\ATCam_Dev\PluginFramework40\obj\Debug\PluginFramework.csproj.AssemblyReference.cache
+C:\Users\liyujie1\Documents\MY_exe\ATCam_Dev\PluginFramework.dll
+C:\Users\liyuj\Documents\Source\PowerMill_Helper\PluginFramework40\obj\Debug\PluginFramework.csproj.AssemblyReference.cache
+C:\Users\liyuj\Documents\Source\PowerMill_Helper\PluginFramework40\obj\Debug\PluginFramework.csproj.CoreCompileInputs.cache
+C:\Users\liyuj\Documents\Source\PowerMill_Helper\PluginFramework40\obj\Debug\PluginFramework.dll
+C:\Users\liyuj\Documents\Source\PowerMill_Helper\PluginFramework.dll
+C:\Users\liyuj\Documents\Source\PowerMill_Helper\DLL\PowerMill\PluginFramework.dll

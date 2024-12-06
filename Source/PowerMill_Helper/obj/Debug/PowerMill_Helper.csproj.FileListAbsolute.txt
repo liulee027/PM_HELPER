@@ -1,0 +1,11 @@
+C:\Users\liyuj\Documents\Source\PowerMill_Helper\PowerMill_Helper\bin\Debug\PowerMill_Helper.dll
+C:\Users\liyuj\Documents\Source\PowerMill_Helper\PowerMill_Helper\bin\Debug\PluginFramework.dll
+C:\Users\liyuj\Documents\Source\PowerMill_Helper\PowerMill_Helper\obj\Debug\PowerMill_Helper.csproj.AssemblyReference.cache
+C:\Users\liyuj\Documents\Source\PowerMill_Helper\PowerMill_Helper\obj\Debug\MainForm.g.cs
+C:\Users\liyuj\Documents\Source\PowerMill_Helper\PowerMill_Helper\obj\Debug\PowerMill_Helper_MarkupCompile.cache
+C:\Users\liyuj\Documents\Source\PowerMill_Helper\PowerMill_Helper\obj\Debug\PowerMill_Helper_MarkupCompile.lref
+C:\Users\liyuj\Documents\Source\PowerMill_Helper\PowerMill_Helper\obj\Debug\MainForm.baml
+C:\Users\liyuj\Documents\Source\PowerMill_Helper\PowerMill_Helper\obj\Debug\PowerMill_Helper.g.resources
+C:\Users\liyuj\Documents\Source\PowerMill_Helper\PowerMill_Helper\obj\Debug\PowerMill_Helper.csproj.CoreCompileInputs.cache
+C:\Users\liyuj\Documents\Source\PowerMill_Helper\PowerMill_Helper\obj\Debug\PowerMil.D9B23907.Up2Date
+C:\Users\liyuj\Documents\Source\PowerMill_Helper\PowerMill_Helper\obj\Debug\PowerMill_Helper.dll

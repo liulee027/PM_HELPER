@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A6706C9C-D607-48E5-8B53-FD859EA8DDD9}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PluginFramework</RootNamespace>
+    <AssemblyName>PluginFramework</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <DebugType>none</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\DLL\PowerMill\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>key_pair.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PowerMILL">
+      <HintPath>..\DLL\PowerMill\PowerMILL.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Events\EventInterface.cs" />
+    <Compile Include="Events\EventManager.cs" />
+    <Compile Include="Events\EventSubscription.cs" />
+    <Compile Include="Framework\PluginFrameworkWithPanesAndTabs.cs" />
+    <Compile Include="Framework\PluginFrameworkWithPanes.cs" />
+    <Compile Include="Framework\IPluginCommunicationsInterface.cs" />
+    <Compile Include="Framework\PaneDefinition.cs" />
+    <Compile Include="Framework\PluginFrameworkBase.cs" />
+    <Compile Include="Framework\PluginFrameworkNoPowerMILL.cs" />
+    <Compile Include="Framework\PluginFrameworkWithoutPanes.cs" />
+    <Compile Include="Framework\TabDefinition.cs" />
+    <Compile Include="Installation\InstallationUtils.cs" />
+    <Compile Include="Localisation\ITranslationProvider.cs" />
+    <Compile Include="Localisation\ITranslationSupporter.cs" />
+    <Compile Include="Localisation\LanguageChangedEventManager.cs" />
+    <Compile Include="Localisation\TranslateExtension.cs" />
+    <Compile Include="Localisation\TranslationData.cs" />
+    <Compile Include="Localisation\TranslationManager.cs" />
+    <Compile Include="Localisation\XMLTranslationProvider.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utils\BitmapUtils.cs" />
+    <Compile Include="Utils\CommandUtils.cs" />
+    <Compile Include="Utils\DisableDialogMessages.cs" />
+    <Compile Include="Utils\DisableGraphics.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="key_pair.snk" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
