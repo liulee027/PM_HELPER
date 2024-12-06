@@ -22,10 +22,7 @@ namespace PowerMill_Helper
     {
         public BasicPlugin()
         {
-            //可以在这里添加你的自由面板
-         
-            OpenMainFrom();
-            //可以在这里添加你的自由面板
+            
         }
 
         #region 插件信息
@@ -54,8 +51,8 @@ namespace PowerMill_Helper
             //这里打开你的垂直插件面板
 
             //这里打开你的垂直插件面板
-
-            
+            OpenMainFrom();
+     
         }
         #endregion
 
@@ -77,14 +74,10 @@ namespace PowerMill_Helper
         #endregion
         #region OpenMainFrom
         MainForm mainForm;
-        private async void  OpenMainFrom()
+        private void  OpenMainFrom()
         {
             try
             {
-                await Task.Run(() =>
-                {
-                    // 在后台线程执行
-                    Task.Delay(1000).Wait();
                     mainForm = new MainForm(this, Token, Services, (IntPtr)this.ParentWindow);
                     WindowInteropHelper wih = new WindowInteropHelper(mainForm);
                     wih.Owner = new IntPtr((int)this.ParentWindow);
@@ -94,16 +87,11 @@ namespace PowerMill_Helper
                     mainForm.Left = 0;
                     mainForm.Top = 0;
                     mainForm.Show();
-                });
-
-
-         
             }
             catch (Exception EX)
             {
                 MessageBox.Show("ErrorVoid: OpenMainFrom\r"+EX.ToString());
             }
-           
         }
         [DllImport("user32.dll")]
         [return: MarshalAs(UnmanagedType.Bool)]
