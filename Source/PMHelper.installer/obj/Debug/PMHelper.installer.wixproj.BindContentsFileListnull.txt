@@ -1,0 +1,2 @@
+..\PowerMill_Helper\bin\Debug\PluginFramework.dll
+..\PowerMill_Helper\bin\Debug\PowerMill_Helper.dll

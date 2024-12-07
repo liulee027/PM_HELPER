@@ -22,7 +22,8 @@ namespace PowerMill_Helper
     {
         public BasicPlugin()
         {
-            
+            //这里初始化你的插件
+
         }
 
         #region 插件信息

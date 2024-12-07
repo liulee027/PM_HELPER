@@ -1,0 +1,7 @@
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PMHelper.installer\bin\Debug\cab1.cab
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PMHelper.installer\bin\Debug\PMHelper.installer.msi
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PMHelper.installer\bin\Debug\PMHelper.installer.wixpdb
+obj\Debug\Product.wixobj
+obj\Debug\PMHelper.installer.wixproj.BindContentsFileListnull.txt
+obj\Debug\PMHelper.installer.wixproj.BindOutputsFileListnull.txt
+obj\Debug\PMHelper.installer.wixproj.BindBuiltOutputsFileListnull.txt
