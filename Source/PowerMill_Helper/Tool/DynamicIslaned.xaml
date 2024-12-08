@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="PowerMill_Helper.Tool.DynamicIslaned"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PowerMill_Helper.Tool"
+             mc:Ignorable="d" 
+              VerticalAlignment="Top" 
+        
+             >
+    <Border x:Name="Bar_main_Grid"  Background="Black"   Margin="4"
+         CornerRadius="12,12,12,12" Height="24"
+            HorizontalAlignment="Center" MinWidth="900"  d:DesignHeight="28" d:DesignWidth="960"
+         >
+        <Border.Effect>
+            <DropShadowEffect x:Name="Bar_main_Grid_shadow" Color="Black" Direction="-45" ShadowDepth="2" Opacity="0" />
+        </Border.Effect>
+        <Grid>
+            <StackPanel  HorizontalAlignment="Left" Margin="0,0,0,0" Orientation="Horizontal">
+
+
+                <!--Logo-->
+                <Border Width="57" Height="16" Padding="0" BorderThickness="0"
+             HorizontalAlignment="Left" VerticalAlignment="Center"
+             Margin="5,0,0,0" CornerRadius="8">
+                    <Border.Clip>
+                        <RectangleGeometry Rect="0,0,57,16" RadiusX="8" RadiusY="8" />
+                    </Border.Clip>
+                    <Image Source="Image/Logo.png" Stretch="UniformToFill"/>
+                </Border>
+                <!--打开项目按钮-->
+                <Image PreviewMouseUp="Image_PreviewMouseUp" Margin="5,0,0,0" Width="15"  Height="15"  Source="Image/OpenFile.png"   Cursor="Hand"/>
+                <!--保存项目按钮-->
+                <Grid PreviewMouseUp="UserSaveProg" Margin="5,0,0,0">
+                    <Border    Width="18"   Background="{Binding SaveStateColor}"  Opacity="{Binding SaveStateOpacity}" >
+                        <Border.Effect>
+                            <DropShadowEffect  Color="{Binding SaveStateEffect}" ShadowDepth="0" BlurRadius="5"/>
+                        </Border.Effect>
+                    </Border>
+                    <Image Width="15" Height="15"  Source="Image/SaveFile.png"   Cursor="Hand"/>
+                </Grid>
+                <!--另存项目按钮-->
+                <Image PreviewMouseUp="UserSaveOtherWhere" Width="15" Height="12"   Margin="5,0,0,0"  Source="Image/SaveAnyWhere.png"  Cursor="Hand" />
+                <!--新建策略按钮-->
+                <Image Visibility="Hidden" Cursor="Hand"  Width="15" Height="13"   VerticalAlignment="Top" HorizontalAlignment="Left" Margin="5,7,0,0" Source="Image/addnewstargy.png"/>
+            </StackPanel>
+            <!--项目名称-->
+            <Grid >
+                <TextBlock   Text="{Binding ProjectName}"  Padding="0" FontSize="15"
+                          VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                          Foreground="White"  Margin="5,0,0,2" FontWeight="Bold"
+                         >
+
+                </TextBlock>
+
+            </Grid>
+            <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" >
+                <!--扩展功能-->
+                <Button     Visibility="Hidden"
+                         Cursor="Hand"  Height="16" Width="55" Margin="0,0,5,0"
+                         HorizontalContentAlignment="Center" HorizontalAlignment="Right" RenderTransformOrigin="0,0" >
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="Background" Value="White"/>
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="Black"/>
+                                    <Setter Property="Foreground" Value="WhiteSmoke"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Button.Style>
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <Border Background="{TemplateBinding Background}"  CornerRadius="8">
+                                <TextBlock Text="宏库" TextAlignment="Center" />
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+
+                </Button>
+              
+            </StackPanel>
+
+        </Grid>
+    </Border>
+</UserControl>

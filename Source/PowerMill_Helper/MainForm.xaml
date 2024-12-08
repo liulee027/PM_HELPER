@@ -3,11 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:PowerMill_Helper"
-             mc:Ignorable="d"  x:Name="MainPage"  Topmost="True"
-            Title="NULL" Height="1200"  Width="1920" WindowStyle="None"  AllowsTransparency="True" Background="{x:Null}"    FontWeight="ExtraLight" BorderBrush="Black">
+             xmlns:local="clr-namespace:PowerMill_Helper.Class"
+             mc:Ignorable="d"  x:Name="MainPage"  Topmost="True" d:DesignHeight="500" d:DesignWidth="500"
+            Title="NULL" WindowStyle="None"  AllowsTransparency="True" Background="{x:Null}"    FontWeight="ExtraLight" BorderBrush="Black">
 
-    <Grid>
+    <Window.DataContext>
+        <local:MainCS/>
+    </Window.DataContext>
+    <Grid x:Name="MainFormGrid">
 
             <!--耳朵-->
         <Path Fill="Black" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0,0,0,0">

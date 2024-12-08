@@ -66,19 +66,43 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicPlugin.cs" />
+    <Compile Include="Class\FolderSelectDialog.cs" />
+    <Compile Include="Class\MainCS.cs" />
     <Compile Include="MainForm.xaml.cs">
       <DependentUpon>MainForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Image\Icon\Pluginicon.png" />
+    <Compile Include="Tool\DynamicIslaned.xaml.cs">
+      <DependentUpon>DynamicIslaned.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Page Include="MainForm.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Tool\DynamicIslaned.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Theme\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Image\Icon\Mofun24.png" />
+    <Resource Include="Image\Icon\Mofun32.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Tool\Image\Logo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Tool\Image\OpenFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Tool\Image\Addnewstargy.png" />
+    <Resource Include="Tool\Image\SaveAnyWhere.png" />
+    <Resource Include="Tool\Image\SaveFile.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
