@@ -1,0 +1,123 @@
+﻿<UserControl x:Class="PowerMill_Helper.Tool.MacroLib"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PowerMill_Helper.Tool"
+            xmlns:CS="clr-namespace:PowerMill_Helper.Class"
+             mc:Ignorable="d" 
+             Height="800" Width="450">
+    <UserControl.Resources>
+        <Style  x:Key="AppRes" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFFFFA8F"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                        <Border  CornerRadius="12"  Background="{TemplateBinding Background}" Cursor="Hand" >
+                            <TextBlock Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Uid}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="AppTitle" TargetType="{x:Type Label}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Margin" Value="0,5,0,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Label">
+                        <Border Background="#FFAEC4C5" CornerRadius="12">
+                            <Grid>
+                                <TextBlock Text="{TemplateBinding Name}"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <Button Click="BorderCloserButton" Width="20" Height="20" HorizontalAlignment="Right" Margin="0,0,2,0">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="Red"/>
+                                                    <Setter Property="Foreground" Value="White"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+
+                                    </Button.Style>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border  CornerRadius="10"  Background="{TemplateBinding Background}" Cursor="Hand" >
+                                                <Grid>
+                                                    <Line X1="5" X2="15" Y1="5" Y2="15" Stroke="{TemplateBinding Foreground}" StrokeThickness="2" />
+                                                    <Line X1="15" X2="5" Y1="5" Y2="15" Stroke="{TemplateBinding Foreground}" StrokeThickness="2" />
+                                                </Grid>
+                                            </Border>
+                                        </ControlTemplate>
+
+                                    </Button.Template>
+                                </Button>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <EventSetter Event="MouseLeftButtonDown" Handler="Move_Border_MouseDown"/>
+            <EventSetter Event="MouseMove" Handler="Move_Border_Mousemove"/>
+            <EventSetter Event="MouseLeftButtonUp" Handler="Move_Border_MoseUp"/>
+
+
+        </Style>
+    </UserControl.Resources>
+    <Border UseLayoutRounding="True"  Background="WhiteSmoke" 
+            Margin="0" Opacity="1" CornerRadius="14" >
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="1" RenderingBias="Quality" BlurRadius="10" />
+        </Border.Effect>
+        <Grid>
+            <Label Name="宏库" Style="{StaticResource AppTitle}" />
+            <!--
+               MouseDoubleClick="ToolTreeViewControl_MouseDoubleClick"
+TreeViewItem.Selected="SelectToolTVNodel"
+            -->
+            <TreeView  BorderThickness="0"  FontSize="16"
+                       Margin="10,40,10,10" Background="WhiteSmoke"
+          Padding="0,5,0,0"  
+          ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                       RenderTransformOrigin="0,0"
+                       BorderBrush="LightGray"
+                       ItemsSource="{Binding MacorLibTreeViewList}"
+                   MouseDoubleClick="Treeview_SelectSomthing"
+                       TreeViewItem.Selected="TreeView_Selected"
+                       >
+                <TreeView.Resources>
+                    <ResourceDictionary Source=" pack://application:,,,/PowerMill_Helper;component/Theme/Win8TreeView.xaml" />
+                </TreeView.Resources>
+                <TreeView.ItemTemplate>
+                    <HierarchicalDataTemplate DataType="{x:Type CS:NamePath}" ItemsSource="{Binding Path=Children}">
+                        <StackPanel  Orientation="Horizontal" Background="Transparent" Cursor="Hand" >
+                            <Image VerticalAlignment="Center" Source="{Binding IconPath}" Width="16" Height="16" Margin="0,0,3,2"/>
+                            <TextBlock  VerticalAlignment="Center"  Text="{Binding PathStr}" />
+                            <StackPanel.ToolTip>
+                                <TextBlock VerticalAlignment="Center" Text="{Binding PathStr}" TextWrapping="NoWrap"  ></TextBlock>
+                            </StackPanel.ToolTip>
+                        </StackPanel>
+                    </HierarchicalDataTemplate>
+                </TreeView.ItemTemplate>
+            </TreeView>
+        </Grid>
+    </Border>
+</UserControl>

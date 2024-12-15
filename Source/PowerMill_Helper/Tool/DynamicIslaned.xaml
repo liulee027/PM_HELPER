@@ -8,12 +8,12 @@
               VerticalAlignment="Top" 
         
              >
-    <Border x:Name="Bar_main_Grid"  Background="Black"   Margin="4"
+    <Border   Background="Black"   Margin="4"
          CornerRadius="12,12,12,12" Height="24"
             HorizontalAlignment="Center" MinWidth="900"  d:DesignHeight="28" d:DesignWidth="960"
          >
         <Border.Effect>
-            <DropShadowEffect x:Name="Bar_main_Grid_shadow" Color="Black" Direction="-45" ShadowDepth="2" Opacity="0" />
+            <DropShadowEffect  Color="Black" Direction="-45" ShadowDepth="2" Opacity="0" />
         </Border.Effect>
         <Grid>
             <StackPanel  HorizontalAlignment="Left" Margin="0,0,0,0" Orientation="Horizontal">
@@ -29,7 +29,9 @@
                     <Image Source="Image/Logo.png" Stretch="UniformToFill"/>
                 </Border>
                 <!--打开项目按钮-->
-                <Image PreviewMouseUp="Image_PreviewMouseUp" Margin="5,0,0,0" Width="15"  Height="15"  Source="Image/OpenFile.png"   Cursor="Hand"/>
+                <Image PreviewMouseUp="Image_PreviewMouseUp" Margin="5,0,0,0" Width="15"  Height="15"  Source="Image/OpenFile.png"   Cursor="Hand">
+                  
+                </Image>
                 <!--保存项目按钮-->
                 <Grid PreviewMouseUp="UserSaveProg" Margin="5,0,0,0">
                     <Border    Width="18"   Background="{Binding SaveStateColor}"  Opacity="{Binding SaveStateOpacity}" >
@@ -55,8 +57,15 @@
 
             </Grid>
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" >
+                <!--设置-->
+                <TextBlock Cursor="Hand" PreviewMouseUp="DynamicislandOpenSetting" Text="⚙" Foreground="White"  FontSize="13" VerticalAlignment="Center" Margin="5,0,5,2">
+                    <TextBlock.Effect>
+                        <DropShadowEffect  Color="White" ShadowDepth="0" BlurRadius="5"/>
+                    </TextBlock.Effect>
+                </TextBlock>
                 <!--扩展功能-->
-                <Button     Visibility="Hidden"
+                <!--宏库-->
+                <Button    Click="UserOpenMacroLib"
                          Cursor="Hand"  Height="16" Width="55" Margin="0,0,5,0"
                          HorizontalContentAlignment="Center" HorizontalAlignment="Right" RenderTransformOrigin="0,0" >
                     <Button.Style>

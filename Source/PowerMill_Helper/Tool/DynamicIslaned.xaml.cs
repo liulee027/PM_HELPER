@@ -39,5 +39,15 @@ namespace PowerMill_Helper.Tool
         {
             UserSaveOtherWhereEvent?.Invoke(this, e);
         }
+        public event RoutedEventHandler UserOpenSettingEvent;
+        private void DynamicislandOpenSetting(object sender, MouseButtonEventArgs e)
+        {
+            UserOpenSettingEvent?.Invoke(this, e);
+        }
+        public event RoutedEventHandler UserOpenMacroLibEvent;
+        private void UserOpenMacroLib(object sender, RoutedEventArgs e)
+        {
+            UserOpenMacroLibEvent?.Invoke(this, e);
+        }
     }
 }

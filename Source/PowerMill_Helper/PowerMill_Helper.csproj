@@ -17,12 +17,12 @@
     <UpdateAssemblyVersion>True</UpdateAssemblyVersion>
     <UpdateAssemblyFileVersion>True</UpdateAssemblyFileVersion>
     <UpdateAssemblyInfoVersion>True</UpdateAssemblyInfoVersion>
-    <AssemblyVersionSettings>None.None.None.IncrementWithResetOnIncrease</AssemblyVersionSettings>
+    <AssemblyVersionSettings>IncrementOnDemand.IncrementOnDemand.Increment.None</AssemblyVersionSettings>
     <UpdatePackageVersion>False</UpdatePackageVersion>
     <AssemblyInfoVersionType>SettingsVersion</AssemblyInfoVersionType>
     <InheritWinAppVersionFrom>None</InheritWinAppVersionFrom>
-    <AssemblyFileVersionSettings>None.None.None.IncrementWithResetOnIncrease</AssemblyFileVersionSettings>
-    <AssemblyInfoVersionSettings>None.None.None.IncrementWithResetOnIncrease</AssemblyInfoVersionSettings>
+    <AssemblyFileVersionSettings>IncrementOnDemand.IncrementOnDemand.Increment.None</AssemblyFileVersionSettings>
+    <AssemblyInfoVersionSettings>IncrementOnDemand.IncrementOnDemand.Increment.None</AssemblyInfoVersionSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -66,14 +66,25 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BasicPlugin.cs" />
+    <Compile Include="Class\ConfigINI.cs" />
     <Compile Include="Class\FolderSelectDialog.cs" />
     <Compile Include="Class\MainCS.cs" />
+    <Compile Include="Class\NamePath.cs" />
     <Compile Include="MainForm.xaml.cs">
       <DependentUpon>MainForm.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Theme\IndentConverter.cs" />
+    <Compile Include="Theme\TreeViewItemExt.cs" />
+    <Compile Include="Theme\VisualTreeEx.cs" />
     <Compile Include="Tool\DynamicIslaned.xaml.cs">
       <DependentUpon>DynamicIslaned.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\MacroLib.xaml.cs">
+      <DependentUpon>MacroLib.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Tool\SettingForm.xaml.cs">
+      <DependentUpon>SettingForm.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -81,14 +92,24 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Theme\Win8TreeView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Tool\DynamicIslaned.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Tool\MacroLib.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Tool\SettingForm.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Theme\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Resource Include="Image\Icon\Mofun24.png" />
     <Resource Include="Image\Icon\Mofun32.png" />

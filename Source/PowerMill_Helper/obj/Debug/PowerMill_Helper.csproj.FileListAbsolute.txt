@@ -23,3 +23,8 @@ C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Powe
 C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\DynamicIslaned.g.cs
 C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\DynamicIslaned.baml
 C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\SettingForm.g.cs
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\SettingForm.baml
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Theme\Win8TreeView.baml
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\MacroLib.g.cs
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\MacroLib.baml

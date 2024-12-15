@@ -22,6 +22,7 @@ using System.Xml;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 using MessageBox=System.Windows.Forms.MessageBox;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace PowerMill_Helper
 {
@@ -200,14 +201,66 @@ namespace PowerMill_Helper
 
         #region 加载控件
         DynamicIslaned DynamicIslaned = null;
+        SettingForm SettingForm_ = null;
+        MacroLib MacroLib_= null;
         private void LoadControl()
         {
-            DynamicIslaned=new DynamicIslaned();
-            MainFormGrid.Children.Add  (DynamicIslaned);
-            DynamicIslaned.UserSelectProgEvent += DynamicIslaned_UserSelectProgEvent;
-            DynamicIslaned.UserSaveProgEvent += DynamicIslaned_UserSaveProgEvent;
-            DynamicIslaned.UserSaveOtherWhereEvent += DynamicIslaned_UserSaveOtherWhereEvent;
+            try
+            {
+                DynamicIslaned = new DynamicIslaned();
+                MainFormGrid.Children.Add(DynamicIslaned);
+                DynamicIslaned.UserSelectProgEvent += DynamicIslaned_UserSelectProgEvent;
+                DynamicIslaned.UserSaveProgEvent += DynamicIslaned_UserSaveProgEvent;
+                DynamicIslaned.UserSaveOtherWhereEvent += DynamicIslaned_UserSaveOtherWhereEvent;
+                DynamicIslaned.UserOpenSettingEvent += DynamicIslaned_UserOpenSettingEvent;
+                DynamicIslaned.UserOpenMacroLibEvent += DynamicIslaned_UserOpenMacroLibEvent;   
+                SettingForm_ = new SettingForm();
+                //SettingForm_.FontSize = 12;
+                //SettingForm_.FontFamily = new System.Windows.Media.FontFamily("微软雅黑");
+                //SettingForm_.Background = System.Windows.Media.Brushes.White;
+                MainFormGrid.Children.Add(SettingForm_);
+                SettingForm_.Setting_MacroLib_Addfolder += SettingForm_MacroLib_Addfolder;
+                SettingForm_.Setting_MacroLib_Removerfolder += SettingForm_MacroLib_Removerfolder;
+                SettingForm_.Setting_MacroLib_Selectdownfolder += SettingForm_MacroLib_Selectdownfolder;
+                SettingForm_.Setting_MacroLib_SelectUpfolder += SettingForm_MacroLib_SelectUpfolder;
+                SettingForm_.Setting_MacroLib_ResReadfolder+= SettingForm_MacroLib_ResReadfolder;
+                string MacorLibFolderslistStr = ConfigINI.ReadSetting(MCS.ConfigInitPath, "MacorLib", "USERMACROFOLDERS", "");
+                if (MacorLibFolderslistStr != "")
+                {
+                    foreach (string item in MacorLibFolderslistStr.Split(',')) MCS.MacorLibFolders.Add(item);
+                    MCS.DrawMacorLibTreeView();
+                }
+                SettingForm_.Visibility = Visibility.Hidden;
+                SettingForm_.DataContext = MCS;
+                MacroLib_=new MacroLib();
+                MainFormGrid.Children.Add(MacroLib_);
+                MacroLib_.OnTreeview_SelectSomthingEnent += MacroLib_Treeview_SelectSomthing;
 
+                MacroLib_.Visibility = Visibility.Hidden;
+                MacroLib_.DataContext = MCS;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("LoadControl\r" + ex.ToString());
+            }
+        }
+
+        #region DynamicIslaned
+        private void DynamicIslaned_UserOpenMacroLibEvent(object sender, RoutedEventArgs e)
+        {
+            MacroLib_.Visibility = Visibility.Visible;
+        }
+        private void DynamicIslaned_UserOpenSettingEvent(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                SettingForm_.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+            MessageBox.Show("DynamicIslaned_UserOpenSettingEvent\r" + ex.ToString());
+            }
+           
         }
 
         private void DynamicIslaned_UserSaveOtherWhereEvent(object sender, RoutedEventArgs e)
@@ -219,7 +272,110 @@ namespace PowerMill_Helper
         {
             PMCom("PROJECT SAVE");
         }
+        private void DynamicIslaned_UserSelectProgEvent(object sender, RoutedEventArgs e)
+        {
+            string theDirPath = "";
+            theDirPath = OpenFileBrowserDialog(false);
+            if (File.Exists(theDirPath + "\\pmill.ico"))
+            {
+                PMCom($"PROJECT OPEN '{theDirPath}'");
+            }
+            else
+            {
+                if (theDirPath != "")
+                {
+                    MessageBox.Show("此文件夹不是PowerMIill项目");
+                }
+            }
+        }
+        #endregion
+        #region SettingForm
+        private void SettingForm_MacroLib_ResReadfolder(object sender, RoutedEventArgs e)
+        {
+            MCS.DrawMacorLibTreeView();
+        }
+        private void SettingForm_MacroLib_SelectUpfolder(object sender, RoutedEventArgs e)
+        {
+            if (MCS.MacorLibFolderssettingSelected!=null)
+            {
+                int index = MCS.MacorLibFolders.IndexOf(MCS.MacorLibFolderssettingSelected);
+                if (index > 0)
+                {
+                    MCS.MacorLibFolders.Move(index, index - 1);
+                    ConfigINI.WriteSetting(MCS.ConfigInitPath, "MacorLib", "USERMACROFOLDERS", string.Join(",", MCS.MacorLibFolders.ToArray()));
+                }
 
+                MCS.DrawMacorLibTreeView();
+            }
+        
+        }
+
+        private void SettingForm_MacroLib_Selectdownfolder(object sender, RoutedEventArgs e)
+        {
+            if (MCS.MacorLibFolderssettingSelected!=null)
+            {
+                int index = MCS.MacorLibFolders.IndexOf(MCS.MacorLibFolderssettingSelected);
+                if (index < MCS.MacorLibFolders.Count - 1)
+                {
+                    MCS.MacorLibFolders.Move(index, index + 1);
+                    ConfigINI.WriteSetting(MCS.ConfigInitPath, "MacorLib", "USERMACROFOLDERS", string.Join(",", MCS.MacorLibFolders.ToArray()));
+                }
+                MCS.DrawMacorLibTreeView();
+            }
+          
+        }
+
+        private void SettingForm_MacroLib_Removerfolder(object sender, RoutedEventArgs e)
+        {
+            //MessageBox.Show(MCS.MacorLibFolderssettingSelected);
+            if (MCS.MacorLibFolderssettingSelected != null)
+            {
+                MCS.MacorLibFolders.Remove(MCS.MacorLibFolderssettingSelected);
+                MCS.DrawMacorLibTreeView();
+                ConfigINI.WriteSetting(MCS.ConfigInitPath, "MacorLib", "USERMACROFOLDERS", string.Join(",", MCS.MacorLibFolders.ToArray()));
+            }
+            
+        }
+
+        private void SettingForm_MacroLib_Addfolder(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                string theDirPath = "";
+                theDirPath = OpenFileBrowserDialog(false);
+                if (theDirPath != "")
+                {
+                    MCS.MacorLibFolders.Add(theDirPath);
+                    MCS.Onchange("MacorLibFolders");
+                    MCS.DrawMacorLibTreeView();
+                    ConfigINI.WriteSetting(MCS.ConfigInitPath, "MacorLib", "USERMACROFOLDERS", string.Join(",", MCS.MacorLibFolders.ToArray()));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("SettingForm_MacroLib_Addfolder\r" + ex.ToString());
+            }
+          
+        }
+        #endregion
+        #region MacroLib
+        private void MacroLib_Treeview_SelectSomthing(NamePath namePath)
+        {
+            try
+            {
+                PMCom($"Macro '{namePath.FullPath}'");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("MacroLib_Treeview_SelectSomthing\r" + ex.ToString());
+            }
+        }
+        #endregion
+
+        #endregion
+
+
+        #region System
         public static string OpenFileBrowserDialog(bool multiselect)
         {
             FolderSelectDialog fbd = new FolderSelectDialog();
@@ -239,22 +395,6 @@ namespace PowerMill_Helper
             }
 
             return selected_folders;
-        }
-        private void DynamicIslaned_UserSelectProgEvent(object sender, RoutedEventArgs e)
-        {
-            string theDirPath = "";
-            theDirPath = OpenFileBrowserDialog(false);
-            if (File.Exists(theDirPath + "\\pmill.ico"))
-            {
-                PMCom($"PROJECT OPEN '{theDirPath}'");
-            }
-            else
-            {
-                if (theDirPath != "")
-                {
-                    MessageBox.Show("此文件夹不是PowerMIill项目");
-                }
-            }
         }
         #endregion
 

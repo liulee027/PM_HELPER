@@ -35,7 +35,7 @@ namespace PowerMill_Helper
 
         public override string PluginIconPath => "Image/icon/Pluginicon.png";
 
-        public override Version PluginVersion => new Version(0, 1, 0);
+        public override Version PluginVersion => System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
 
         public override Version PowerMILLVersion => new Version(13, 1, 4);
 

@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 
-2-1295550114
+5-843872887
 
-7730728409
+14-790935059
 17-943459503
-MainForm.xaml;Tool\DynamicIslaned.xaml;
+MainForm.xaml;Theme\Win8TreeView.xaml;Tool\DynamicIslaned.xaml;Tool\MacroLib.xaml;Tool\SettingForm.xaml;
 
 True
 

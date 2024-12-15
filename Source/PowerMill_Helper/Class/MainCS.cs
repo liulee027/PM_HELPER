@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
+using PowerMill_Helper.Theme;
 
 
 namespace PowerMill_Helper.Class
@@ -17,6 +20,11 @@ namespace PowerMill_Helper.Class
             SaveStateColor = new SolidColorBrush(Colors.GreenYellow);
             SaveStateEffect = Colors.GreenYellow;
             ProjectName = "NULL";
+            PluginPath = this.GetType().Assembly.Location;
+            FileInfo fileInfo_ = new FileInfo(PluginPath);
+            PluginFolder = fileInfo_.Directory.FullName;
+            ConfigInitPath=System.IO.Path.Combine(PluginFolder, "config.ini");
+
         }
         public event PropertyChangedEventHandler PropertyChanged;
         public void Onchange(string PropertyName)
@@ -30,6 +38,7 @@ namespace PowerMill_Helper.Class
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        #region Info
         private string ProjectName_;
         public string ProjectName
         {
@@ -40,6 +49,77 @@ namespace PowerMill_Helper.Class
                 OnPropertyChanged();
             }
         }
+        #region Path
+        // System.Environment.CurrentDirectory;Pm路径
+        public string PluginPath { get; set; }
+        public string PluginFolder {  get; set; }
+        public string ConfigInitPath { get; set; }
+        #endregion
+
+
+        #endregion
+        #region 设置窗口
+        #region 宏库
+        
+        private ObservableCollection<string> MacorrLibFolders_=new ObservableCollection<string>();
+        public ObservableCollection<string> MacorLibFolders
+        {
+            get=> MacorrLibFolders_;
+            set
+            {
+                MacorrLibFolders_ = value;
+               // System.Windows.Forms.MessageBox.Show(string.Join(",", value.ToArray()));
+                OnPropertyChanged();
+            }
+        }
+ 
+        public String MacorLibFolderssettingSelected { get; set; }
+        public void DrawMacorLibTreeView()
+        {
+            MacorLibTreeViewList= new ObservableCollection<NamePath>();
+            foreach (string item in MacorrLibFolders_)
+            {
+                DirectoryInfo    directoryInfo = new DirectoryInfo(item);
+                NamePath namePath = new NamePath();
+                MacorLibTreeViewList.Add(namePath);
+                ReadMacorLibFolders(namePath, directoryInfo.FullName);
+            }
+            Onchange("MacorLibTreeViewList");
+        }
+        public ObservableCollection<NamePath> MacorLibTreeViewList{get;  set;  }=new ObservableCollection<NamePath>();
+        private void ReadMacorLibFolders(NamePath ParentNode,string Path)
+        {
+            //NamePath namePath = new NamePath();
+            DirectoryInfo directoryInfo = new DirectoryInfo(Path);
+            ParentNode.PathStr = directoryInfo.Name;
+            ParentNode.IconPath =@"Image\OpenFile.png";
+            ParentNode.isFolder = true;
+            foreach (DirectoryInfo item in directoryInfo.GetDirectories())
+            {
+                NamePath namePath_ = new NamePath();
+                namePath_.PathStr = item.Name;
+                ParentNode.Children.Add(namePath_);
+                ReadMacorLibFolders(namePath_, item.FullName);
+            }
+            foreach (FileInfo item in directoryInfo.GetFiles())
+            {
+                NamePath namePath_ = new NamePath();
+                if (item.Extension!="")
+                {
+                    namePath_.PathStr = item.Name.Replace(item.Extension, "");
+                }
+                else
+                {
+                    namePath_.PathStr = item.Name;
+                }
+                namePath_.FullPath = item.FullName;
+                namePath_.isFolder = false;
+                ParentNode.Children.Add(namePath_);
+            }
+        }
+
+        #endregion
+        #endregion
         #region 保存状态
         private bool SaveState_;
         public bool SaveState
