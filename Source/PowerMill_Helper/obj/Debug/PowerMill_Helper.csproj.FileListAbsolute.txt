@@ -28,3 +28,9 @@ C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool
 C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Theme\Win8TreeView.baml
 C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\MacroLib.g.cs
 C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\MacroLib.baml
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\Debug.g.cs
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\EntitySelect.g.cs
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\Debug.baml
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\EntitySelect.baml
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\NCout.g.cs
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\NCout.baml

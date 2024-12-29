@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PowerMill_Helper.Tool"
             xmlns:CS="clr-namespace:PowerMill_Helper.Class"
-             mc:Ignorable="d" 
-             Height="800" Width="450">
+             mc:Ignorable="d"  Canvas.Left="300" Canvas.Top="200" 
+             Height="800" Width="450"  >
+ 
     <UserControl.Resources>
         <Style  x:Key="AppRes" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
@@ -82,18 +83,20 @@
 
         </Style>
     </UserControl.Resources>
-    <Border UseLayoutRounding="True"  Background="WhiteSmoke" 
+
+    <Grid>
+        <Border UseLayoutRounding="True"  Background="WhiteSmoke" 
             Margin="0" Opacity="1" CornerRadius="14" >
-        <Border.Effect>
-            <DropShadowEffect ShadowDepth="1" RenderingBias="Quality" BlurRadius="10" />
-        </Border.Effect>
-        <Grid>
-            <Label Name="宏库" Style="{StaticResource AppTitle}" />
-            <!--
+            <Border.Effect>
+                <DropShadowEffect ShadowDepth="1" RenderingBias="Quality" BlurRadius="10" />
+            </Border.Effect>
+            <Grid>
+                <Label Name="宏库" Style="{StaticResource AppTitle}" />
+                <!--
                MouseDoubleClick="ToolTreeViewControl_MouseDoubleClick"
 TreeViewItem.Selected="SelectToolTVNodel"
             -->
-            <TreeView  BorderThickness="0"  FontSize="16"
+                <TreeView  BorderThickness="0"  FontSize="16"
                        Margin="10,40,10,10" Background="WhiteSmoke"
           Padding="0,5,0,0"  
           ScrollViewer.HorizontalScrollBarVisibility="Disabled"
@@ -103,21 +106,23 @@ TreeViewItem.Selected="SelectToolTVNodel"
                    MouseDoubleClick="Treeview_SelectSomthing"
                        TreeViewItem.Selected="TreeView_Selected"
                        >
-                <TreeView.Resources>
-                    <ResourceDictionary Source=" pack://application:,,,/PowerMill_Helper;component/Theme/Win8TreeView.xaml" />
-                </TreeView.Resources>
-                <TreeView.ItemTemplate>
-                    <HierarchicalDataTemplate DataType="{x:Type CS:NamePath}" ItemsSource="{Binding Path=Children}">
-                        <StackPanel  Orientation="Horizontal" Background="Transparent" Cursor="Hand" >
-                            <Image VerticalAlignment="Center" Source="{Binding IconPath}" Width="16" Height="16" Margin="0,0,3,2"/>
-                            <TextBlock  VerticalAlignment="Center"  Text="{Binding PathStr}" />
-                            <StackPanel.ToolTip>
-                                <TextBlock VerticalAlignment="Center" Text="{Binding PathStr}" TextWrapping="NoWrap"  ></TextBlock>
-                            </StackPanel.ToolTip>
-                        </StackPanel>
-                    </HierarchicalDataTemplate>
-                </TreeView.ItemTemplate>
-            </TreeView>
-        </Grid>
-    </Border>
+                    <TreeView.Resources>
+                        <ResourceDictionary Source=" pack://application:,,,/PowerMill_Helper;component/Theme/Win8TreeView.xaml" />
+                    </TreeView.Resources>
+                    <TreeView.ItemTemplate>
+                        <HierarchicalDataTemplate DataType="{x:Type CS:NamePath}" ItemsSource="{Binding Path=Children}">
+                            <StackPanel  Orientation="Horizontal" Background="Transparent" Cursor="Hand" >
+                                <Image VerticalAlignment="Center" Source="{Binding IconPath}" Width="16" Height="16" Margin="0,0,3,2"/>
+                                <TextBlock  VerticalAlignment="Center"  Text="{Binding PathStr}" />
+                                <StackPanel.ToolTip>
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding PathStr}" TextWrapping="NoWrap"  ></TextBlock>
+                                </StackPanel.ToolTip>
+                            </StackPanel>
+                        </HierarchicalDataTemplate>
+                    </TreeView.ItemTemplate>
+                </TreeView>
+            </Grid>
+        </Border>
+    </Grid>
+    
 </UserControl>

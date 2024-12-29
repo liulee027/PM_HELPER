@@ -49,5 +49,27 @@ namespace PowerMill_Helper.Tool
         {
             UserOpenMacroLibEvent?.Invoke(this, e);
         }
+        public event RoutedEventHandler UserSelectAppClickEvent;
+        private void UserSelectAppClick(object sender, RoutedEventArgs e)
+        {
+            UserSelectAppClickEvent?.Invoke(this, e);
+        }
+
+        public delegate void ONUseropenApp(string appName);
+        public event ONUseropenApp ONUseropenAppEvent;
+        private void ClickExpendApp(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                Border Bdr = (Border)sender;
+                TextBlock textBlock = Bdr.Child as TextBlock;
+                ONUseropenAppEvent?.Invoke(textBlock.Text);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("ClickExpendApp\r" + ex.ToString());
+            }
+
+        }
     }
 }

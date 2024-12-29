@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PowerMill_Helper.Tool"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"   Canvas.Left="300" Canvas.Top="240" 
              Height="450" Width="700">
     <UserControl.Resources>
         <Style  x:Key="AppRes" TargetType="{x:Type Button}">
@@ -92,6 +92,15 @@
             <Label Name="设置" Style="{StaticResource AppTitle}" />
             <StackPanel Margin="20,35,0,0">
                 <StackPanel>
+                    <StackPanel>
+                        <TextBlock Text="灵动岛" FontWeight="Bold"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="显示" Margin="10,0,0,0"/>
+                        <CheckBox   IsChecked="{Binding DynamicIslandIsVisibility}" Margin="3,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="0,10,0,0">
                     <StackPanel>
                         <TextBlock Text="宏库" FontWeight="Bold"/>
                     </StackPanel>

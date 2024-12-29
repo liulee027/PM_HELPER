@@ -8,11 +8,18 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Label = System.Windows.Controls.Label;
+using Cursors = System.Windows.Input.Cursors;
+using MessageBox = System.Windows.MessageBox;
+using MouseEventArgs = System.Windows.Input.MouseEventArgs;
+using UserControl = System.Windows.Controls.UserControl;
+using TreeView = System.Windows.Controls.TreeView;
 
 namespace PowerMill_Helper.Tool
 {
@@ -24,6 +31,8 @@ namespace PowerMill_Helper.Tool
         public MacroLib()
         {
             InitializeComponent();
+
+
         }
 
         #region ControlTitleEvent
@@ -74,8 +83,6 @@ namespace PowerMill_Helper.Tool
             {
                 MessageBox.Show("Move_Border_MoseUp\r" + ex.ToString());
             }
-
-
         }
 
         private void BorderCloserButton(object sender, RoutedEventArgs e)
@@ -115,6 +122,7 @@ namespace PowerMill_Helper.Tool
                 }
             }
         }
+
          public   delegate void OnTreeview_SelectSomthing(NamePath namePath);
         public event OnTreeview_SelectSomthing OnTreeview_SelectSomthingEnent;
         private void Treeview_SelectSomthing(object sender, MouseButtonEventArgs e)

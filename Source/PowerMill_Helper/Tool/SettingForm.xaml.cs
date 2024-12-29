@@ -35,13 +35,13 @@ namespace PowerMill_Helper.Tool
                 Grid_Move_Pos = e.GetPosition(null);
                 label.CaptureMouse();
                 label.Cursor = Cursors.None;
-             }
+            }
             catch (Exception ex)
             {
                 MessageBox.Show("Move_Border_MouseDown\r" + ex.ToString());
             }
-            
-            
+
+
         }
         private void Move_Border_Mousemove(object sender, MouseEventArgs e)
         {
@@ -59,7 +59,7 @@ namespace PowerMill_Helper.Tool
             {
                 MessageBox.Show("Move_Border_Mousemove\r" + ex.ToString());
             }
-        
+
         }
         private void Move_Border_MoseUp(object sender, MouseButtonEventArgs e)
         {
@@ -73,10 +73,8 @@ namespace PowerMill_Helper.Tool
             {
                 MessageBox.Show("Move_Border_MoseUp\r" + ex.ToString());
             }
-
-            
         }
-   
+
         private void BorderCloserButton(object sender, RoutedEventArgs e)
         {
             try
@@ -118,5 +116,6 @@ namespace PowerMill_Helper.Tool
         {
             Setting_MacroLib_ResReadfolder?.Invoke(this, e);
         }
+   
     }
 }

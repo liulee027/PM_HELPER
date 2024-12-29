@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="PowerMill_Helper.Tool.EntitySelect"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PowerMill_Helper.Tool"
+             mc:Ignorable="d"  Margin="300,200,0,0"
+              xmlns:CS="clr-namespace:PowerMill_Helper.Class" Height="450" Width="270" MaxHeight="450"
+              HorizontalAlignment="Left" VerticalAlignment="Top"
+             d:Height="450" d:Width="270" Background="WhiteSmoke">
+    <UserControl.Effect>
+        <DropShadowEffect  Color="Black"  ShadowDepth="0" />
+    </UserControl.Effect>
+        <TreeView  BorderThickness="0"  FontSize="16"
+           Background="WhiteSmoke"
+    Padding="0,5,0,0"  
+    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+             RenderTransformOrigin="0,0"
+             BorderBrush="LightGray"
+             ItemsSource="{Binding EntitySelectCollection}"
+             >
+            <TreeView.Resources>
+                <ResourceDictionary Source=" pack://application:,,,/PowerMill_Helper;component/Theme/Win8TreeView.xaml" />
+            </TreeView.Resources>
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type CS:PMEntity}" ItemsSource="{Binding Path=Children}">
+                    <StackPanel  Orientation="Horizontal" Background="Transparent" Cursor="Hand" >
+                        <Image VerticalAlignment="Center" Source="{Binding TypeIcon}" Width="16" Height="16" Margin="0,0,3,2"/>
+                        <TextBlock  VerticalAlignment="Center"  Text="{Binding ActivateState}"  Margin="5,0,0,0"/>
+                        <TextBlock  VerticalAlignment="Center"  Text="{Binding Name}" Margin="5,0,0,0" />
+                        <StackPanel.ToolTip>
+                            <TextBlock VerticalAlignment="Center" Text="{Binding Name}" TextWrapping="NoWrap"  ></TextBlock>
+                        </StackPanel.ToolTip>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
+</UserControl>

@@ -61,6 +61,7 @@ namespace PowerMill_Helper
         protected override void register_tabs()
         {
             //这里打开你的水平插件面板
+        
 
             //这里打开你的水平插件面板
 
@@ -68,9 +69,14 @@ namespace PowerMill_Helper
         #endregion
 
         #region PM Macro=>Plugin
+        // plugin {BC3610A0-A0F6-4244-8053-A99AADE569F5}Shutdown
         public override void ProcessPluginCommand(string Command)
         {
-           
+            if (Command.Contains("Shutdown"))
+            {
+
+                Shutdown(); 
+            } 
         }
         #endregion
         #region OpenMainFrom
@@ -106,7 +112,20 @@ namespace PowerMill_Helper
         }
         #endregion
 
-
+        #region Shutdown
+        private void Shutdown()
+        {
+            try
+            {
+                shutdown_framework();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("shutdown_framework Error\r "+ ex.ToString());
+            }
+            
+        }
+        #endregion
 
 
 
