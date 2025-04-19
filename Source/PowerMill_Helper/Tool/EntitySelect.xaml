@@ -18,13 +18,16 @@
              RenderTransformOrigin="0,0"
              BorderBrush="LightGray"
              ItemsSource="{Binding EntitySelectCollection}"
+                   MouseDoubleClick="EntitySelectSomething"
+                   TreeViewItem.Selected="TreeView_Selected"
+                  
              >
             <TreeView.Resources>
                 <ResourceDictionary Source=" pack://application:,,,/PowerMill_Helper;component/Theme/Win8TreeView.xaml" />
             </TreeView.Resources>
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate DataType="{x:Type CS:PMEntity}" ItemsSource="{Binding Path=Children}">
-                    <StackPanel  Orientation="Horizontal" Background="Transparent" Cursor="Hand" >
+                <HierarchicalDataTemplate  DataType="{x:Type CS:PMEntity}" ItemsSource="{Binding Path=Children}">
+                    <StackPanel  Orientation="Horizontal" Background="Transparent" Cursor="Hand"  >
                         <Image VerticalAlignment="Center" Source="{Binding TypeIcon}" Width="16" Height="16" Margin="0,0,3,2"/>
                         <TextBlock  VerticalAlignment="Center"  Text="{Binding ActivateState}"  Margin="5,0,0,0"/>
                         <TextBlock  VerticalAlignment="Center"  Text="{Binding Name}" Margin="5,0,0,0" />
@@ -34,5 +37,6 @@
                     </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
-        </TreeView>
+       
+    </TreeView>
 </UserControl>

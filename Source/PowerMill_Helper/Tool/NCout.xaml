@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:PowerMill_Helper.Tool"
                xmlns:CS="clr-namespace:PowerMill_Helper.Class"
              mc:Ignorable="d"  Canvas.Left="300" Canvas.Top="200"
-             Width="400" Height="700">
+             Width="800" Height="700">
     <UserControl.Resources>
         <Style  x:Key="AppRes" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
@@ -43,7 +43,7 @@
                     <ControlTemplate TargetType="Label">
                         <Border Background="#FFAEC4C5" CornerRadius="12">
                             <Grid>
-                                <Button  Width="20" Height="20" HorizontalAlignment="Left" Margin="2,0,0,0">
+                                <Button Click="ThisAppRes"  Width="20" Height="20" HorizontalAlignment="Left" Margin="2,0,0,0">
                                     <Button.Style>
                                     <Style TargetType="Button">
                                         <Setter Property="Background" Value="Transparent"/>
@@ -113,42 +113,48 @@
         </Border.Effect>
         <Grid>
             <Label Name="NC输出" Style="{StaticResource AppTitle}" />
-            <StackPanel Margin="0,30,0,0">
-          
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
-                    <TextBlock Text="后处理：" Width="85" FontSize="17" HorizontalAlignment="Center"/>
-                    <ComboBox  ItemsSource="{Binding OptFiles}" SelectedItem="{Binding SelectOpt}" DisplayMemberPath="FileName"
-                               SelectedValuePath="FilePath"  MinWidth="200" Cursor="Hand">
-                  
-                    </ComboBox>
+            <StackPanel Margin="10,30,10,0" Orientation="Horizontal">
+                <ListBox  FontSize="16" Width="200" HorizontalAlignment="Left"   SelectionMode="Extended"
+Background="WhiteSmoke" ItemsSource="{Binding NcOutToolpathCollection}" 
+             x:Name="LeftList"   Margin="0,80,0,0" Height="550" VerticalAlignment="Top">
+
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel   Orientation="Horizontal" Background="Transparent" Cursor="Hand"  >
+                                <Grid Width="{Binding uiwidth}" HorizontalAlignment="Left"/>
+                                <Image VerticalAlignment="Center" Source="{Binding TypeIcon}" Width="16" Height="16" Margin="0,0,3,2"/>
+                                <TextBlock  VerticalAlignment="Center"  Text="{Binding Name}" Background="{Binding BackColor}" Margin="5,0,0,0" Padding="5,0,5,0" />
+                                <StackPanel.ToolTip>
+                                    <TextBlock VerticalAlignment="Center" Text="{Binding Name}" TextWrapping="NoWrap"  ></TextBlock>
+                                </StackPanel.ToolTip>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <StackPanel VerticalAlignment="Center">
+                    <Button Click="ChooseTpToRight"  Height="75" Content="→" Padding="5,0,5,0" Cursor="Hand" BorderThickness="0" Margin="10,0,10,0"/>
+                    <Button Click="ClearRight" Height="75" Content="❎" Padding="5,0,5,0" Cursor="Hand" BorderThickness="0" Margin="10,25,10,0"/>
                 </StackPanel>
-                <StackPanel Visibility="{Binding Path=SetWorkplanesVisibility}"  Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0"  >
-                    <TextBlock Text="输出基准：" Width="85" FontSize="17" HorizontalAlignment="Center"/>
-                    <Button Click="Ncout_UserselectNcoutWorkplantButton" Width="100" Height="20" BorderThickness="0"/>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Margin="10,10,0,0">
-                    <ListBox x:Name="LeftTpListbox"  SelectionMode="Extended"
-                               ItemsSource="{Binding Toolpaths}"
-                       
-                               HorizontalAlignment="Left"
-                               Height="400" 
-                               Padding="0,20,0,0"
-                               VerticalAlignment="Top"
-                               Width="106"
-                                   >
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding ToolPathName}" Foreground="{Binding FontColor}"/>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
-                    <StackPanel VerticalAlignment="Center">
-                        <Button  Height="75" Content="→" Padding="5,0,5,0" Cursor="Hand" BorderThickness="0" Margin="10,0,10,0"/>
-                        <Button Height="75" Content="❎" Padding="5,0,5,0" Cursor="Hand" BorderThickness="0" Margin="10,25,10,0"/>
+                <StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                        <TextBlock Text="后处理：" Width="85" FontSize="17" HorizontalAlignment="Center"/>
+                        <ComboBox  ItemsSource="{Binding NcOpts}" SelectedItem="{Binding NcoutOptSelectOpt}" 
+               DisplayMemberPath="Name"
+               SelectedValuePath="FilePath"  MinWidth="200" Cursor="Hand">
+
+                        </ComboBox>
                     </StackPanel>
-                    <ListView x:Name="RightTpListbox"  ItemsSource="{Binding RightToolpaths}"
-                       SelectionMode="Extended" HorizontalAlignment="Right" Height="400"
-                        VerticalAlignment="Top" Width="230">
+                    <StackPanel Visibility="{Binding NcoutSetWorkplanesVisibility}" 
+            Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0"  >
+                        <TextBlock Text="输出基准：" Width="85" FontSize="17" HorizontalAlignment="Center" />
+                        <Button Content="{Binding Name,UpdateSourceTrigger=PropertyChanged}" 
+            DataContext="{Binding Ncout_Selected_OutputWorkplane,UpdateSourceTrigger=PropertyChanged}"
+            Click="Ncout_UserselectNcoutWorkplantButton"
+            Width="200" Height="20" BorderThickness="0" Tag="Ncout_Selected_OutputWorkplane"  Uid="Workplane"/>
+                    </StackPanel>
+                    <ListView x:Name="RightTpListbox"  ItemsSource="{Binding Ncout_ReadlyList}"
+SelectionMode="Extended"  Margin="0,15,0,20" Height="550"
+ VerticalAlignment="Top" >
                         <ListView.Resources>
                             <Style TargetType="{x:Type GridViewColumnHeader}">
                                 <Setter Property="Visibility" Value="Visible"/>
@@ -157,26 +163,50 @@
                         </ListView.Resources>
                         <ListView.View>
                             <GridView>
-                                <GridViewColumn  Header="刀号" DisplayMemberBinding="{Binding ToolPathToolNumber}" Width="30"/>
-                                <GridViewColumn Header="刀路名称" DisplayMemberBinding="{Binding ToolPathName}" Width="100"/>
-                                <GridViewColumn Header="刀具名称" DisplayMemberBinding="{Binding ToolPathToolName}" Width="100"/>
+                                <GridViewColumn  Header="刀号" DisplayMemberBinding="{Binding NcoutToolNumber}" Width="30"/>
+                                <GridViewColumn Header="" Width="25">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image VerticalAlignment="Center" Source="{Binding TypeIcon}" Width="16" Height="16" Margin="0,0,0,2"/>
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+
+                                <GridViewColumn Header="坐标系" DisplayMemberBinding="{Binding NcoutMachineWorkplane}" Width="{Binding NcoutShowWorkplanesVisibility}"/>
+                                <GridViewColumn Header="刀路名称" DisplayMemberBinding="{Binding Name}" Width="140"/>
                             </GridView>
                         </ListView.View>
 
                     </ListView>
                 </StackPanel>
-                <StackPanel Margin="10,10,10,0" HorizontalAlignment="Right" Width="230">
-                    <Grid Margin="0,5,0,0">
-                        <TextBox   FontSize="18" />
-                        <Button Content="更改刀号" BorderThickness="0" />
+                
+                <StackPanel Margin="10,100,0,0" HorizontalAlignment="Right" Width="230">
+                    <Grid Margin="0,5,0,0" Height="{Binding NcoutShowChangeworkplaneVisibility}" >
+                        <ComboBox SelectionChanged="ShowChangeTpMachineWorkplaneSelected" ItemsSource="{Binding NcoutOptSelectOpt.OptSelectMachineWkNameLIst}">
+
+                        </ComboBox>
+                        <Button Click="ShowChangeTpMachineWorkplaneCombobx" Cursor="Hand"  Content="更改坐标系" BorderThickness="0"  />
                     </Grid>
-                    <Button Content="创建Nc程序" Margin="0,5,0,0" BorderThickness="0" />
-                    <Button Content="输出nc程序单(HTML)" Margin="0,5,0,0" BorderThickness="0" Tag="HTML"/>
-                    <Button Content="输出nc程序单(EXCEL)" Margin="0,5,0,0" BorderThickness="0"  Tag="EXCEL"/>
-                    <Button Content="Nc写出" Margin="0,5,0,0" BorderThickness="0"/>
-                    <Button Content="打开Nc程序文件夹" Margin="0,5,0,0" BorderThickness="0" />
+                    <Grid Margin="0,5,0,0"  Height="23">
+                        <TextBox   FontSize="18" KeyUp="ChangeTlNumberinputEnter" LostFocus="ChangeTlNumberinputEnterVoid"/>
+                        <Button Cursor="Hand" Content="更改刀号" BorderThickness="0" Click="ShowChangeTlNumberinput" />
+                    </Grid>
+                    <StackPanel Margin="0,10,0,5">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
+                            <TextBlock Text="合并输出"/>
+                            <CheckBox Margin="5,0,0,0"  IsChecked="{Binding Ncout_AllTpOutput}"  Cursor="Hand"/>
+                            <TextBlock Text="单独输出" Margin="10,0,0,0"/>
+                            <CheckBox Margin="5,0,0,0"  IsChecked="{Binding Ncout_SingleTpOutput}"  Cursor="Hand"/>
+                        </StackPanel>
+                        <Button Click="CreateToNcToolpath" Cursor="Hand" Margin="0,3,0,0" Content="创建NC程序" BorderThickness="0" />
+                    </StackPanel>
+                    
+                    <Button Click="CreateSheet" Cursor="Hand" Content="输出NC程序单" Margin="0,5,0,5" BorderThickness="0"/>
+                    <Button Click="OutPutNc" Content="Nc写出" Margin="0,5,0,5" BorderThickness="0"/>
+                    <Button Click="openNCFolder" Content="打开Nc程序文件夹" Margin="0,5,0,0" BorderThickness="0" />
                 </StackPanel>
             </StackPanel>
+          
         </Grid>
     </Border>
 </UserControl>

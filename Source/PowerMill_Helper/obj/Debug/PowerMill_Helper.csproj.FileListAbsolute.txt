@@ -34,3 +34,9 @@ C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool
 C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\EntitySelect.baml
 C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\NCout.g.cs
 C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\NCout.baml
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\bin\Debug\Newtonsoft.Json.dll
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\bin\Debug\Newtonsoft.Json.xml
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\bin\Debug\SanNiuSignal.dll
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\bin\Debug\SanNiuSignal.xml
+C:\Users\liyuj\Documents\Source\PM_HELPER\Releases\PowerMill_Helper.dll
+C:\Users\liyuj\Documents\Source\PM_HELPER\Build\PowerMill_Helper.dll

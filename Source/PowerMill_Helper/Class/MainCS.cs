@@ -29,9 +29,15 @@ namespace PowerMill_Helper.Class
                 PluginPath = this.GetType().Assembly.Location;
                 FileInfo fileInfo_ = new FileInfo(PluginPath);
                 PluginFolder = fileInfo_.Directory.FullName;
-                ConfigInitPath = System.IO.Path.Combine(PluginFolder, "config.ini");
+                //ConfigInitPath = System.IO.Path.Combine(PluginFolder, "config.ini");
+                ConfigInitPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "PowerMoFunPMPlugin", "config.txt");
+                string directoryPath = Path.GetDirectoryName(ConfigInitPath);
+                if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
+                if (!File.Exists(ConfigInitPath)) File.Create(ConfigInitPath).Dispose(); // 确保文件流被正确释放
                 PMEmtitys_Setup();
                 IsolateShow_ = false;
+
+                Ncout_ReadSetting();
             }
             catch (Exception ex)
             {
@@ -63,6 +69,7 @@ namespace PowerMill_Helper.Class
                 OnPropertyChanged();
             }
         }
+        public string ProjectPath { get; set; }
         #region Path
         // System.Environment.CurrentDirectory;Pm路径
         public string PluginPath { get; set; }
@@ -114,7 +121,7 @@ namespace PowerMill_Helper.Class
         private void PMEmtitys_Setup()
         {
             PMEmtitys = new Dictionary<string, ObservableCollection<PMEntity>>();
-            PMEmtitys.Add("NCprogram", PMNCprogramList);
+            PMEmtitys.Add("Ncprogram", PMNCprogramList);
             PMEmtitys.Add("Workplane", PMWorkplaneList);
             PMEmtitys.Add("Tool", PMToolList);
             PMEmtitys.Add("Boundary", PMBoundaryList);
@@ -143,8 +150,6 @@ namespace PowerMill_Helper.Class
         private ObservableCollection<PMEntity> EntitySelectCollection_ = new ObservableCollection<PMEntity>();
 
         public ObservableCollection<PMEntity> EntitySelectCollection { get => EntitySelectCollection_; set { EntitySelectCollection_ = value; OnPropertyChanged(); } }
-
-       
 
         #endregion
         #region 设置窗口
@@ -253,6 +258,11 @@ namespace PowerMill_Helper.Class
         }
 
         #endregion
+        #region NCout
+        private ObservableCollection<NcoutOpt> NcOpts_ =new ObservableCollection<NcoutOpt>();
+        public ObservableCollection<NcoutOpt> NcOpts { get => NcOpts_; set { NcOpts_ = value; OnPropertyChanged(); } }
+        public NcoutOpt SettingNcoutSelectOpt { get; set; }
+        #endregion
         #endregion
         #region 保存状态
         private bool SaveState_;
@@ -326,8 +336,107 @@ namespace PowerMill_Helper.Class
         }
         #endregion
         #region Ncout
-        private PMEntity Ncout_Selected_OutputWorkplane_=new PMEntity() { Name=""};
-        public PMEntity Ncout_Selected_OutputWorkplane { get => Ncout_Selected_OutputWorkplane_;set { Ncout_Selected_OutputWorkplane_ = value;OnPropertyChanged(); } }
+        private void Ncout_ReadSetting()
+        {
+            if (File.Exists(ConfigInitPath))
+            {
+                Ncout_sheetTemplatePath_ = ConfigINI.ReadSetting(ConfigInitPath, "Ncout", "sheetTemplatePath", "");
+                Onchange(nameof(Ncout_sheetTemplatePath));
+                ncoutOutputFolderPath_ = ConfigINI.ReadSetting(ConfigInitPath, "Ncout", "OutputFolderPath", "");
+                Onchange(nameof(Ncout_OutputFolderPath));
+                Ncout_AllTpOutput_= ConfigINI.ReadSetting(ConfigInitPath, "Ncout", "AllTpOutput", "True") == "True" ? true : false;
+                Onchange(nameof(Ncout_AllTpOutput));
+                Ncout_SingleTpOutput_ = ConfigINI.ReadSetting(ConfigInitPath, "Ncout", "SingleTpOutput", "True") == "True" ? true : false;
+                Onchange(nameof(Ncout_SingleTpOutput));
+
+            }
+               
+        }
+        private string Ncout_sheetTemplatePath_="";
+        public string Ncout_sheetTemplatePath
+        {
+            get => Ncout_sheetTemplatePath_;
+            set
+            {
+                Ncout_sheetTemplatePath_ = value;
+                OnPropertyChanged();
+                ConfigINI.WriteSetting(ConfigInitPath, "Ncout", "sheetTemplatePath", value);
+            }
+        }
+        private string ncoutOutputFolderPath_;
+        public string Ncout_OutputFolderPath
+        {
+            get => ncoutOutputFolderPath_;
+            set
+            {
+                ncoutOutputFolderPath_ = value;
+                OnPropertyChanged();
+                ConfigINI.WriteSetting(ConfigInitPath, "Ncout", "OutputFolderPath", value);
+            }
+        }
+
+        private ObservableCollection<PMEntity> NcOutToolpathCollection_ = new ObservableCollection<PMEntity>();
+
+        public ObservableCollection<PMEntity> NcOutToolpathCollection { get => NcOutToolpathCollection_; set { NcOutToolpathCollection_ = value; OnPropertyChanged(); } }
+
+        private NcoutOpt NcoutOptSelectOpt_=null;
+        public NcoutOpt NcoutOptSelectOpt { get => NcoutOptSelectOpt_; set { 
+                NcoutOptSelectOpt_ = value;
+                if (value.OptCanSelectWkOutput)
+                {
+                    NcoutSetWorkplanesVisibility = Visibility.Visible;
+                }
+                else
+                {
+                    NcoutSetWorkplanesVisibility = Visibility.Hidden;
+                }
+                if (value.OptCanSelectMachineWk)
+                {
+                    NcoutShowWorkplanesVisibility = 45;
+                    NcoutShowChangeworkplaneVisibility = 23;
+                }
+                else
+                {
+                    NcoutShowWorkplanesVisibility = 0;
+                    NcoutShowChangeworkplaneVisibility = 0;
+                }
+                OnPropertyChanged();
+                Onchange("NcoutSetWorkplanesVisibility");
+                Onchange("NcoutShowWorkplanesVisibility");
+                Onchange("NcoutShowChangeworkplaneVisibility");
+            } }
+        public Visibility NcoutSetWorkplanesVisibility { get; set; }
+        public int NcoutShowWorkplanesVisibility { get; set; } = 45;
+        public int NcoutShowChangeworkplaneVisibility { get; set; } = 23;
+        private PMEntity Ncout_Selected_OutputWorkplane_ = new PMEntity() { Name=" "};
+        public PMEntity Ncout_Selected_OutputWorkplane { get => Ncout_Selected_OutputWorkplane_; set { Ncout_Selected_OutputWorkplane_ = value; OnPropertyChanged(); } }
+
+        private ObservableCollection<PMEntity> Ncout_ReadlyList_ = new ObservableCollection<PMEntity>();
+        public ObservableCollection<PMEntity> Ncout_ReadlyList {  get => Ncout_ReadlyList_; set { Ncout_ReadlyList_ = value; OnPropertyChanged(); } }
+        
+        private bool? Ncout_AllTpOutput_ = true;
+        public bool? Ncout_AllTpOutput
+        {
+            get => Ncout_AllTpOutput_;
+            set
+            {
+                Ncout_AllTpOutput_ = value;
+                OnPropertyChanged();
+                ConfigINI.WriteSetting(ConfigInitPath, "Ncout", "AllTpOutput", value.ToString());
+            }
+        }
+        private bool? Ncout_SingleTpOutput_ = true;
+        public bool? Ncout_SingleTpOutput
+        {
+            get => Ncout_SingleTpOutput_;
+            set
+            {
+                Ncout_SingleTpOutput_ = value;
+                OnPropertyChanged();
+                ConfigINI.WriteSetting(ConfigInitPath, "Ncout", "SingleTpOutput", value.ToString());
+            }
+        }
+
         #endregion
 
 

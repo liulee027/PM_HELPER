@@ -116,6 +116,30 @@ namespace PowerMill_Helper.Tool
         {
             Setting_MacroLib_ResReadfolder?.Invoke(this, e);
         }
-   
+        public event RoutedEventHandler NCout_SettingAddopt_Event;
+        private void NCout_SettingAddopt(object sender, RoutedEventArgs e)
+        {
+            NCout_SettingAddopt_Event?.Invoke(this, e);
+        }
+        public event RoutedEventHandler NCout_SettingRemoveopt_Event;
+        private void NCout_SettingRemoveopt(object sender, RoutedEventArgs e)
+        {
+            NCout_SettingRemoveopt_Event?.Invoke(this, e);
+        }
+        public event RoutedEventHandler NCout_SettingSaveopt_Event;
+        private void NCout_SettingSaveopt(object sender, RoutedEventArgs e)
+        {
+            NCout_SettingSaveopt_Event?.Invoke(this, e);
+        }
+        public event RoutedEventHandler NCout_Settingoutfolder_Event;
+        private void NCout_Settingoutfolder(object sender, RoutedEventArgs e)
+        {
+            NCout_Settingoutfolder_Event?.Invoke(this, e);
+        }
+        public event RoutedEventHandler Ncout_SettingSelectsheetpath_Event;
+        private void Ncout_SettingSelectsheetpath(object sender, RoutedEventArgs e)
+        {
+            Ncout_SettingSelectsheetpath_Event?.Invoke(this, e);
+        }
     }
 }

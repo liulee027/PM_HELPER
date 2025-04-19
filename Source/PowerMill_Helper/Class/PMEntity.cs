@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace PowerMill_Helper.Class
 {
@@ -24,6 +26,12 @@ namespace PowerMill_Helper.Class
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
+        public PMEntity DeepCopy()
+        {
+            PMEntity copy = (PMEntity)this.MemberwiseClone();
+            copy.Children = new ObservableCollection<PMEntity>(this.Children.Select(child => child.DeepCopy()));
+            return copy;
+        }
         private string Name_;
         public string Name
         {
@@ -31,7 +39,16 @@ namespace PowerMill_Helper.Class
             set { Name_ = value; OnPropertyChanged(); }
         }
 
-        public string Type { get; set; }
+        private string Type_;
+        public string Type
+        { 
+            get => Type_;
+            set
+            {
+                Type_ = value;
+                OnPropertyChanged();
+            }
+        }
 
         private bool Isactivate_ = false;
         public bool Isactivate
@@ -86,11 +103,32 @@ namespace PowerMill_Helper.Class
         private string TypeIcon_;
         public string TypeIcon { get { return TypeIcon_; } set { TypeIcon_ = value; Onchange("TypeIcon"); } }
         public string RootPath { get; set; }
+        private bool isRootTree_ = false;
 
-        public bool isRootTree { get; set; } = false;
+        public bool isRootTree { get=> isRootTree_; set {
+                isRootTree_ = value;
+                if (value)
+                {
+                    BackColor=new SolidColorBrush(Colors.AliceBlue);
+                    TypeIcon= "Image\\Entity_Folder\\Folder_Icon.png";
+                }
+                else
+                {
+                    BackColor = new SolidColorBrush(Colors.Transparent);
+                }
+                Onchange("BackColor");
+            } } 
+        private SolidColorBrush BackColor { get; set; }
 
         public ObservableCollection<PMEntity> Children { get; set; } = new ObservableCollection<PMEntity>();
 
+        private int uiwidth_=0;
+        public int uiwidth { get=> uiwidth_; set{ uiwidth_ = value;OnPropertyChanged(); } }
+
+        private int NcoutToolNumber_ = 1;
+        public int NcoutToolNumber { get => NcoutToolNumber_; set { NcoutToolNumber_ = value; OnPropertyChanged(); } }
+        private string NcoutMachineWorkplane_ { get; set; }
+        public string NcoutMachineWorkplane { get => NcoutMachineWorkplane_; set { NcoutMachineWorkplane_ = value; OnPropertyChanged(); }  }
 
     }
 }

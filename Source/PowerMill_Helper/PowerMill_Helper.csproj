@@ -28,7 +28,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>..\..\Build\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -42,6 +42,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="PluginFramework">
       <HintPath>..\DLL\PowerMill\PluginFramework.dll</HintPath>
     </Reference>
@@ -51,6 +54,9 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="SanNiuSignal">
+      <HintPath>..\DLL\Socket\SanNiuSignal.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -67,6 +73,7 @@
   <ItemGroup>
     <Compile Include="BasicPlugin.cs" />
     <Compile Include="Class\ConfigINI.cs" />
+    <Compile Include="Class\NcoutOpt.cs" />
     <Compile Include="Class\PMEntity.cs" />
     <Compile Include="Class\FolderSelectDialog.cs" />
     <Compile Include="Class\MainCS.cs" />
@@ -164,20 +171,20 @@
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\curve_profile.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\disc_profile.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\drill.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\embedded_pattern.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\embedded.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\face.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\Feature-Construction.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\Feature-External-Thread-Milling.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\Feature-Pocket-Rest-Profile.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Feature-Rest-Area-Clearance.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\raster_area_clear.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\Feature-Rest-Profile.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\feature_chamfer.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\feature_external_thread.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\feature_face.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\feature_finishing.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\feature_top_fillet.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Flowline-Finishing.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Hub-Finishing.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\flowline.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\blisk_hub.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\inter_constz.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\method.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\Model-Profile.ico" />
@@ -188,30 +195,29 @@
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\offset_area_clear.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\offset_flat.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\opti_constz.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Parametric-Offset-Finishing.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\parametric_offset.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\parametric_spiral.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\pattern.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\pencil_corner.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Plunge-Milling.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\pocket_area_clear.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\pocket_profile.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Port-Area-Clearance.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Port-Plunge-Finishing.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Port-Spiral-Finishing.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Profile-Finishing.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\port_area_clear.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\port_plunge.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\port_spiral.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\profile.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\profile_area_clear.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Projection-Curve-Finishing.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Projection-Line-Finishing.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Projection-Plane-Finishing.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Projection-Point-Finishing.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Projection-Surface-Finishing.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\curve_projection.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\line_projection.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\plane_projection.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\point_projection.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\surface_proj.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\Radial.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\Raster.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\raster_flat.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Rib-Machining.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\rib.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\Rigid-Tapping.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Rotary-Finishing.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Single-Blade-Finishing.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\rotary.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\blade.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\Single-Peck.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\Slice-Area-Clearance.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\Slice-Profile.ico" />
@@ -219,9 +225,9 @@
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\Spiral.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\stitch_corner.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\Surface-Coating.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Surface-Finishing.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Surface-Inspection.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Swarf-Finishing.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\surface_machine.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\surface_inspection.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\swarf.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\Tap.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\Tapped-Counterbored.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\Tapped.ico" />
@@ -235,8 +241,10 @@
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\turn_groove_roughing.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\turn_pattern.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\turn_roughing.ico" />
-    <Resource Include="Tool\Image\Entity_Icon\Toolpath\Wireframe-Swarf-Finishing.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\wireframe_swarf.ico" />
     <Resource Include="Tool\Image\Entity_Icon\Toolpath\wireframe_profile.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\plunge.ico" />
+    <Resource Include="Tool\Image\Entity_Icon\Toolpath\rest_finishing.ico" />
     <Content Include="Tool\Image\Entity_Icon\Tool\ball_nosed.png" />
     <Content Include="Tool\Image\Entity_Icon\Tool\drill.png" />
     <Content Include="Tool\Image\Entity_Icon\Tool\end_mill.png" />
@@ -266,6 +274,9 @@
     <Resource Include="Tool\Image\Addnewstargy.png" />
     <Resource Include="Tool\Image\SaveAnyWhere.png" />
     <Resource Include="Tool\Image\SaveFile.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

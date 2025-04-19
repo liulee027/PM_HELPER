@@ -1,0 +1,15 @@
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\TestForm\obj\Debug\TestForm.csproj.AssemblyReference.cache
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\TestForm\obj\Debug\TestForm.g.cs
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\TestForm\obj\Debug\App.g.cs
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\TestForm\obj\Debug\TestForm_MarkupCompile.cache
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\TestForm\obj\Debug\TestForm_MarkupCompile.lref
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\TestForm\bin\Debug\TestForm.exe.config
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\TestForm\bin\Debug\TestForm.exe
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\TestForm\bin\Debug\TestForm.pdb
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\TestForm\obj\Debug\TestForm.baml
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\TestForm\obj\Debug\TestForm.g.resources
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\TestForm\obj\Debug\TestForm.Properties.Resources.resources
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\TestForm\obj\Debug\TestForm.csproj.GenerateResource.cache
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\TestForm\obj\Debug\TestForm.csproj.CoreCompileInputs.cache
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\TestForm\obj\Debug\TestForm.exe
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\TestForm\obj\Debug\TestForm.pdb

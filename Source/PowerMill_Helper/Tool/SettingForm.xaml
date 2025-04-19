@@ -90,41 +90,111 @@
                         <Button  Click="NCoutputRes_Click" Uid="♻"  Style="{StaticResource AppRes}"  Margin="5,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             -->
             <Label Name="设置" Style="{StaticResource AppTitle}" />
-            <StackPanel Margin="20,35,0,0">
-                <StackPanel>
+                <StackPanel Margin="20,35,20,10">
                     <StackPanel>
-                        <TextBlock Text="灵动岛" FontWeight="Bold"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="显示" Margin="10,0,0,0"/>
-                        <CheckBox   IsChecked="{Binding DynamicIslandIsVisibility}" Margin="3,0,0,0"/>
-                    </StackPanel>
-                </StackPanel>
-                <StackPanel Margin="0,10,0,0">
-                    <StackPanel>
-                        <TextBlock Text="宏库" FontWeight="Bold"/>
-                    </StackPanel>
-                    <StackPanel Orientation="Horizontal">
                         <StackPanel>
-                            <Button Content="添加" Click="MacroLib_addFolder" Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
-                            <Button Content="移除" Click="MacroLib_Remover"  Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
-                            <Button Content="上移" Click="MacroLib_SelectUp"  Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
-                            <Button Content="下移" Click="MacroLib_Selectdown"  Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
-                            <Button Content="重载" Click="MacroLib_RES"  Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
+                            <TextBlock Text="灵动岛" FontWeight="Bold"/>
                         </StackPanel>
-                        <ListBox SelectedValue="{Binding MacorLibFolderssettingSelected}" SelectionMode="Single"
-                                 Width="500" Height="100" Margin="15,5,0,0"
-                                 ItemsSource="{Binding MacorLibFolders}" VerticalAlignment="Top">
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                        <TextBlock Text="{Binding}" />
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="显示" Margin="10,0,0,0"/>
+                            <CheckBox   IsChecked="{Binding DynamicIslandIsVisibility}" Margin="3,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Margin="0,10,0,0">
+                        <StackPanel>
+                            <TextBlock Text="宏库" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel>
+                                <Button Content="添加" Click="MacroLib_addFolder" Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
+                                <Button Content="移除" Click="MacroLib_Remover"  Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
+                                <Button Content="上移" Click="MacroLib_SelectUp"  Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
+                                <Button Content="下移" Click="MacroLib_Selectdown"  Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
+                                <Button Content="重载" Click="MacroLib_RES"  Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
+                            </StackPanel>
+                            <ListBox SelectedValue="{Binding MacorLibFolderssettingSelected}" SelectionMode="Single"
+                                     Width="500" Height="100" Margin="15,5,0,0"
+                                     ItemsSource="{Binding MacorLibFolders}" VerticalAlignment="Top">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                            <TextBlock Text="{Binding}" />
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
                         
+                        </StackPanel>
+                    </StackPanel>
+                    <StackPanel Margin="0,10,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Nc写出" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Vertical" Margin="5,2,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Button Click="NCout_Settingoutfolder" Cursor="Hand" Content="选择Nc写出文件夹：" BorderThickness="0"/>
+                            <TextBlock Text="{Binding Ncout_OutputFolderPath}" Margin="5,0,0,0"/>
+                            </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,3,0,0" >
+                            <TextBlock Text="合并输出"/>
+                            <CheckBox Margin="5,0,0,0"  IsChecked="{Binding Ncout_AllTpOutput}"  Cursor="Hand"/>
+                            <TextBlock Text="单独输出" Margin="10,0,0,0"/>
+                            <CheckBox Margin="5,0,0,0"  IsChecked="{Binding Ncout_SingleTpOutput}"  Cursor="Hand"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,3,0,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <Button Click="Ncout_SettingSelectsheetpath" Cursor="Hand" Content="选择程序单模板：" BorderThickness="0"/>
+                                <TextBlock Text="{Binding Ncout_sheetTemplatePath}" Margin="5,0,0,0"/>
+                                </StackPanel>
+                            
+                            </StackPanel>
+                            <TextBlock Text="后处理配置" Margin="0,5,0,0"/>
+                            <StackPanel Orientation="Horizontal" >
+                            
+                                <Button  HorizontalAlignment="Left" VerticalAlignment="Center"  Content="添加" Click="NCout_SettingAddopt" Margin="0,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
+                                <Button  HorizontalAlignment="Left"  Content="移除" Click="NCout_SettingRemoveopt" Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
+                                <Button  HorizontalAlignment="Left"  Content="保存" Click="NCout_SettingSaveopt" Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
+                            </StackPanel>
+                            <ListView  SelectionMode="Extended"
+                                          HorizontalAlignment="Left" Height="130"
+              VerticalAlignment="Top" Width="550" BorderThickness="1"
+                                          ItemsSource="{Binding NcOpts}"
+                                          SelectedItem="{Binding SettingNcoutSelectOpt}"
+                                          >
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="后处理名称" Width="100">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Name}" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="可指定输出基准" Width="100">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox IsChecked="{Binding OptCanSelectWkOutput}"/>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="可指定输出坐标系" Width="100">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <CheckBox IsChecked="{Binding OptCanSelectMachineWk}"/>
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                            <GridViewColumn Header="输出坐标系列表" Width="250">
+                                                <GridViewColumn.CellTemplate>
+                                                    <DataTemplate>
+                                                        <TextBox Text="{Binding OptSelectMachineWkName}" />
+                                                    </DataTemplate>
+                                                </GridViewColumn.CellTemplate>
+                                            </GridViewColumn>
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                        </StackPanel>
                     </StackPanel>
                 </StackPanel>
-            </StackPanel>
         </Grid>
         
     </Border>

@@ -9,7 +9,7 @@ namespace PowerMill_Helper
 {
     internal class ConfigINI
     {
-        private const int VALUE_MAX_LEN = 1024; //值最大长度
+        private const int VALUE_MAX_LEN = 4096; //值最大长度
 
         /// <summary>
         /// 写配置到ini文件
