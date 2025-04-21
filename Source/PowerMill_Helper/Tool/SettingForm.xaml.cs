@@ -1,5 +1,9 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using PowerMill_Helper.Class;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,11 +11,15 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MessageBox = System.Windows.MessageBox;
+using Path = System.IO.Path;
+using UserControl = System.Windows.Controls.UserControl;
 
 namespace PowerMill_Helper.Tool
 {
@@ -20,10 +28,39 @@ namespace PowerMill_Helper.Tool
     /// </summary>
     public partial class SettingForm : UserControl
     {
-        public SettingForm()
+        public SettingForm(MainCS mainCS_, PowerMILL.PluginServices PmServices_)
         {
             InitializeComponent();
+            PmServices = PmServices_;
+            MCS = mainCS_;
+            this.DataContext = MCS;
+
+            
         }
+        private MainCS MCS;
+
+        #region PmCommand
+        public string token;
+        public PowerMILL.PluginServices PmServices;
+        private void PMCom(string comd)
+        {
+            PmServices.InsertCommand(token, comd);
+        }
+
+        private string PMComEX(string comd)
+        {
+            object item;
+            PmServices.InsertCommand(token, "ECHO OFF DCPDEBUG UNTRACE COMMAND ACCEPT");
+            PmServices.DoCommandEx(token, comd, out item);
+            return item.ToString().TrimEnd();
+        }
+        private string GetPMVal(string comd)
+        {
+            string Result = PmServices.GetParameterValueTerse(token, comd);
+            if (Result.IndexOf("#错误:") == 0) return "";
+            return PmServices.GetParameterValueTerse(token, comd);
+        }
+        #endregion
 
         #region ControlTitleEvent
         Point Grid_Move_Pos = new Point();
@@ -89,57 +126,255 @@ namespace PowerMill_Helper.Tool
         }
         #endregion
 
-
-
-        public event RoutedEventHandler Setting_MacroLib_Addfolder;
+        #region MacroLib
+        #region addFolder
         private void MacroLib_addFolder(object sender, RoutedEventArgs e)
         {
-            Setting_MacroLib_Addfolder?.Invoke(this, e);
+            try
+            {
+                string theDirPath = "";
+                theDirPath = OpenFileBrowserDialog(false);
+                if (theDirPath != "")
+                {
+                    MCS.MacorLibFolders.Add(theDirPath);
+                    MCS.Onchange("MacorLibFolders");
+                    MCS.DrawMacorLibTreeView();
+                    ConfigINI.WriteSetting(MCS.ConfigInitPath, "MacorLib", "USERMACROFOLDERS", string.Join(",", MCS.MacorLibFolders.ToArray()));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("SettingForm_MacroLib_Addfolder\r" + ex.ToString());
+            }
+
         }
-        public event RoutedEventHandler Setting_MacroLib_Removerfolder;
+
+
+        #endregion
+        #region Remover
         private void MacroLib_Remover(object sender, RoutedEventArgs e)
         {
-            Setting_MacroLib_Removerfolder?.Invoke(this, e);
+            try
+            {
+                //MessageBox.Show(MCS.MacorLibFolderssettingSelected);
+                if (MCS.MacorLibFolderssettingSelected != null)
+                {
+                    MCS.MacorLibFolders.Remove(MCS.MacorLibFolderssettingSelected);
+                    MCS.DrawMacorLibTreeView();
+                    ConfigINI.WriteSetting(MCS.ConfigInitPath, "MacorLib", "USERMACROFOLDERS", string.Join(",", MCS.MacorLibFolders.ToArray()));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("SettingForm_MacroLib_Remover\r" + ex.ToString());
+            }
         }
-        public event RoutedEventHandler Setting_MacroLib_SelectUpfolder;
+        #endregion
+        #region SelectUp
         private void MacroLib_SelectUp(object sender, RoutedEventArgs e)
         {
-            Setting_MacroLib_SelectUpfolder?.Invoke(this, e);
+            try
+            {
+                if (MCS.MacorLibFolderssettingSelected != null)
+                {
+                    int index = MCS.MacorLibFolders.IndexOf(MCS.MacorLibFolderssettingSelected);
+                    if (index > 0)
+                    {
+                        MCS.MacorLibFolders.Move(index, index - 1);
+                        ConfigINI.WriteSetting(MCS.ConfigInitPath, "MacorLib", "USERMACROFOLDERS", string.Join(",", MCS.MacorLibFolders.ToArray()));
+                    }
+
+                    MCS.DrawMacorLibTreeView();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("SettingForm_MacroLib_SelectUp\r" + ex.ToString());
+            }
+
+
         }
-        public event RoutedEventHandler Setting_MacroLib_Selectdownfolder;
+        #endregion
+        #region Selectdown
         private void MacroLib_Selectdown(object sender, RoutedEventArgs e)
         {
-            Setting_MacroLib_Selectdownfolder?.Invoke(this, e);
+            try
+            {
+                if (MCS.MacorLibFolderssettingSelected != null)
+                {
+                    int index = MCS.MacorLibFolders.IndexOf(MCS.MacorLibFolderssettingSelected);
+                    if (index < MCS.MacorLibFolders.Count - 1)
+                    {
+                        MCS.MacorLibFolders.Move(index, index + 1);
+                        ConfigINI.WriteSetting(MCS.ConfigInitPath, "MacorLib", "USERMACROFOLDERS", string.Join(",", MCS.MacorLibFolders.ToArray()));
+                    }
+                    MCS.DrawMacorLibTreeView();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("SettingForm_MacroLib_Selectdown\r" + ex.ToString());
+            }
+
+
         }
-        public event RoutedEventHandler Setting_MacroLib_ResReadfolder;
+        #endregion
+        #region ResLoad
         private void MacroLib_RES(object sender, RoutedEventArgs e)
         {
-            Setting_MacroLib_ResReadfolder?.Invoke(this, e);
+            try
+            {
+                MCS.DrawMacorLibTreeView();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("SettingForm_MacroLib_RES\r" + ex.ToString());
+            }
+
         }
-        public event RoutedEventHandler NCout_SettingAddopt_Event;
-        private void NCout_SettingAddopt(object sender, RoutedEventArgs e)
-        {
-            NCout_SettingAddopt_Event?.Invoke(this, e);
-        }
-        public event RoutedEventHandler NCout_SettingRemoveopt_Event;
-        private void NCout_SettingRemoveopt(object sender, RoutedEventArgs e)
-        {
-            NCout_SettingRemoveopt_Event?.Invoke(this, e);
-        }
-        public event RoutedEventHandler NCout_SettingSaveopt_Event;
-        private void NCout_SettingSaveopt(object sender, RoutedEventArgs e)
-        {
-            NCout_SettingSaveopt_Event?.Invoke(this, e);
-        }
-        public event RoutedEventHandler NCout_Settingoutfolder_Event;
+        #endregion
+        #endregion
+
+        #region Ncout
+        #region 选择Nc输出文件夹
         private void NCout_Settingoutfolder(object sender, RoutedEventArgs e)
         {
-            NCout_Settingoutfolder_Event?.Invoke(this, e);
+            try
+            {
+                string theDirPath = "";
+                theDirPath = OpenFileBrowserDialog(false);
+                if (theDirPath != "")
+                {
+                    MCS.Ncout_OutputFolderPath = theDirPath;
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("SettingForm__NCout_Settingoutfolder\r" + ex.ToString());
+            }
+
         }
-        public event RoutedEventHandler Ncout_SettingSelectsheetpath_Event;
+        #endregion
+        #region 选择程序单模板
         private void Ncout_SettingSelectsheetpath(object sender, RoutedEventArgs e)
         {
-            Ncout_SettingSelectsheetpath_Event?.Invoke(this, e);
+            try
+            {
+               System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
+                {
+                    Title = "选择 程序单模板",
+                    Filter = "所有文件 (*.*)|*.*",
+                    Multiselect = false
+                };
+
+                if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    MCS.Ncout_sheetTemplatePath = openFileDialog.FileName;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("SettingForm_Ncout_SettingSelectsheetpath\r" + ex.ToString());
+            }
         }
+        #endregion
+        #region OPT
+        #region 新增
+        private void NCout_SettingAddopt(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // 创建文件选择对话框
+                System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
+                {
+                    Title = "选择 PMOPTZ 后处理文件",
+                    Filter = "PM后处理文件 (*.pmoptz)|*.pmoptz|所有文件 (*.*)|*.*",
+                    Multiselect = true // 允许多选
+                };
+
+                // 显示对话框并获取结果
+                if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    // 获取用户选择的文件路径
+                    string[] selectedFiles = openFileDialog.FileNames;
+
+                    // 处理选中的文件
+                    foreach (string file in selectedFiles)
+                    {
+                        FileInfo fileInfo = new FileInfo(file);
+                        MCS.NcOpts.Add(new NcoutOpt() { Name = Path.GetFileNameWithoutExtension(fileInfo.Name), FullPath = fileInfo.FullName });
+                    }
+                    // SaveSetting_NcoutOptfilelist();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("NCout_SettingAddopt_Event\r" + ex.ToString());
+            }
+        }
+        #endregion
+        #region 删除
+        private void NCout_SettingRemoveopt(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (MCS.NcOpts.Contains(MCS.SettingNcoutSelectOpt))
+                {
+                    MCS.NcOpts.Remove(MCS.SettingNcoutSelectOpt);
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("NCout_SettingRemoveopt_Event\r" + ex.ToString());
+            }
+
+        }
+        #endregion
+        #region 保存
+        private void NCout_SettingSaveopt(object sender, RoutedEventArgs e)
+        {
+            SaveSetting_NcoutOptfilelist();
+        }
+        private void SaveSetting_NcoutOptfilelist()
+        {
+            try
+            {
+                // 将 MCS.NcOpts 集合转换为 JSON 字符串
+                string json = JsonConvert.SerializeObject(MCS.NcOpts);
+                ConfigINI.WriteSetting(MCS.ConfigInitPath, "NCout", "NCOPTFILELIST", json);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("SaveSetting_NcoutOptfilelist\r" + ex.ToString());
+            }
+        }
+        #endregion
+        #endregion
+        #endregion
+
+        
+        public static string OpenFileBrowserDialog(bool multiselect)
+        {
+            FolderSelectDialog fbd = new FolderSelectDialog();
+            fbd.Multiselect = multiselect;
+
+            fbd.ShowDialog();
+
+            string selected_folders = "";
+            if (multiselect)
+            {
+                string[] names = fbd.FileNames;
+                selected_folders = string.Join(",", names);
+            }
+            else
+            {
+                selected_folders = fbd.FileName;
+            }
+
+            return selected_folders;
+        }
+
     }
 }

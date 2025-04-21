@@ -1,5 +1,8 @@
-﻿using System;
+﻿using PowerMILL;
+using PowerMill_Helper.Class;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -20,40 +23,105 @@ namespace PowerMill_Helper.Tool
     /// </summary>
     public partial class DynamicIslaned : UserControl
     {
-        public DynamicIslaned()
+        public DynamicIslaned(MainCS mainCS_, PowerMILL.PluginServices PmServices_)
         {
             InitializeComponent();
+            PmServices = PmServices_;
+            MCS = mainCS_;
         }
-        public event RoutedEventHandler UserSelectProgEvent;
+
+        private MainCS MCS;
+
+        #region PmCommand
+        public string token;
+        public PowerMILL.PluginServices PmServices;
+        private void PMCom(string comd)
+        {
+            PmServices.InsertCommand(token, comd);
+        }
+
+        private string PMComEX(string comd)
+        {
+            object item;
+            PmServices.InsertCommand(token, "ECHO OFF DCPDEBUG UNTRACE COMMAND ACCEPT");
+            PmServices.DoCommandEx(token, comd, out item);
+            return item.ToString().TrimEnd();
+        }
+        private string GetPMVal(string comd)
+        {
+            string Result = PmServices.GetParameterValueTerse(token, comd);
+            if (Result.IndexOf("#错误:") == 0) return "";
+            return PmServices.GetParameterValueTerse(token, comd);
+        }
+        #endregion
+
+        #region 选择程序文件夹
         private void Image_PreviewMouseUp(object sender, MouseButtonEventArgs e)
         {
-            UserSelectProgEvent?.Invoke(this, e);
+            try
+            {
+                string theDirPath = "";
+                theDirPath = OpenFileBrowserDialog(false);
+                if (File.Exists(theDirPath + "\\pmill.ico"))
+                {
+                    PMCom($"PROJECT OPEN '{theDirPath}'");
+                }
+                else
+                {
+                    if (theDirPath != "")
+                    {
+                        MessageBox.Show("此文件夹不是PowerMIill项目");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("DynamicIslaned_Image_PreviewMouseUp\r" + ex.ToString());
+            }
+
+
         }
-        public event RoutedEventHandler UserSaveProgEvent;
+        #endregion
+
+        #region 保存程序
         private void UserSaveProg(object sender, MouseButtonEventArgs e)
         {
-            UserSaveProgEvent?.Invoke(this, e);
+            PMCom("PROJECT SAVE");
         }
-        public event RoutedEventHandler UserSaveOtherWhereEvent;
+        #endregion
+
+        #region 另存为程序
         private void UserSaveOtherWhere(object sender, MouseButtonEventArgs e)
         {
-            UserSaveOtherWhereEvent?.Invoke(this, e);
+
+            PMCom("FORM RIBBON BACKSTAGE CLOSE PROJECT SAVE AS FILESAVE");
         }
-        public event RoutedEventHandler UserOpenSettingEvent;
+        #endregion
+
+        #region 打开设置
         private void DynamicislandOpenSetting(object sender, MouseButtonEventArgs e)
         {
-            UserOpenSettingEvent?.Invoke(this, e);
+            // UserOpenSettingEvent?.Invoke(this, e);
+            ONUseropenAppEvent?.Invoke("SettingForm");
         }
-        public event RoutedEventHandler UserOpenMacroLibEvent;
+        #endregion
+
+        #region 打开宏库
         private void UserOpenMacroLib(object sender, RoutedEventArgs e)
         {
-            UserOpenMacroLibEvent?.Invoke(this, e);
+            //UserOpenMacroLibEvent?.Invoke(this, e);
+            ONUseropenAppEvent?.Invoke("MacroLib");
         }
+        #endregion
+
+        #region 扩展功能展开
         public event RoutedEventHandler UserSelectAppClickEvent;
         private void UserSelectAppClick(object sender, RoutedEventArgs e)
         {
             UserSelectAppClickEvent?.Invoke(this, e);
         }
+        #endregion
+
 
         public delegate void ONUseropenApp(string appName);
         public event ONUseropenApp ONUseropenAppEvent;
@@ -70,6 +138,28 @@ namespace PowerMill_Helper.Tool
                 System.Windows.Forms.MessageBox.Show("ClickExpendApp\r" + ex.ToString());
             }
 
+        }
+
+
+        public static string OpenFileBrowserDialog(bool multiselect)
+        {
+            FolderSelectDialog fbd = new FolderSelectDialog();
+            fbd.Multiselect = multiselect;
+
+            fbd.ShowDialog();
+
+            string selected_folders = "";
+            if (multiselect)
+            {
+                string[] names = fbd.FileNames;
+                selected_folders = string.Join(",", names);
+            } 
+            else
+            {
+                selected_folders = fbd.FileName;
+            }
+
+            return selected_folders;
         }
     }
 }

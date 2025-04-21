@@ -28,12 +28,46 @@ namespace PowerMill_Helper.Tool
     /// </summary>
     public partial class MacroLib : UserControl
     {
-        public MacroLib()
+        public MacroLib(MainCS mainCS_, PowerMILL.PluginServices PmServices_)
         {
             InitializeComponent();
+            PmServices = PmServices_;
+            MCS = mainCS_;
+            this.DataContext = MCS;
 
+            string MacorLibFolderslistStr = ConfigINI.ReadSetting(MCS.ConfigInitPath, "MacorLib", "USERMACROFOLDERS", "");
+            if (MacorLibFolderslistStr != "")
+            {
+                foreach (string item in MacorLibFolderslistStr.Split(',')) MCS.MacorLibFolders.Add(item);
+                MCS.DrawMacorLibTreeView();
+            }
 
         }
+
+        private MainCS MCS;
+
+        #region PmCommand
+        public string token;
+        public PowerMILL.PluginServices PmServices;
+        private void PMCom(string comd)
+        {
+            PmServices.InsertCommand(token, comd);
+        }
+
+        private string PMComEX(string comd)
+        {
+            object item;
+            PmServices.InsertCommand(token, "ECHO OFF DCPDEBUG UNTRACE COMMAND ACCEPT");
+            PmServices.DoCommandEx(token, comd, out item);
+            return item.ToString().TrimEnd();
+        }
+        private string GetPMVal(string comd)
+        {
+            string Result = PmServices.GetParameterValueTerse(token, comd);
+            if (Result.IndexOf("#错误:") == 0) return "";
+            return PmServices.GetParameterValueTerse(token, comd);
+        }
+        #endregion
 
         #region ControlTitleEvent
         Point Grid_Move_Pos = new Point();
@@ -98,13 +132,11 @@ namespace PowerMill_Helper.Tool
 
         }
         #endregion
-    
 
-      
-        //选择节点事件，单击展开文件夹
+        #region 选择文件夹节点 单击展开文件夹
         private void TreeView_Selected(object sender, RoutedEventArgs e)
         {
-            TreeView  treeView = (TreeView)sender;
+            TreeView treeView = (TreeView)sender;
             TreeViewItem treeViewItem = e.OriginalSource as TreeViewItem;
             if (treeViewItem == null || e.Handled) return;
             if (treeView.SelectedItem != null)
@@ -122,8 +154,10 @@ namespace PowerMill_Helper.Tool
                 }
             }
         }
+        #endregion
 
-         public   delegate void OnTreeview_SelectSomthing(NamePath namePath);
+        #region 选择实例节点
+        public delegate void OnTreeview_SelectSomthing(NamePath namePath);
         public event OnTreeview_SelectSomthing OnTreeview_SelectSomthingEnent;
         private void Treeview_SelectSomthing(object sender, MouseButtonEventArgs e)
         {
@@ -142,5 +176,8 @@ namespace PowerMill_Helper.Tool
                 }
             }
         }
+        #endregion
+
+
     }
 }

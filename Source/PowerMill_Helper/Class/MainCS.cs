@@ -16,7 +16,7 @@ using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace PowerMill_Helper.Class
 {
-   internal class MainCS : INotifyPropertyChanged
+   public class MainCS : INotifyPropertyChanged
     {
         public MainCS() {
 
@@ -37,7 +37,7 @@ namespace PowerMill_Helper.Class
                 PMEmtitys_Setup();
                 IsolateShow_ = false;
 
-                Ncout_ReadSetting();
+           
             }
             catch (Exception ex)
             {
@@ -89,6 +89,7 @@ namespace PowerMill_Helper.Class
 
 
         #endregion
+
         #region System
         private bool IsolateShow_;
         public bool IsolateShow { 
@@ -117,6 +118,7 @@ namespace PowerMill_Helper.Class
         public Visibility IsolateTouch { get; set; } = Visibility.Hidden;
 
         #endregion
+
         #region PmEntity
         private void PMEmtitys_Setup()
         {
@@ -152,118 +154,7 @@ namespace PowerMill_Helper.Class
         public ObservableCollection<PMEntity> EntitySelectCollection { get => EntitySelectCollection_; set { EntitySelectCollection_ = value; OnPropertyChanged(); } }
 
         #endregion
-        #region 设置窗口
-        #region DynamicIsland
-        public Visibility DynamicIslandOpen { get; set; } = Visibility.Visible;
-        private bool? DynamicIslandIsVisibility_ { get; set; } = true;
-        public bool? DynamicIslandIsVisibility {
-            get => DynamicIslandIsVisibility_;
-            set { 
-                DynamicIslandIsVisibility_ = value;
-                if (value==true)
-                {
-                    DynamicIslandOpen = Visibility.Visible;
-                }
-                else
-                {
-                    DynamicIslandOpen = Visibility.Hidden;
-                }
-                Onchange("DynamicIslandIsVisibility_");
-                Onchange("DynamicIslandOpen");
-                ConfigINI.WriteSetting(ConfigInitPath, "DynamicIslaned", "DynamicIslandIsVisibility", value == true ? "1" : "0");
-                //MessageBox.Show(value == true ? "1" : "0");
-            } }
-        private double ExpenDynamicIslandOpenEffect_ = 0;
-        public double ExpenDynamicIslandCloseEffect_ { get => ExpenDynamicIslandOpenEffect_; set { ExpenDynamicIslandOpenEffect_ = value; OnPropertyChanged(); } }
 
-
-
-        #endregion
-        #region 宏库
-
-        private ObservableCollection<string> MacorrLibFolders_=new ObservableCollection<string>();
-        public ObservableCollection<string> MacorLibFolders
-        {
-            get=> MacorrLibFolders_;
-            set
-            {
-                MacorrLibFolders_ = value;
-               // System.Windows.Forms.MessageBox.Show(string.Join(",", value.ToArray()));
-                OnPropertyChanged();
-            }
-        }
- 
-        public String MacorLibFolderssettingSelected { get; set; }
-        public void DrawMacorLibTreeView()
-        {
-            try
-            {
-                MacorLibTreeViewList = new ObservableCollection<NamePath>();
-                foreach (string item in MacorrLibFolders_)
-                {
-                    if (Directory.Exists(item))
-                    {
-                        DirectoryInfo directoryInfo = new DirectoryInfo(item);
-                        NamePath namePath = new NamePath();
-                        MacorLibTreeViewList.Add(namePath);
-                        ReadMacorLibFolders(namePath, directoryInfo.FullName);
-                    }
-                }
-                Onchange("MacorLibTreeViewList");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("DrawMacorLibTreeView\r"+ex.ToString());
-            }
-            
-        }
-        public ObservableCollection<NamePath> MacorLibTreeViewList{get;  set;  }=new ObservableCollection<NamePath>();
-        private void ReadMacorLibFolders(NamePath ParentNode,string Path)
-        {
-            try
-            {
-                //NamePath namePath = new NamePath();
-                DirectoryInfo directoryInfo = new DirectoryInfo(Path);
-                ParentNode.PathStr = directoryInfo.Name;
-                ParentNode.IconPath = @"Image\OpenFile.png";
-                ParentNode.isFolder = true;
-                foreach (DirectoryInfo item in directoryInfo.GetDirectories())
-                {
-                    NamePath namePath_ = new NamePath();
-                    namePath_.PathStr = item.Name;
-                    ParentNode.Children.Add(namePath_);
-                    ReadMacorLibFolders(namePath_, item.FullName);
-                }
-                foreach (FileInfo item in directoryInfo.GetFiles())
-                {
-                    NamePath namePath_ = new NamePath();
-                    if (item.Extension != "")
-                    {
-                        namePath_.PathStr = item.Name.Replace(item.Extension, "");
-                    }
-                    else
-                    {
-                        namePath_.PathStr = item.Name;
-                    }
-                    namePath_.FullPath = item.FullName;
-                    namePath_.isFolder = false;
-                    ParentNode.Children.Add(namePath_);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("ReadMacorLibFolders\r"+ex.ToString());
-            }
-           
-        }
-
-        #endregion
-        #region NCout
-        private ObservableCollection<NcoutOpt> NcOpts_ =new ObservableCollection<NcoutOpt>();
-        public ObservableCollection<NcoutOpt> NcOpts { get => NcOpts_; set { NcOpts_ = value; OnPropertyChanged(); } }
-        public NcoutOpt SettingNcoutSelectOpt { get; set; }
-        #endregion
-        #endregion
         #region 保存状态
         private bool SaveState_;
         public bool SaveState
@@ -335,24 +226,123 @@ namespace PowerMill_Helper.Class
             }
         }
         #endregion
-        #region Ncout
-        private void Ncout_ReadSetting()
-        {
-            if (File.Exists(ConfigInitPath))
-            {
-                Ncout_sheetTemplatePath_ = ConfigINI.ReadSetting(ConfigInitPath, "Ncout", "sheetTemplatePath", "");
-                Onchange(nameof(Ncout_sheetTemplatePath));
-                ncoutOutputFolderPath_ = ConfigINI.ReadSetting(ConfigInitPath, "Ncout", "OutputFolderPath", "");
-                Onchange(nameof(Ncout_OutputFolderPath));
-                Ncout_AllTpOutput_= ConfigINI.ReadSetting(ConfigInitPath, "Ncout", "AllTpOutput", "True") == "True" ? true : false;
-                Onchange(nameof(Ncout_AllTpOutput));
-                Ncout_SingleTpOutput_ = ConfigINI.ReadSetting(ConfigInitPath, "Ncout", "SingleTpOutput", "True") == "True" ? true : false;
-                Onchange(nameof(Ncout_SingleTpOutput));
 
+        #region DynamicIsland
+        public Visibility DynamicIslandOpen { get; set; } = Visibility.Visible;
+        private bool? DynamicIslandIsVisibility_ { get; set; } = true;
+        public bool? DynamicIslandIsVisibility
+        {
+            get => DynamicIslandIsVisibility_;
+            set
+            {
+                DynamicIslandIsVisibility_ = value;
+                if (value == true)
+                {
+                    DynamicIslandOpen = Visibility.Visible;
+                }
+                else
+                {
+                    DynamicIslandOpen = Visibility.Hidden;
+                }
+                Onchange("DynamicIslandIsVisibility_");
+                Onchange("DynamicIslandOpen");
+                ConfigINI.WriteSetting(ConfigInitPath, "DynamicIslaned", "DynamicIslandIsVisibility", value == true ? "1" : "0");
+                //MessageBox.Show(value == true ? "1" : "0");
             }
-               
         }
-        private string Ncout_sheetTemplatePath_="";
+        private double ExpenDynamicIslandOpenEffect_ = 0;
+        public double ExpenDynamicIslandCloseEffect_ { get => ExpenDynamicIslandOpenEffect_; set { ExpenDynamicIslandOpenEffect_ = value; OnPropertyChanged(); } }
+
+
+
+        #endregion
+
+        #region 宏库
+
+        private ObservableCollection<string> MacorrLibFolders_ = new ObservableCollection<string>();
+        public ObservableCollection<string> MacorLibFolders
+        {
+            get => MacorrLibFolders_;
+            set
+            {
+                MacorrLibFolders_ = value;
+                // System.Windows.Forms.MessageBox.Show(string.Join(",", value.ToArray()));
+                OnPropertyChanged();
+            }
+        }
+
+        public String MacorLibFolderssettingSelected { get; set; }
+        public void DrawMacorLibTreeView()
+        {
+            try
+            {
+                MacorLibTreeViewList = new ObservableCollection<NamePath>();
+                foreach (string item in MacorrLibFolders_)
+                {
+                    if (Directory.Exists(item))
+                    {
+                        DirectoryInfo directoryInfo = new DirectoryInfo(item);
+                        NamePath namePath = new NamePath();
+                        MacorLibTreeViewList.Add(namePath);
+                        ReadMacorLibFolders(namePath, directoryInfo.FullName);
+                    }
+                }
+                Onchange("MacorLibTreeViewList");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("DrawMacorLibTreeView\r" + ex.ToString());
+            }
+
+        }
+        public ObservableCollection<NamePath> MacorLibTreeViewList { get; set; } = new ObservableCollection<NamePath>();
+        private void ReadMacorLibFolders(NamePath ParentNode, string Path)
+        {
+            try
+            {
+                //NamePath namePath = new NamePath();
+                DirectoryInfo directoryInfo = new DirectoryInfo(Path);
+                ParentNode.PathStr = directoryInfo.Name;
+                ParentNode.IconPath = @"Image\OpenFile.png";
+                ParentNode.isFolder = true;
+                foreach (DirectoryInfo item in directoryInfo.GetDirectories())
+                {
+                    NamePath namePath_ = new NamePath();
+                    namePath_.PathStr = item.Name;
+                    ParentNode.Children.Add(namePath_);
+                    ReadMacorLibFolders(namePath_, item.FullName);
+                }
+                foreach (FileInfo item in directoryInfo.GetFiles())
+                {
+                    NamePath namePath_ = new NamePath();
+                    if (item.Extension != "")
+                    {
+                        namePath_.PathStr = item.Name.Replace(item.Extension, "");
+                    }
+                    else
+                    {
+                        namePath_.PathStr = item.Name;
+                    }
+                    namePath_.FullPath = item.FullName;
+                    namePath_.isFolder = false;
+                    ParentNode.Children.Add(namePath_);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("ReadMacorLibFolders\r" + ex.ToString());
+            }
+
+        }
+
+        #endregion
+
+        #region Ncout
+        private ObservableCollection<NcoutOpt> NcOpts_ = new ObservableCollection<NcoutOpt>();
+        public ObservableCollection<NcoutOpt> NcOpts { get => NcOpts_; set { NcOpts_ = value; OnPropertyChanged(); } }
+        public NcoutOpt SettingNcoutSelectOpt { get; set; }
+
+        public string Ncout_sheetTemplatePath_="";
         public string Ncout_sheetTemplatePath
         {
             get => Ncout_sheetTemplatePath_;
@@ -363,7 +353,7 @@ namespace PowerMill_Helper.Class
                 ConfigINI.WriteSetting(ConfigInitPath, "Ncout", "sheetTemplatePath", value);
             }
         }
-        private string ncoutOutputFolderPath_;
+        public string ncoutOutputFolderPath_;
         public string Ncout_OutputFolderPath
         {
             get => ncoutOutputFolderPath_;
@@ -375,11 +365,11 @@ namespace PowerMill_Helper.Class
             }
         }
 
-        private ObservableCollection<PMEntity> NcOutToolpathCollection_ = new ObservableCollection<PMEntity>();
+        public ObservableCollection<PMEntity> NcOutToolpathCollection_ = new ObservableCollection<PMEntity>();
 
         public ObservableCollection<PMEntity> NcOutToolpathCollection { get => NcOutToolpathCollection_; set { NcOutToolpathCollection_ = value; OnPropertyChanged(); } }
 
-        private NcoutOpt NcoutOptSelectOpt_=null;
+        public NcoutOpt NcoutOptSelectOpt_=null;
         public NcoutOpt NcoutOptSelectOpt { get => NcoutOptSelectOpt_; set { 
                 NcoutOptSelectOpt_ = value;
                 if (value.OptCanSelectWkOutput)
@@ -408,13 +398,13 @@ namespace PowerMill_Helper.Class
         public Visibility NcoutSetWorkplanesVisibility { get; set; }
         public int NcoutShowWorkplanesVisibility { get; set; } = 45;
         public int NcoutShowChangeworkplaneVisibility { get; set; } = 23;
-        private PMEntity Ncout_Selected_OutputWorkplane_ = new PMEntity() { Name=" "};
+        public PMEntity Ncout_Selected_OutputWorkplane_ = new PMEntity() { Name=" "};
         public PMEntity Ncout_Selected_OutputWorkplane { get => Ncout_Selected_OutputWorkplane_; set { Ncout_Selected_OutputWorkplane_ = value; OnPropertyChanged(); } }
 
-        private ObservableCollection<PMEntity> Ncout_ReadlyList_ = new ObservableCollection<PMEntity>();
+        public ObservableCollection<PMEntity> Ncout_ReadlyList_ = new ObservableCollection<PMEntity>();
         public ObservableCollection<PMEntity> Ncout_ReadlyList {  get => Ncout_ReadlyList_; set { Ncout_ReadlyList_ = value; OnPropertyChanged(); } }
-        
-        private bool? Ncout_AllTpOutput_ = true;
+
+        public bool? Ncout_AllTpOutput_ = true;
         public bool? Ncout_AllTpOutput
         {
             get => Ncout_AllTpOutput_;
@@ -425,7 +415,7 @@ namespace PowerMill_Helper.Class
                 ConfigINI.WriteSetting(ConfigInitPath, "Ncout", "AllTpOutput", value.ToString());
             }
         }
-        private bool? Ncout_SingleTpOutput_ = true;
+        public bool? Ncout_SingleTpOutput_ = true;
         public bool? Ncout_SingleTpOutput
         {
             get => Ncout_SingleTpOutput_;

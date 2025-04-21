@@ -165,7 +165,9 @@ namespace PMHelperService
         {
             try
             {
-
+                string data = "";
+                string jsonData = JsonConvert.SerializeObject(data);
+                var httpcontent = new StringContent("{}", Encoding.UTF8, "application/json");
                 // 使用POST方法
                 HttpResponseMessage response = await httpClient.PostAsync(PmClienturl, httpcontent);
 
@@ -204,7 +206,7 @@ namespace PMHelperService
         {
             try
             {
-
+                string data = "";
                 string jsonData = JsonConvert.SerializeObject(data);
                 var httpcontent = new StringContent("{}", Encoding.UTF8, "application/json");
                 // 使用POST方法
