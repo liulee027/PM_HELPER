@@ -66,7 +66,6 @@ namespace PowerMill_Helper
             try
             {
                  MCS = (MainCS)DataContext;
-                ReadSetting();
                 #region Pm接口
                 this.token = token;
                 this.PmServices = servicess;
@@ -904,10 +903,7 @@ namespace PowerMill_Helper
         #endregion
 
         #region System
-        private void ReadSetting()
-        {
-            MCS.DynamicIslandIsVisibility = ConfigINI.ReadSetting(MCS.ConfigInitPath, "DynamicIslaned", "DynamicIslandIsVisibility", "1") == "1" ? true : false;
-        }
+    
         public static string OpenFileBrowserDialog(bool multiselect)
         {
             FolderSelectDialog fbd = new FolderSelectDialog();

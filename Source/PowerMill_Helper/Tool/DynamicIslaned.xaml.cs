@@ -28,6 +28,9 @@ namespace PowerMill_Helper.Tool
             InitializeComponent();
             PmServices = PmServices_;
             MCS = mainCS_;
+
+            MCS.DynamicIslandIsVisibility = ConfigINI.ReadSetting(MCS.ConfigInitPath, "DynamicIslaned", "DynamicIslandIsVisibility", "1") == "1" ? true : false;
+
         }
 
         private MainCS MCS;
