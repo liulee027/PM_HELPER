@@ -40,3 +40,9 @@ C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\bin\Debug\SanN
 C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\bin\Debug\SanNiuSignal.xml
 C:\Users\liyuj\Documents\Source\PM_HELPER\Releases\PowerMill_Helper.dll
 C:\Users\liyuj\Documents\Source\PM_HELPER\Build\PowerMill_Helper.dll
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\CheckTP.g.cs
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Tool\CheckTP.baml
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Page\Plugin_PanesPage.g.cs
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\Page\Plugin_PanesPage.baml
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\PowerMill_Helper.Plugin_PanesPage_WinForm.resources
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PowerMill_Helper\obj\Debug\PowerMill_Helper.csproj.GenerateResource.cache

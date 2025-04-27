@@ -47,10 +47,12 @@ namespace PowerMill_Helper
         #endregion
 
         #region 垂直插件面板实现
+        Plugin_PanesPage Plugin_PanesPage;
         protected override void register_panes()
         {
             //这里打开你的垂直插件面板
-
+            Plugin_PanesPage = new Plugin_PanesPage(this, Token, Services,(IntPtr)this.ParentWindow);
+            register_pane(new PaneDefinition(Plugin_PanesPage,700,300,"PowerMill_Plugin",null));
             //这里打开你的垂直插件面板
             OpenMainFrom();
      

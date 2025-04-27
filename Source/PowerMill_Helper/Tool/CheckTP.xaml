@@ -1,0 +1,301 @@
+﻿<UserControl x:Class="PowerMill_Helper.Tool.CheckTP"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:PowerMill_Helper.Tool"
+             mc:Ignorable="d" Canvas.Left="300" Canvas.Top="200"
+             Width="330" Height="600" >
+    <UserControl.Resources>
+        <Style x:Key="SegmentedLeftRadioButtonStyle" TargetType="{x:Type RadioButton}">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+                        BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="5,0,0,5" >
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="LimeGreen"/>
+                                <Setter TargetName="border" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="LimeGreen" BlurRadius="10" ShadowDepth="0"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter  Property="Foreground" Value="LimeGreen"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SegmentedRadioButtonStyle" TargetType="{x:Type RadioButton}">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF96DC93"/>
+                                <Setter TargetName="border" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="#FF96DC93" BlurRadius="3" ShadowDepth="0"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter  Property="Foreground" Value="#FF96DC93"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="SegmentedRightRadioButtonStyle" TargetType="{x:Type RadioButton}">
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="20" />
+            <Setter Property="Background" Value="LightGray"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="RadioButton">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+                        BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="0,5,5,0">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="LimeGreen"/>
+                                <Setter TargetName="border" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect Color="LimeGreen" BlurRadius="5" ShadowDepth="0"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter  Property="Foreground" Value="LimeGreen"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style  x:Key="AppRes" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Width" Value="24"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#FFFFFA8F"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                        <Border  CornerRadius="12"  Background="{TemplateBinding Background}" Cursor="Hand" >
+                            <TextBlock Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Uid}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="AppTitle" TargetType="{x:Type Label}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Height" Value="24"/>
+            <Setter Property="Margin" Value="0,5,0,0"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Label">
+                        <Border Background="#FFAEC4C5" CornerRadius="12">
+                            <Grid>
+                                <Button Click="ThisAppRes"  Width="20" Height="20" HorizontalAlignment="Left" Margin="2,0,0,0">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Setter Property="BorderThickness" Value="0"/>
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Setter Property="FontWeight" Value="ExtraLight"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="CadetBlue"/>
+                                                    <Setter Property="Foreground" Value="White"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Button.Style>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border  CornerRadius="10"  Background="{TemplateBinding Background}" Cursor="Hand" >
+                                                <TextBlock Foreground="{TemplateBinding Foreground}" 
+                                                           HorizontalAlignment="Center" VerticalAlignment="Center" Text="♻" />
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
+                                <TextBlock Text="{TemplateBinding Name}"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                <Button  Width="20" Height="20" HorizontalAlignment="Right" Margin="0,0,2,0">
+                                    <Button.Style>
+                                        <Style TargetType="Button">
+                                            <Setter Property="Background" Value="Transparent"/>
+                                            <Setter Property="Foreground" Value="Black"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="Background" Value="Red"/>
+                                                    <Setter Property="Foreground" Value="White"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+
+                                    </Button.Style>
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border  CornerRadius="10"  Background="{TemplateBinding Background}" Cursor="Hand" >
+                                                <Grid>
+                                                    <Line X1="5" X2="15" Y1="5" Y2="15" Stroke="{TemplateBinding Foreground}" StrokeThickness="2" />
+                                                    <Line X1="15" X2="5" Y1="5" Y2="15" Stroke="{TemplateBinding Foreground}" StrokeThickness="2" />
+                                                </Grid>
+                                            </Border>
+                                        </ControlTemplate>
+
+                                    </Button.Template>
+                                </Button>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <EventSetter Event="MouseLeftButtonDown" Handler="Move_Border_MouseDown"/>
+            <EventSetter Event="MouseMove" Handler="Move_Border_Mousemove"/>
+            <EventSetter Event="MouseLeftButtonUp" Handler="Move_Border_MoseUp"/>
+
+
+        </Style>
+    </UserControl.Resources>
+    <Border UseLayoutRounding="True"  Background="WhiteSmoke" 
+          Margin="0" Opacity="1" CornerRadius="14"  >
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="0" RenderingBias="Quality" BlurRadius="10" />
+        </Border.Effect>
+        <Grid>
+            <Label Name="碰撞过切检查" Style="{StaticResource AppTitle}" />
+            <Grid  Margin="0,20,0,0">
+                <Button x:Name="PROG_CHECK_Collection_check"  Content="检查" HorizontalAlignment="Left" Margin="66,0,0,10" VerticalAlignment="Bottom" Width="76"/>
+
+                <Button x:Name="PROG_CHECK_Collection_checkdone"  Content="检查完成" HorizontalAlignment="Left" Margin="204,0,0,10" VerticalAlignment="Bottom" Width="76"/>
+                <Label Content="检查列表" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" />
+                <ListBox  SelectionMode="Extended"
+       x:Name="PROG_CHECK_Collection_tpListbox"
+       ItemsSource="{Binding}"
+       HorizontalAlignment="Left"
+       Height="500"
+       Margin="10,36,0,0"
+       Padding="0,20,0,0"
+       VerticalAlignment="Top"
+       Width="165">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding ToolPathName}" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{Binding Check1}" Margin="5,0,0,0" Foreground="{Binding Check1color}" HorizontalAlignment="Left"/>
+                                <TextBlock Text="{Binding Check2}" Margin="2,0,0,0" Foreground="{Binding Check2color}" HorizontalAlignment="Left"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+
+                </ListBox>
+                <StackPanel HorizontalAlignment="Right" Margin="0,50,10,0" Width="135">
+                    <StackPanel Orientation="Horizontal" Margin="8,0,0,0">
+                        <RadioButton x:Name="PROG_CHECK_Collection_01" GroupName="CheckOptions" Style="{StaticResource SegmentedLeftRadioButtonStyle}"  Content="碰撞" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+                        <RadioButton x:Name="PROG_CHECK_Collection_02" IsChecked="True" GroupName="CheckOptions" Style="{StaticResource SegmentedRadioButtonStyle}" Content="两者" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <RadioButton x:Name="PROG_CHECK_Collection_03" GroupName="CheckOptions" Style="{StaticResource SegmentedRightRadioButtonStyle}"  Content="过切" HorizontalAlignment="Left"  VerticalAlignment="Top"/>
+                    </StackPanel>
+                </StackPanel>
+                <Grid Margin="25,0,0,0">
+
+                    
+
+
+
+                    <GroupBox Header="对照检查" FontSize="11" Width="120" HorizontalAlignment="Left" Height="39" VerticalAlignment="Top" Margin="163,74,0,0">
+                        <Grid>
+                            <ComboBox x:Name="PROG_CHECK_Collection_pattern"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" >
+                                <ComboBoxItem IsSelected="True" Content="模型" />
+                                <ComboBoxItem Content="残留"/>
+                            </ComboBox>
+                            <ComboBox x:Name="PROG_CHECK_Collection_pattern_sock_stockname" IsEnabled="False" HorizontalAlignment="Left" VerticalAlignment="Top" Width="50" Margin="58,0,0,0" />
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox FontSize="11" Width="120" HorizontalAlignment="Left" Height="63" VerticalAlignment="Top" Margin="160,118,0,0">
+                        <GroupBox.Header>
+                            <CheckBox x:Name="PROG_CHECK_Collection_splittrue" IsChecked="True"  Content="分割刀具路径" />
+                        </GroupBox.Header>
+                        <StackPanel Margin="0,5,5,5" HorizontalAlignment="Right">
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                <TextBlock Text="分割安全移动"/>
+                                <CheckBox x:Name="PROG_CHECK_Collection_splitsafe"   />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="分割不安全路径"/>
+                                <CheckBox x:Name="PROG_CHECK_Collection_UNsplitsafe"  IsChecked="True"    />
+                            </StackPanel>
+                        </StackPanel>
+
+                    </GroupBox>
+                    <GroupBox Header="碰撞选项" FontSize="11" Width="120" HorizontalAlignment="Left" Height="76" VerticalAlignment="Top" Margin="160,186,0,0">
+                        <Grid>
+                            <Label Content="夹持间隙" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
+                            <Label Content="刀柄间隙" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,29,0,0"/>
+                            <TextBox x:Name="PROG_CHECK_Collection_toolholdertness"   HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0.2" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="45" Margin="59,5,0,0"/>
+                            <TextBox x:Name="PROG_CHECK_Collection_tooltness"  HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" VerticalAlignment="Top" Width="45" Margin="59,29,0,0"/>
+                        </Grid>
+                    </GroupBox>
+                    <Grid Margin="160,274,0,0">
+                        <CheckBox x:Name="PROG_CHECK_Collection_toollength"  IsChecked="True"  Content="计算碰撞深度"  VerticalAlignment="Top" HorizontalAlignment="Left" Height="18"  VerticalContentAlignment="Center" Margin="0,3,0,0"/>
+                        <CheckBox x:Name="PROG_CHECK_Collection_drawunsafe"  IsChecked="True"  Content="显示不安全移动"  VerticalAlignment="Top" HorizontalAlignment="Left" Height="18" VerticalContentAlignment="Center" Margin="0,23,0,0"/>
+                    </Grid>
+                    <GroupBox Header="对照检查" FontSize="11" Width="120" HorizontalAlignment="Left" Height="93" VerticalAlignment="Top" Margin="163,334,0,0">
+                        <Grid>
+                            <Button x:Name="PROG_CHECK_Collection_model_01"   Content="原" HorizontalAlignment="Left" Margin="2,6,0,0" VerticalAlignment="Top" Width="35" Background="#FF96DC93"/>
+                            <Button x:Name="PROG_CHECK_Collection_model_02"  Content="对" HorizontalAlignment="Left" Margin="37,6,0,0" VerticalAlignment="Top" Width="35"/>
+                            <Button x:Name="PROG_CHECK_Collection_model_03"  Content="5Axis" HorizontalAlignment="Left" Margin="72,6,0,0" VerticalAlignment="Top" Width="35"/>
+
+
+                            <Button x:Name="PROG_CHECK_Collection_workplane" Tag="Workplane" Content="NULL"    Cursor="Hand" Height="20" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Margin="2,50,0 ,0" />
+                            <Label Padding="0" Content="镜像基准" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="2,34,0,0"/>
+                        </Grid>
+                    </GroupBox>
+
+                </Grid >
+            </Grid>
+        </Grid>
+
+    </Border>
+</UserControl>

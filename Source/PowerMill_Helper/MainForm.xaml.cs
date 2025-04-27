@@ -84,7 +84,7 @@ namespace PowerMill_Helper
                 LoadControl();
                 #endregion
 
-                new Thread(AutoOpenBD).Start();
+                //new Thread(AutoOpenBD).Start();
 
                 #region TcpSocket
                 Local_TcpServer_Connect();
@@ -424,6 +424,14 @@ namespace PowerMill_Helper
                 Debug_.Visibility = Visibility.Hidden;
                 Debug_.DataContext = MCS;
 
+                /*
+                CheckTP_ = new CheckTP(MCS, PmServices);
+                AppGrid.Children.Add(Debug_);
+                CheckTP_.PreviewMouseDown += Usercortol_MoveIndexTop;
+                CheckTP_.Visibility = Visibility.Hidden;
+                CheckTP_.DataContext = MCS;
+                */
+
             }
             catch (Exception ex)
             {
@@ -462,7 +470,7 @@ namespace PowerMill_Helper
         #endregion
 
         #region DynamicIslaned
-        DynamicIslaned DynamicIslaned = null;
+        private DynamicIslaned DynamicIslaned = null;
         #region 灵动岛打开拓展窗口
         private void DynamicIslaned_UserSelectAppClickEvent(object sender, RoutedEventArgs e)
         {
@@ -692,7 +700,7 @@ namespace PowerMill_Helper
         #endregion
 
         #region MacroLib
-        MacroLib MacroLib_ = null;
+        private MacroLib MacroLib_ = null;
         private void MacroLib_Startup()
         {
             if (MacroLib_ != null)
@@ -724,7 +732,7 @@ namespace PowerMill_Helper
         #endregion
 
         #region NCout
-        public NCout NCout_ = null;
+        private NCout NCout_ = null;
         private void NcoutStart()
         {
             try
@@ -750,6 +758,10 @@ namespace PowerMill_Helper
             }
         }
 
+        #endregion
+
+        #region CheckTP
+        private CheckTP CheckTP_;
         #endregion
 
         #region SettingForm
