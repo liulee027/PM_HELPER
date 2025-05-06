@@ -31,11 +31,11 @@ namespace PMHelperService
     /// </summary>
     public partial class MainWindow : Window
     {
-        public MainWindow() { InitializeComponent(); }
+        public MainWindow() { InitializeComponent(); windowload(); }
 
         #region LocalTcpServer
         private ITxServer txServer=null;
-        private int LocalServerPort = 8901;
+        private int LocalServerPort = 8910;
 
         class LocalClient
         {
@@ -51,11 +51,15 @@ namespace PMHelperService
         {
             try
             {
+              
                 txServer = TxStart.startServer(LocalServerPort);
-                txServer.AcceptString += TxServer_AcceptString;
+                txServer.BufferSize = 1024;
+                txServer.ClientMax = 100;
                 txServer.Connect += TxServer_Connect;
                 txServer.Disconnection += TxServer_Disconnection;
+                txServer.AcceptString += TxServer_AcceptString;
                 txServer.StartEngine();
+            
             }
             catch (Exception ex)
             {
@@ -66,13 +70,15 @@ namespace PMHelperService
         {
             try
             {
+           
                 if (!local_clients_DIC.ContainsKey(object1))
                 {
                     LocalClient localClient = new LocalClient();
                     localClient.IPEndPoint = object1;
                     local_clients_DIC.Add(object1, localClient);
                     local_clients.Add(localClient);
-                    Console.WriteLine("有客户端连入");
+                   
+                    //Console.WriteLine("有客户端连入");
                 }
             }
             catch (Exception ex)
@@ -99,11 +105,6 @@ namespace PMHelperService
         }
 
 
-
-        
-
-        
-
         private void TxServer_AcceptString(IPEndPoint object1, string object2)
         {
             try
@@ -129,7 +130,7 @@ namespace PMHelperService
         #region 启动
         // 在 #region 检查版本 部分添加以下代码
        
-        private async void windowload(object sender, RoutedEventArgs e)
+        private async void windowload()
         {
             #region 此窗体隐藏
             this.Hide();
@@ -144,6 +145,7 @@ namespace PMHelperService
                 return;
             }
             #endregion
+           
 
             #region 启动本地TcpServer
             Local_TcpServer_Start();

@@ -32,8 +32,13 @@ namespace PowerMill_Helper
             this.PowerMIlInptr = Pminptr;
             #endregion
 
+            #region 添加winform窗口
+            /*
             Plugin_PanesPage_WinForm plugin_PanesPage_WinForm = new Plugin_PanesPage_WinForm(conn, token, servicess, Pminptr);
-            MainForm.Child= plugin_PanesPage_WinForm;
+            MainForm.Child = plugin_PanesPage_WinForm;
+            */
+            #endregion
+
         }
 
         #region PmCommand

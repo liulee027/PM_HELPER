@@ -90,7 +90,11 @@
                         <Button  Click="NCoutputRes_Click" Uid="♻"  Style="{StaticResource AppRes}"  Margin="5,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
             -->
             <Label Name="设置" Style="{StaticResource AppTitle}" />
-                <StackPanel Margin="20,35,20,10">
+            <ScrollViewer   Margin="15,35,15,15" 
+ VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden"
+                             >
+
+                <StackPanel Margin="0,35,0,10">
                     <StackPanel>
                         <StackPanel>
                             <TextBlock Text="灵动岛" FontWeight="Bold"/>
@@ -194,7 +198,17 @@
                                 </ListView>
                         </StackPanel>
                     </StackPanel>
-                </StackPanel>
+                    <StackPanel Margin="0,10,0,0">
+                        <StackPanel>
+                            <TextBlock Text="DEBUG" FontWeight="Bold"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Click="NCout_OpenSettingini" Cursor="Hand" Content="打开设置文本" BorderThickness="0"/>
+                     
+                        </StackPanel>
+                    </StackPanel>
+                    </StackPanel>
+            </ScrollViewer>
         </Grid>
         
     </Border>

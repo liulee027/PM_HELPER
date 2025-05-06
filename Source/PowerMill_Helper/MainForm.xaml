@@ -17,7 +17,7 @@
                 <BlurEffect Radius="{Binding AppGirdBlurRadius}"/>
             </Canvas.Effect>
 
-        </Canvas>
+        </Canvas> 
 
         <!--隔离层-->
         <Grid Visibility="{Binding IsolateTouch}" Background="WhiteSmoke" Opacity="0.3" PreviewMouseDown="TouchIsolate" />

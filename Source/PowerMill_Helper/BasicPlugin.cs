@@ -27,7 +27,7 @@ namespace PowerMill_Helper
         }
 
         #region 插件信息
-        public override string PluginName => "【动力磨坊】PMHelper";
+        public override string PluginName => "【动力磨坊】灵动助手";
 
         public override string PluginAuthor => "Liu1ee";
 
@@ -51,9 +51,9 @@ namespace PowerMill_Helper
         protected override void register_panes()
         {
             //这里打开你的垂直插件面板
-            Plugin_PanesPage = new Plugin_PanesPage(this, Token, Services,(IntPtr)this.ParentWindow);
-            register_pane(new PaneDefinition(Plugin_PanesPage,700,300,"PowerMill_Plugin",null));
-            //这里打开你的垂直插件面板
+            //Plugin_PanesPage = new Plugin_PanesPage(this, Token, Services,(IntPtr)this.ParentWindow);
+           // register_pane(new PaneDefinition(Plugin_PanesPage,700,300,"PowerMill_Plugin",null));
+          
             OpenMainFrom();
      
         }
@@ -71,14 +71,24 @@ namespace PowerMill_Helper
         #endregion
 
         #region PM Macro=>Plugin
-        // plugin {BC3610A0-A0F6-4244-8053-A99AADE569F5}Shutdown
+        // plugin {BC3610A0-A0F6-4244-8053-A99AADE569F5}
         public override void ProcessPluginCommand(string Command)
         {
             if (Command.Contains("Shutdown"))
             {
 
                 Shutdown(); 
-            } 
+            }
+            if (Command.Contains("VerifyToolpathS"))
+            {
+                mainForm.OpenCheckTP();
+            }
+            if (Command.Contains("CheckTPMsg"))
+            {
+                mainForm.GetCheckTP_Msg(Command);
+            }
+
+
         }
         #endregion
         #region OpenMainFrom

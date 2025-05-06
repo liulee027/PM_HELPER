@@ -3,6 +3,7 @@ using PowerMill_Helper.Class;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -375,6 +376,17 @@ namespace PowerMill_Helper.Tool
 
             return selected_folders;
         }
+
+        #region 打开配置文件
+        private void NCout_OpenSettingini(object sender, RoutedEventArgs e)
+        {
+            if (File.Exists(MCS.ConfigInitPath))
+            {
+                Process.Start("notepad.exe", MCS.ConfigInitPath);
+            }
+        }
+        #endregion
+
 
     }
 }

@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Media;
 
 namespace PowerMill_Helper.Class
@@ -120,6 +121,8 @@ namespace PowerMill_Helper.Class
             } } 
         private SolidColorBrush BackColor { get; set; }
 
+        public bool Computed { get; set; }//是否计算完成
+
         public ObservableCollection<PMEntity> Children { get; set; } = new ObservableCollection<PMEntity>();
 
         private int uiwidth_=0;
@@ -129,6 +132,58 @@ namespace PowerMill_Helper.Class
         public int NcoutToolNumber { get => NcoutToolNumber_; set { NcoutToolNumber_ = value; OnPropertyChanged(); } }
         private string NcoutMachineWorkplane_ { get; set; }
         public string NcoutMachineWorkplane { get => NcoutMachineWorkplane_; set { NcoutMachineWorkplane_ = value; OnPropertyChanged(); }  }
+
+        public string Check1Result_ = "?";
+        public string Check1Result { get => Check1Result_; set { 
+                Check1Result_ = value; OnPropertyChanged();
+                if (value=="√")
+                {
+                    CheckTP1C = CheckTPOK;
+                }
+                else
+                {
+                    if (value=="?")
+                    {
+                        CheckTP1C = CheckTPquest;
+                    }
+                    else
+                    {
+                        CheckTP1C = CheckTPError;
+                    }
+                        
+                        
+                }
+                Onchange("CheckTP1C");
+            } }
+        public string Check2Result_ = "?";
+        public string Check2Result { get => Check1Result_; set { Check1Result_ = value; OnPropertyChanged();
+                if (value == "√")
+                {
+                    CheckTP2C = CheckTPOK;
+                }
+                else
+                {
+                    if (value == "?")
+                    {
+                        CheckTP2C = CheckTPquest;
+                    }
+                    else
+                    {
+                        CheckTP2C = CheckTPError;
+                    }
+                }
+                Onchange("CheckTP2C");
+            } }
+
+        public Brush CheckTPError = Brushes.OrangeRed;
+        public Brush CheckTPOK = Brushes.LightGreen;
+        public Brush CheckTPquest = Brushes.Orange;
+        public Brush CheckTP1C {  get; set; } = Brushes.Black;
+        public Brush CheckTP2C { get; set; } = Brushes.Black;
+
+        public string CheckTP1Msg { get; set; }
+        public string CheckTP2Msg { get; set; }
+
 
     }
 }

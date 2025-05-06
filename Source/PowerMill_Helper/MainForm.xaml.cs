@@ -50,9 +50,12 @@ using System.Net.Sockets;
 
 namespace PowerMill_Helper
 {
+ 
+
     /// <summary>
     /// MainFrom.xaml 的交互逻辑
     /// </summary>
+    /// 
     public partial class MainForm : Window
     {
         public string token;
@@ -84,13 +87,12 @@ namespace PowerMill_Helper
                 LoadControl();
                 #endregion
 
-                //new Thread(AutoOpenBD).Start();
-
-                #region TcpSocket
+                #region 尝试启动BDService
+                new Thread(AutoOpenBD).Start();
+                #endregion
+                #region 连接BDService
                 Local_TcpServer_Connect();
                 #endregion
-
-
 
             }
             catch (Exception ex)
@@ -424,13 +426,9 @@ namespace PowerMill_Helper
                 Debug_.Visibility = Visibility.Hidden;
                 Debug_.DataContext = MCS;
 
-                /*
-                CheckTP_ = new CheckTP(MCS, PmServices);
-                AppGrid.Children.Add(Debug_);
-                CheckTP_.PreviewMouseDown += Usercortol_MoveIndexTop;
-                CheckTP_.Visibility = Visibility.Hidden;
-                CheckTP_.DataContext = MCS;
-                */
+                LoadMacroLib();
+                LoadNcout();
+                LoadCheckTP();
 
             }
             catch (Exception ex)
@@ -701,21 +699,19 @@ namespace PowerMill_Helper
 
         #region MacroLib
         private MacroLib MacroLib_ = null;
+        private void LoadMacroLib()
+        {
+            MacroLib_ = new MacroLib(MCS, PmServices);
+            MacroLib_.OnTreeview_SelectSomthingEnent += MacroLib_Treeview_SelectSomthing;
+            MacroLib_.PreviewMouseDown += Usercortol_MoveIndexTop;
+            MacroLib_.Visibility = Visibility.Hidden;
+            AppGrid.Children.Add(MacroLib_);
+        }
         private void MacroLib_Startup()
         {
             if (MacroLib_ != null)
             {
                 MacroLib_.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                MacroLib_ = new MacroLib(MCS, PmServices);
-                AppGrid.Children.Add(MacroLib_);
-                MacroLib_.OnTreeview_SelectSomthingEnent += MacroLib_Treeview_SelectSomthing;
-                MacroLib_.PreviewMouseDown += Usercortol_MoveIndexTop;
-                MacroLib_.Visibility = Visibility.Hidden;
-
-                return;
             }
         }
         private void MacroLib_Treeview_SelectSomthing(NamePath namePath)
@@ -733,24 +729,20 @@ namespace PowerMill_Helper
 
         #region NCout
         private NCout NCout_ = null;
+        private void LoadNcout()
+        {
+            NCout_ = new NCout(MCS, PmServices);
+            NCout_.Visibility = Visibility.Hidden;
+            AppGrid.Children.Add(NCout_);
+            NCout_.Ncout_UserselectNcoutWorkplant += UserselectEntity;
+            NCout_.PreviewMouseDown += Usercortol_MoveIndexTop;
+        }
         private void NcoutStart()
         {
             try
             {
-                if (NCout_ != null)
-                {
-                    NCout_.Visibility = Visibility.Visible;
-                }
-                else
-                {
-                    NCout_ = new NCout(MCS,PmServices);
-                    NCout_.Visibility = Visibility.Visible;
-                    AppGrid.Children.Add(NCout_);
-                    NCout_.Ncout_UserselectNcoutWorkplant += UserselectEntity;
-                    NCout_.PreviewMouseDown += Usercortol_MoveIndexTop;
-                    return;
-                }
-               
+                NCout_.Visibility = Visibility.Visible;
+
             }
             catch (Exception ex)
             {
@@ -762,6 +754,82 @@ namespace PowerMill_Helper
 
         #region CheckTP
         private CheckTP CheckTP_;
+        private void LoadCheckTP()
+        {
+            CheckTP_ = new CheckTP(MCS, PmServices);
+            CheckTP_.PreviewMouseDown += Usercortol_MoveIndexTop;
+            CheckTP_.entitySelect_Event += UserselectEntity;
+            CheckTP_.Visibility = Visibility.Hidden;
+            AppGrid.Children.Add(CheckTP_);
+           
+        }
+        public void OpenCheckTP()
+        {
+            try
+            {
+                if (CheckTP_ != null)
+                {
+                    CheckTP_.Visibility = Visibility.Visible;
+                    CheckTP_.GetexplorerSelectTP();
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("OpenCheckTP\r" + ex.ToString());
+            }
+        }
+
+        public void GetCheckTP_Msg(string CheckTPMsg_Text)
+        {
+            try
+            {
+                MCS.LogVoid(CheckTPMsg_Text);
+                string[] CheckTPMsg_TextSplit = Regex.Split(CheckTPMsg_Text, "@split#", RegexOptions.IgnoreCase);
+
+                PMEntity SearchPMEntit = MCS.CheckTPToolpathCollection.FirstOrDefault(item => item.Name == CheckTPMsg_TextSplit[2]);
+                
+                if (CheckTPMsg_Text.Contains("CheckTPMsg_COLLISION"))
+                {
+                    MCS.LogVoid(CheckTPMsg_TextSplit[1]);
+                    SearchPMEntit.CheckTP1Msg= CheckTPMsg_TextSplit[1];
+                    if (CheckTPMsg_TextSplit[1].Contains("找不到碰撞"))
+                    {
+                        SearchPMEntit.Check1Result = "√";
+                        MCS.LogVoid(SearchPMEntit.Check1Result);
+                    }
+                    if (CheckTPMsg_TextSplit[1].Contains("不能计算碰撞，因为刀柄或是夹持未定义"))
+                    {
+                        SearchPMEntit.Check1Result = "？";
+                    }
+                    if (CheckTPMsg_TextSplit[1].Contains("发现夹持碰撞"))
+                    {
+                        SearchPMEntit.Check1Result = "X";
+                    }
+                    if (CheckTPMsg_TextSplit[1].Contains("发现刀柄碰撞"))
+                    {
+                        SearchPMEntit.Check1Result = "X";
+                    }
+                }
+                if (CheckTPMsg_Text.Contains("CheckTPMsg_GOUGE"))
+                {
+                    SearchPMEntit.CheckTP2Msg = CheckTPMsg_TextSplit[1];
+                    if (CheckTPMsg_TextSplit[1].Contains("找不到过切"))
+                    {
+                        SearchPMEntit.Check2Result = "√";
+                    }
+                    if (CheckTPMsg_TextSplit[1].Contains("发现过切"))
+                    {
+                        SearchPMEntit.Check2Result = "X";
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("GetCheckTP_Msg\r" + ex.ToString());
+            }
+        }
         #endregion
 
         #region SettingForm
@@ -814,7 +882,7 @@ namespace PowerMill_Helper
 
         #endregion
 
-        #region LocalTcpSocket
+        #region LocalServer
         private ITxClient txClient = null;
         private bool LocalServerState=false;
         private Timer LoginTimer;
@@ -839,12 +907,11 @@ namespace PowerMill_Helper
         {
             try
             {
-                txClient = TxStart.startClient("127.0.0.1", 8901);
+                txClient = TxStart.startClient("127.0.0.1", 8910);
                 txClient.BufferSize = 1024;
                 txClient.StartResult += TxClient_StartResult;
                 txClient.EngineLost += TxClient_EngineLost;
                 txClient.ReconnectMax = 0;
-
                 txClient.StartEngine();
             }
             catch (Exception ex)
@@ -880,24 +947,10 @@ namespace PowerMill_Helper
                 else
                 {
                     LocalServerState = false;
-                    MCS.LogVoid("没有连接到Service");
+                    //MCS.LogVoid("没有连接到Service");
                     MCS.LogVoid(resultStr);
                     //PMHelperService
-                    if (Process.GetProcessesByName("PMHelperService").Length ==0)
-                    {
-                        var proc = new Process
-                        {
-                            StartInfo=new ProcessStartInfo
-                            {
-                                FileName = "explorer.exe",
-                                Arguments = MCS.PluginFolder+"\\PMHelperService.exe",
-                                UseShellExecute = false,
-                                Verb = "runs",
-                                WindowStyle = ProcessWindowStyle.Hidden
-                            }
-                        };
-                        proc.Start();
-                    }
+                    Open_PmService();
 
                     await Task.Delay(5000);
                     LoginTimer.Start();
@@ -961,19 +1014,18 @@ namespace PowerMill_Helper
         {
             try
             {
-                Process[] ps = Process.GetProcessesByName("LC");
+                Process[] ps = Process.GetProcessesByName("PMHelperService");
                 if (ps.Length == 0)
                 {
-                    string configPath = Path.Combine(Directory.GetCurrentDirectory(), "PMHelperService.exe");
+                    string exePath = Path.Combine(MCS.PluginFolder, "PMHelperService.exe");
+                   
                     var proc = new Process
                     {
                         StartInfo = new ProcessStartInfo
                         {
-                            FileName = "explorer.exe",
-                            Arguments = configPath,
+                            FileName = exePath,
                             UseShellExecute = false,
-                            Verb = "runs",
-                            WindowStyle = ProcessWindowStyle.Hidden
+                            WindowStyle = ProcessWindowStyle.Hidden // 可选：隐藏窗口
                         }
                     };
                     proc.Start();

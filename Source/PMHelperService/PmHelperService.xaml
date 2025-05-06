@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="PMHelperService" Height="1" Width="1"
         WindowStyle="None" Visibility="Hidden"
-        Closing="windowclosing" Loaded="windowload"
+        Closing="windowclosing" 
         >
     <Grid>
         

@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PMHelperService", "PMHelper
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PM_Server", "..\..\PM_Server\PM_Server.csproj", "{F4E25949-2ADD-9949-DFD7-58EA5E8B5977}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PostSoft2Server", "PostSoft2Server\PostSoft2Server.csproj", "{A85DCD80-8718-4DB2-8DFE-BEE99118D88A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,14 @@ Global
 		{F4E25949-2ADD-9949-DFD7-58EA5E8B5977}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F4E25949-2ADD-9949-DFD7-58EA5E8B5977}.Release|x86.ActiveCfg = Release|Any CPU
 		{F4E25949-2ADD-9949-DFD7-58EA5E8B5977}.Release|x86.Build.0 = Release|Any CPU
+		{A85DCD80-8718-4DB2-8DFE-BEE99118D88A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A85DCD80-8718-4DB2-8DFE-BEE99118D88A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A85DCD80-8718-4DB2-8DFE-BEE99118D88A}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{A85DCD80-8718-4DB2-8DFE-BEE99118D88A}.Debug|x86.Build.0 = Debug|Any CPU
+		{A85DCD80-8718-4DB2-8DFE-BEE99118D88A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A85DCD80-8718-4DB2-8DFE-BEE99118D88A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A85DCD80-8718-4DB2-8DFE-BEE99118D88A}.Release|x86.ActiveCfg = Release|Any CPU
+		{A85DCD80-8718-4DB2-8DFE-BEE99118D88A}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

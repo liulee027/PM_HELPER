@@ -8,6 +8,15 @@
              mc:Ignorable="d"  Canvas.Left="300" Canvas.Top="200"
              Width="800" Height="700">
     <UserControl.Resources>
+        <LinearGradientBrush x:Key="RainbowBrush" StartPoint="0,0" EndPoint="1,1">
+            <GradientStop Color="Red" Offset="0.0"/>
+            <GradientStop Color="Orange" Offset="0.17"/>
+            <GradientStop Color="Yellow" Offset="0.33"/>
+            <GradientStop Color="Green" Offset="0.5"/>
+            <GradientStop Color="Blue" Offset="0.67"/>
+            <GradientStop Color="Indigo" Offset="0.83"/>
+            <GradientStop Color="Violet" Offset="1.0"/>
+        </LinearGradientBrush>
         <Style  x:Key="AppRes" TargetType="{x:Type Button}">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="Black"/>
@@ -105,6 +114,113 @@
 
 
         </Style>
+
+        <Style x:Key="EntitySelect" TargetType="{x:Type Button}">
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+
+                        <Grid>
+                            <Border x:Name="RainbowShadow"  CornerRadius="5" Opacity="0"  Background="{StaticResource RainbowBrush}" Cursor="Hand">
+                                <Border.Effect>
+                                    <BlurEffect Radius="20"/>
+                                </Border.Effect>
+                            </Border>
+                            <Border  CornerRadius="5"  Background="{TemplateBinding Background}" Cursor="Hand">
+                                <TextBlock Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Content}"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!-- 鼠标进入时开始动画 -->
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="RainbowShadow"
+                                                 Storyboard.TargetProperty="Opacity"
+                                                 To="1"
+                                                 Duration="0:0:0.4"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <!-- 鼠标离开时反向动画 -->
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="RainbowShadow"
+                                                 Storyboard.TargetProperty="Opacity"
+                                                 To="0"
+                                                 Duration="0:0:0.4"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="NormalRoundButton" TargetType="{x:Type Button}">
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+
+                        <Grid>
+                            <Border  CornerRadius="5"  Background="{TemplateBinding Background}" Cursor="Hand">
+                                <TextBlock Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Content}"/>
+                            </Border>
+                        </Grid>
+                      
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="lightbutton" TargetType="{x:Type Button}">
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+
+                        <Grid>
+                            <Border x:Name="RainbowShadow"  CornerRadius="5" Opacity="0"  Background="{TemplateBinding Background}" Cursor="Hand">
+                                <Border.Effect>
+                                    <BlurEffect Radius="20"/>
+                                </Border.Effect>
+                            </Border>
+                            <Border  CornerRadius="5"  Background="{TemplateBinding Background}" Cursor="Hand">
+                                <TextBlock Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{TemplateBinding Content}"/>
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <!-- 鼠标进入时开始动画 -->
+                            <EventTrigger RoutedEvent="MouseEnter">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="RainbowShadow"
+                                  Storyboard.TargetProperty="Opacity"
+                                  To="1"
+                                  Duration="0:0:0.4"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+
+                            <!-- 鼠标离开时反向动画 -->
+                            <EventTrigger RoutedEvent="MouseLeave">
+                                <BeginStoryboard>
+                                    <Storyboard>
+                                        <DoubleAnimation Storyboard.TargetName="RainbowShadow"
+                                  Storyboard.TargetProperty="Opacity"
+                                  To="0"
+                                  Duration="0:0:0.4"/>
+                                    </Storyboard>
+                                </BeginStoryboard>
+                            </EventTrigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
     <Border UseLayoutRounding="True"  Background="WhiteSmoke" 
             Margin="0" Opacity="1" CornerRadius="14"  >
@@ -132,8 +248,8 @@ Background="WhiteSmoke" ItemsSource="{Binding NcOutToolpathCollection}"
                     </ListBox.ItemTemplate>
                 </ListBox>
                 <StackPanel VerticalAlignment="Center">
-                    <Button Click="ChooseTpToRight"  Height="75" Content="→" Padding="5,0,5,0" Cursor="Hand" BorderThickness="0" Margin="10,0,10,0"/>
-                    <Button Click="ClearRight" Height="75" Content="❎" Padding="5,0,5,0" Cursor="Hand" BorderThickness="0" Margin="10,25,10,0"/>
+                    <Button Style="{StaticResource lightbutton}" Click="ChooseTpToRight" Background="#FF96DC93" Width="25" Height="75" Content="→" Padding="5,0,5,0" Cursor="Hand" BorderThickness="0" Margin="10,0,10,0"/>
+                    <Button Style="{StaticResource lightbutton}" Click="ClearRight" Background="PaleVioletRed" Height="75" Content="❎" Padding="5,0,5,0" Cursor="Hand" BorderThickness="0" Margin="10,25,10,0"/>
                 </StackPanel>
                 <StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
@@ -147,9 +263,9 @@ Background="WhiteSmoke" ItemsSource="{Binding NcOutToolpathCollection}"
                     <StackPanel Visibility="{Binding NcoutSetWorkplanesVisibility}" 
             Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0"  >
                         <TextBlock Text="输出基准：" Width="85" FontSize="17" HorizontalAlignment="Center" />
-                        <Button Content="{Binding Name,UpdateSourceTrigger=PropertyChanged}" 
+                        <Button  Content="{Binding Name,UpdateSourceTrigger=PropertyChanged}" 
             DataContext="{Binding Ncout_Selected_OutputWorkplane,UpdateSourceTrigger=PropertyChanged}"
-            Click="Ncout_UserselectNcoutWorkplantButton"
+            Click="Ncout_UserselectNcoutWorkplantButton" Style="{StaticResource EntitySelect}"
             Width="200" Height="20" BorderThickness="0" Tag="Ncout_Selected_OutputWorkplane"  Uid="Workplane"/>
                     </StackPanel>
                     <ListView x:Name="RightTpListbox"  ItemsSource="{Binding Ncout_ReadlyList}"
@@ -182,14 +298,14 @@ SelectionMode="Extended"  Margin="0,15,0,20" Height="550"
                 
                 <StackPanel Margin="10,100,0,0" HorizontalAlignment="Right" Width="230">
                     <Grid Margin="0,5,0,0" Height="{Binding NcoutShowChangeworkplaneVisibility}" >
-                        <ComboBox SelectionChanged="ShowChangeTpMachineWorkplaneSelected" ItemsSource="{Binding NcoutOptSelectOpt.OptSelectMachineWkNameLIst}">
+                        <ComboBox Margin="8,0,8,0"  SelectionChanged="ShowChangeTpMachineWorkplaneSelected" ItemsSource="{Binding NcoutOptSelectOpt.OptSelectMachineWkNameLIst}">
 
                         </ComboBox>
-                        <Button Click="ShowChangeTpMachineWorkplaneCombobx" Cursor="Hand"  Content="更改坐标系" BorderThickness="0"  />
+                        <Button Style="{StaticResource NormalRoundButton}" Click="ShowChangeTpMachineWorkplaneCombobx" Cursor="Hand"  Content="更改坐标系" BorderThickness="0"  />
                     </Grid>
                     <Grid Margin="0,5,0,0"  Height="23">
-                        <TextBox   FontSize="18" KeyUp="ChangeTlNumberinputEnter" LostFocus="ChangeTlNumberinputEnterVoid"/>
-                        <Button Cursor="Hand" Content="更改刀号" BorderThickness="0" Click="ShowChangeTlNumberinput" />
+                        <TextBox Margin="5,0,5,0"  FontSize="18" KeyUp="ChangeTlNumberinputEnter" LostFocus="ChangeTlNumberinputEnterVoid"/>
+                        <Button Style="{StaticResource NormalRoundButton}" Cursor="Hand" Content="更改刀号" BorderThickness="0" Click="ShowChangeTlNumberinput" />
                     </Grid>
                     <StackPanel Margin="0,10,0,5">
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" >
@@ -198,12 +314,12 @@ SelectionMode="Extended"  Margin="0,15,0,20" Height="550"
                             <TextBlock Text="单独输出" Margin="10,0,0,0"/>
                             <CheckBox Margin="5,0,0,0"  IsChecked="{Binding Ncout_SingleTpOutput}"  Cursor="Hand"/>
                         </StackPanel>
-                        <Button Click="CreateToNcToolpath" Cursor="Hand" Margin="0,3,0,0" Content="创建NC程序" BorderThickness="0" />
+                        <Button Style="{StaticResource NormalRoundButton}" Height="20" Click="CreateToNcToolpath" Cursor="Hand" Margin="0,3,0,0" Content="创建NC程序" BorderThickness="0" />
                     </StackPanel>
-                    
-                    <Button Click="CreateSheet" Cursor="Hand" Content="输出NC程序单" Margin="0,5,0,5" BorderThickness="0"/>
-                    <Button Click="OutPutNc" Content="Nc写出" Margin="0,5,0,5" BorderThickness="0"/>
-                    <Button Click="openNCFolder" Content="打开Nc程序文件夹" Margin="0,5,0,0" BorderThickness="0" />
+
+                    <Button Style="{StaticResource NormalRoundButton}" Height="20" Click="CreateSheet" Cursor="Hand" Content="输出NC程序单" Margin="0,5,0,5" BorderThickness="0"/>
+                    <Button Style="{StaticResource lightbutton}" Height="20" Click="OutPutNc" Background="#FF96DC93" Content="Nc写出" Margin="0,5,0,5" BorderThickness="0"/>
+                    <Button Style="{StaticResource NormalRoundButton}" Height="20" Click="openNCFolder" Content="打开Nc程序文件夹" Margin="0,5,0,0" BorderThickness="0" />
                 </StackPanel>
             </StackPanel>
           

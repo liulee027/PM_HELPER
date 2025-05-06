@@ -22,6 +22,6 @@ echo Removing registry entries...
 reg delete "HKCR\CLSID\{BC3610A0-A0F6-4244-8053-A99AADE569F5}\Implemented Categories\{311b0135-1826-4a8c-98de-f313289f815e}" /reg:64 /f
 
 
-echo Uninstallation completed successfully!
-pause
+:: echo Uninstallation completed successfully!
+:: pause
     

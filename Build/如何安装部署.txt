@@ -1,2 +1,0 @@
-1.电脑需要安装.netfreamwork4.8.1环境，如何不确定可以打开NETFrameWork481.exe来安装。
-2.右击install.bat已管理员权限运行。

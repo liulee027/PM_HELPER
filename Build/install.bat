@@ -35,5 +35,5 @@ if exist "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\RegAsm.exe" (
 echo Adding registry entries...
 reg add "HKCR\CLSID\{BC3610A0-A0F6-4244-8053-A99AADE569F5}\Implemented Categories\{311b0135-1826-4a8c-98de-f313289f815e}" /reg:64 /f
 
-echo Installation completed successfully!
-pause
+:: echo Installation completed successfully!
+:: pause
