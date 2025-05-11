@@ -1,56 +1,34 @@
-﻿using Delcam.Plugins.Framework;
+﻿using Delcam.Plugins.Events;
+using Delcam.Plugins.Framework;
+using General_lib;
+using Newtonsoft.Json;
+using PowerMill_Helper.Class;
+using PowerMill_Helper.Tool;
+using SanNiuSignal;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Text;
+using System.Net;
+using System.Reflection;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Forms;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Drawing;
-using PowerMill_Helper.Tool;
-using PowerMill_Helper.Class;
-using System.Text.RegularExpressions;
-using System.Xml;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-using MessageBox=System.Windows.Forms.MessageBox;
-using System.IO;
-using System.Collections.ObjectModel;
-using System.Reflection;
-using System.Runtime.InteropServices;
-using System.Collections;
-using Delcam.Plugins.Events;
 using System.Windows.Media.Animation;
-using UserControl = System.Windows.Controls.UserControl;
 using Button = System.Windows.Controls.Button;
-using System.Threading;
-using System.Xml.Linq; 
-using System.Security.Cryptography.X509Certificates;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using Window = System.Windows.Window;
-using Path = System.IO.Path;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using static System.Net.Mime.MediaTypeNames;
-using System.ComponentModel;
-using System.Diagnostics;
 using Debug = PowerMill_Helper.Tool.Debug;
-using SanNiuSignal;
-using System.Net;
+using MessageBox = System.Windows.Forms.MessageBox;
 using Timer = System.Timers.Timer;
-using System.Net.Sockets;
+using UserControl = System.Windows.Controls.UserControl;
+using Window = System.Windows.Window;
 
 
 namespace PowerMill_Helper
 {
- 
+
 
     /// <summary>
     /// MainFrom.xaml 的交互逻辑
@@ -68,7 +46,7 @@ namespace PowerMill_Helper
             InitializeComponent();
             try
             {
-                 MCS = (MainCS)DataContext;
+                MCS = (MainCS)DataContext;
                 #region Pm接口
                 this.token = token;
                 this.PmServices = servicess;
@@ -87,9 +65,7 @@ namespace PowerMill_Helper
                 LoadControl();
                 #endregion
 
-                #region 尝试启动BDService
-                new Thread(AutoOpenBD).Start();
-                #endregion
+
                 #region 连接BDService
                 Local_TcpServer_Connect();
                 #endregion
@@ -101,11 +77,11 @@ namespace PowerMill_Helper
             }
         }
         #region PmCommand
-        private  void PMCom(string comd)
+        private void PMCom(string comd)
         {
             PmServices.InsertCommand(token, comd);
         }
- 
+
         private string PMComEX(string comd)
         {
             object item;
@@ -156,7 +132,7 @@ namespace PowerMill_Helper
         private void UserOpenNewPG(string event_name, Dictionary<string, string> event_arguments)
         {
             MCS.ProjectName = GetPMVal("project_pathname(1)");
-            MCS.ProjectPath= GetPMVal("project_pathname(0)");
+            MCS.ProjectPath = GetPMVal("project_pathname(0)");
             MCS.SaveState = true;
         }
 
@@ -192,12 +168,12 @@ namespace PowerMill_Helper
             try
             {
                 if (MCS.PMEmtitys.ContainsKey(text)) MCS.PMEmtitys[text].FirstOrDefault((PMEntity item) => item.Name == EntityName).Isactivate = true;
-            }                      
+            }
             catch (Exception ex)
             {
                 System.Windows.Forms.MessageBox.Show("UserEntityActivated\r" + ex.ToString());
             }
-   
+
         }
 
         private void UserEntityDeActivated(string event_name, Dictionary<string, string> event_arguments)
@@ -210,24 +186,24 @@ namespace PowerMill_Helper
             }
             catch (Exception ex)
             {
-              MessageBox.Show("UserEntityDeActivated\r" + ex.ToString());
+                MessageBox.Show("UserEntityDeActivated\r" + ex.ToString());
             }
-        
+
         }
 
         private void UserEntityCreate(string event_name, Dictionary<string, string> event_arguments)
         {
             string text = event_arguments["EntityType"];
             string name = event_arguments["Name"];
-      
+
             try
             {
                 if (MCS.PMEmtitys.ContainsKey(text))
                 {
                     PMEntity pMEntity = MCS.PMEmtitys[text].FirstOrDefault((PMEntity item) => item.Name == name);
-                    if (pMEntity==null)
+                    if (pMEntity == null)
                     {
-                        pMEntity= new PMEntity() { Name = name };
+                        pMEntity = new PMEntity() { Name = name };
                         MCS.PMEmtitys[text].Add(pMEntity);
                         MCS.Onchange($"PM{text}List");
                     }
@@ -273,7 +249,7 @@ namespace PowerMill_Helper
                     }
                 }
 
-              
+
             }
             catch (Exception ex)
             {
@@ -297,7 +273,7 @@ namespace PowerMill_Helper
             {
                 System.Windows.Forms.MessageBox.Show("UserEntityDelete\r" + ex.ToString());
             }
-        
+
         }
 
         private void UserEntityRename(string event_name, Dictionary<string, string> event_arguments)
@@ -330,7 +306,7 @@ namespace PowerMill_Helper
             string EntityName = event_arguments["Name"];
             try
             {
-              
+
 
                 if (MCS.PMEmtitys.ContainsKey(text))
                 {
@@ -354,7 +330,7 @@ namespace PowerMill_Helper
             string text = event_arguments["EntityType"];
             string EntityName = event_arguments["Name"];
             try
-            { 
+            {
                 if (MCS.PMEmtitys.ContainsKey(text))
                 {
                     PMEntity pMEntity = MCS.PMEmtitys[text].FirstOrDefault((PMEntity item) => item.Name == EntityName);
@@ -370,7 +346,7 @@ namespace PowerMill_Helper
             {
                 MessageBox.Show("UserUNDrawEntity\r" + ex.ToString());
             }
-          
+
         }
 
         private void UserADDStockmodelState(string event_name, Dictionary<string, string> event_arguments)
@@ -409,7 +385,7 @@ namespace PowerMill_Helper
             {
                 DynamicIslaned = new DynamicIslaned(MCS, PmServices);
                 MainFormGrid.Children.Add(DynamicIslaned);
-                DynamicIslaned.UserSelectAppClickEvent+= DynamicIslaned_UserSelectAppClickEvent;
+                DynamicIslaned.UserSelectAppClickEvent += DynamicIslaned_UserSelectAppClickEvent;
                 DynamicIslaned.ONUseropenAppEvent += ExpendDynamicIsland__ONUseropenAppEvent;
 
                 SettingForm_Start();
@@ -456,13 +432,13 @@ namespace PowerMill_Helper
                         Canvas.SetZIndex(UserControl1, i - 1);
                     }
                 }
-                Canvas.SetZIndex(userControl, AppGrid.Children.Count - 1); 
+                Canvas.SetZIndex(userControl, AppGrid.Children.Count - 1);
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Usercortol_MoveIndexTop\r"+ex.ToString());
+                MessageBox.Show("Usercortol_MoveIndexTop\r" + ex.ToString());
             }
-           
+
         }
 
         #endregion
@@ -563,7 +539,7 @@ namespace PowerMill_Helper
                 Thickness thickness = new Thickness(point.X, point.Y + 20, 0, 0);
                 Open_EntitySelect_Grid(thickness, button.Uid.ToString());
                 SelectEntitySource = button.Tag.ToString();
-             
+
             }
             catch (Exception ex)
             {
@@ -683,13 +659,13 @@ namespace PowerMill_Helper
             }
             catch (Exception ex)
             {
-                MessageBox.Show("EntitySelectSomething\r"+ ex.ToString());
+                MessageBox.Show("EntitySelectSomething\r" + ex.ToString());
             }
         }
-        private void InsertDataToCollection(ObservableCollection<PMEntity> pMEntities,string EntityType)
+        private void InsertDataToCollection(ObservableCollection<PMEntity> pMEntities, string EntityType)
         {
             string GetPmEntityCollectionPath = GetPMVal($"join(apply(extract(folder('{EntityType}'),'name'),\"pathname('{EntityType}',this)\"),',')");
-            if (GetPmEntityCollectionPath.Trim()!="")
+            if (GetPmEntityCollectionPath.Trim() != "")
             {
                 foreach (string item in GetPmEntityCollectionPath.Split(',')) CreateSelectEntityTreeviewNoodPath(item.Replace($"{EntityType}\\", ""), MCS.PMEmtitys[EntityType], pMEntities);
             }
@@ -761,7 +737,7 @@ namespace PowerMill_Helper
             CheckTP_.entitySelect_Event += UserselectEntity;
             CheckTP_.Visibility = Visibility.Hidden;
             AppGrid.Children.Add(CheckTP_);
-           
+
         }
         public void OpenCheckTP()
         {
@@ -772,7 +748,7 @@ namespace PowerMill_Helper
                     CheckTP_.Visibility = Visibility.Visible;
                     CheckTP_.GetexplorerSelectTP();
                 }
-               
+
             }
             catch (Exception ex)
             {
@@ -788,11 +764,11 @@ namespace PowerMill_Helper
                 string[] CheckTPMsg_TextSplit = Regex.Split(CheckTPMsg_Text, "@split#", RegexOptions.IgnoreCase);
 
                 PMEntity SearchPMEntit = MCS.CheckTPToolpathCollection.FirstOrDefault(item => item.Name == CheckTPMsg_TextSplit[2]);
-                
+
                 if (CheckTPMsg_Text.Contains("CheckTPMsg_COLLISION"))
                 {
                     MCS.LogVoid(CheckTPMsg_TextSplit[1]);
-                    SearchPMEntit.CheckTP1Msg= CheckTPMsg_TextSplit[1];
+                    SearchPMEntit.CheckTP1Msg = CheckTPMsg_TextSplit[1];
                     if (CheckTPMsg_TextSplit[1].Contains("找不到碰撞"))
                     {
                         SearchPMEntit.Check1Result = "√";
@@ -847,6 +823,7 @@ namespace PowerMill_Helper
                     SettingForm_ = new SettingForm(MCS, PmServices);
                     AppGrid.Children.Add(SettingForm_);
                     SettingForm_.PreviewMouseDown += Usercortol_MoveIndexTop;
+                    SettingForm_.GetnewVersionSetup += GetNewPmSetup;
                     SettingForm_.Visibility = Visibility.Hidden;
                 }
             }
@@ -856,8 +833,14 @@ namespace PowerMill_Helper
             }
         }
 
-  
-
+        private void GetNewPmSetup(object sender, RoutedEventArgs e)
+        {
+            RequestMsg requestMsg = new RequestMsg()
+            {
+                Title = "DownLoadNewPmSetup"
+            };
+            txClient.sendMessage(JsonConvert.SerializeObject(requestMsg));
+        }
         #endregion
 
         #region Debug
@@ -875,70 +858,79 @@ namespace PowerMill_Helper
         }
         private void TouchIsolate(object sender, MouseButtonEventArgs e)
         {
-            MCS.IsolateShow = false;    
+            MCS.IsolateShow = false;
             Close_ExpendDynamicIslaned();
             if (EntitySelect_.Visibility == Visibility.Visible) EntitySelect_.Visibility = Visibility.Hidden;
         }
 
         #endregion
 
-        #region LocalServer
+        #region LocalService
         private ITxClient txClient = null;
-        private bool LocalServerState=false;
+        private bool LocalServerState = false;
         private Timer LoginTimer;
-       
+
         private void Local_TcpServer_Connect()
         {
             try
             {
-                LoginTimer = new Timer(3000);
-                LoginTimer.Elapsed += TcpLoginVoid;
-                LoginTimer.AutoReset = false;
-                LoginTimer.Start();
+                //LoginTimer = new Timer(3000);
+                //LoginTimer.Elapsed += TcpLoginVoid;
+                //LoginTimer.AutoReset = false;
+                //LoginTimer.Start();
+                TcpLoginVoid();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Local_TcpServer_Connect\r"+ex.ToString());
+                MessageBox.Show("Local_TcpServer_Connect\r" + ex.ToString());
             }
-          
+
         }
 
-        private void TcpLoginVoid(object sender, System.Timers.ElapsedEventArgs e)
+        //private void TcpLoginVoid(object sender, System.Timers.ElapsedEventArgs e)
+        private void TcpLoginVoid()
         {
             try
             {
-                txClient = TxStart.startClient("127.0.0.1", 8910);
+
+                txClient = TxStart.startClient("127.0.0.1", MCS.LocalServicePort);
                 txClient.BufferSize = 1024;
                 txClient.StartResult += TxClient_StartResult;
                 txClient.EngineLost += TxClient_EngineLost;
+                txClient.AcceptString += TxClient_AcceptString;
                 txClient.ReconnectMax = 0;
                 txClient.StartEngine();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("TcpLoginVoid\r"+ex.ToString());
+                MessageBox.Show("TcpLoginVoid\r" + ex.ToString());
             }
-         
+
         }
+
+
 
         private async void TxClient_EngineLost(string object1)
         {
             try
             {
                 //MessageBox.Show("服务器断开");
+                MCS.LogVoid("服务器断开" + object1);
                 await Task.Delay(5000);
-                LoginTimer.Start();
+                //LoginTimer.Start();
+                TcpLoginVoid();
             }
             catch (Exception ex)
             {
-                MessageBox.Show("TxClient_EngineLost\r"+ex.ToString());
+                MessageBox.Show("TxClient_EngineLost\r" + ex.ToString());
             }
         }
 
-        private  async void TxClient_StartResult(bool result_, string resultStr)
+        private async void TxClient_StartResult(bool result_, string resultStr)
         {
             try
             {
+                //LoginTimer.Stop();
                 if (result_)
                 {
                     LocalServerState = true;
@@ -948,12 +940,18 @@ namespace PowerMill_Helper
                 {
                     LocalServerState = false;
                     //MCS.LogVoid("没有连接到Service");
-                    MCS.LogVoid(resultStr);
-                    //PMHelperService
-                    Open_PmService();
+                    if (resultStr.Contains("由于目标计算机积极拒绝"))
+                    {
+                        MCS.LogVoid("PmHelper服务未启动");
+                    }
+                    else
+                    {
+                        MCS.LogVoid(resultStr);
+                    }
+
 
                     await Task.Delay(5000);
-                    LoginTimer.Start();
+                    TcpLoginVoid();
 
 
                     //MessageBox.Show("重试连接Service");
@@ -961,14 +959,39 @@ namespace PowerMill_Helper
             }
             catch (Exception ex)
             {
-                MessageBox.Show("TxClient_StartResult\r"+ex.ToString());
+                MessageBox.Show("TxClient_StartResult\r" + ex.ToString());
             }
         }
 
         #endregion
+        #region LocalAcceptMsg
+        private void TxClient_AcceptString(IPEndPoint ipendPoint, string Msg)
+        {
+            try
+            {
+                //MCS.LogVoid($"IP:{ipendPoint} Msg:{Msg}");
+                RequestMsg reposrMsg = JsonConvert.DeserializeObject<RequestMsg>(Msg);
+                if (reposrMsg != null)
+                {
+                    if (reposrMsg.Title == "GetPMSetupVersion_result")
+                    {
+                        MCS.Serverversion = reposrMsg.User;
+                        MCS.SoftUpdateNote = $"最新版本 V{reposrMsg.User}\r更新时间：{reposrMsg.Label}\r更新说明：{reposrMsg.Msg}";
+                    }
+
+                    // MCS.LogVoid($"IP:{ipendPoint} Msg:{Msg}");
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MCS.LogVoid("TxClient_AcceptString\r" + ex.ToString());
+            }
+        }
+        #endregion
 
         #region System
-    
+
         public static string OpenFileBrowserDialog(bool multiselect)
         {
             FolderSelectDialog fbd = new FolderSelectDialog();
@@ -993,50 +1016,9 @@ namespace PowerMill_Helper
 
         #endregion
 
-        #region Update
-        private void AutoUpdate()
-        {
+     
 
-        }
-        #endregion
 
-        #region PMService
-        private async void AutoOpenBD()
-        {
-            while (true)
-            {
-                Open_PmService();
-                await Task.Delay(1000 * 60 * 5);
-            }
-
-        }
-        private void Open_PmService()
-        {
-            try
-            {
-                Process[] ps = Process.GetProcessesByName("PMHelperService");
-                if (ps.Length == 0)
-                {
-                    string exePath = Path.Combine(MCS.PluginFolder, "PMHelperService.exe");
-                   
-                    var proc = new Process
-                    {
-                        StartInfo = new ProcessStartInfo
-                        {
-                            FileName = exePath,
-                            UseShellExecute = false,
-                            WindowStyle = ProcessWindowStyle.Hidden // 可选：隐藏窗口
-                        }
-                    };
-                    proc.Start();
-                }
-            }
-            catch (Exception)
-            {
-            }
-
-        }
-        #endregion
 
 
     }

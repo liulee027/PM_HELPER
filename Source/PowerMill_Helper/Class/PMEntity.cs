@@ -1,14 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Documents;
 using System.Windows.Media;
 
 namespace PowerMill_Helper.Class
@@ -42,7 +35,7 @@ namespace PowerMill_Helper.Class
 
         private string Type_;
         public string Type
-        { 
+        {
             get => Type_;
             set
             {
@@ -81,7 +74,8 @@ namespace PowerMill_Helper.Class
         public bool IsDraw
         {
             get { return Isdraw; }
-            set {
+            set
+            {
                 Isdraw = value;
                 Onchange("DrawIcon");
             }
@@ -106,43 +100,50 @@ namespace PowerMill_Helper.Class
         public string RootPath { get; set; }
         private bool isRootTree_ = false;
 
-        public bool isRootTree { get=> isRootTree_; set {
+        public bool isRootTree
+        {
+            get => isRootTree_; set
+            {
                 isRootTree_ = value;
                 if (value)
                 {
-                    BackColor=new SolidColorBrush(Colors.AliceBlue);
-                    TypeIcon= "Image\\Entity_Folder\\Folder_Icon.png";
+                    BackColor = new SolidColorBrush(Colors.AliceBlue);
+                    TypeIcon = "Image\\Entity_Folder\\Folder_Icon.png";
                 }
                 else
                 {
                     BackColor = new SolidColorBrush(Colors.Transparent);
                 }
                 Onchange("BackColor");
-            } } 
+            }
+        }
         private SolidColorBrush BackColor { get; set; }
 
         public bool Computed { get; set; }//是否计算完成
 
         public ObservableCollection<PMEntity> Children { get; set; } = new ObservableCollection<PMEntity>();
 
-        private int uiwidth_=0;
-        public int uiwidth { get=> uiwidth_; set{ uiwidth_ = value;OnPropertyChanged(); } }
+        private int uiwidth_ = 0;
+        public int uiwidth { get => uiwidth_; set { uiwidth_ = value; OnPropertyChanged(); } }
 
         private int NcoutToolNumber_ = 1;
         public int NcoutToolNumber { get => NcoutToolNumber_; set { NcoutToolNumber_ = value; OnPropertyChanged(); } }
         private string NcoutMachineWorkplane_ { get; set; }
-        public string NcoutMachineWorkplane { get => NcoutMachineWorkplane_; set { NcoutMachineWorkplane_ = value; OnPropertyChanged(); }  }
+        public string NcoutMachineWorkplane { get => NcoutMachineWorkplane_; set { NcoutMachineWorkplane_ = value; OnPropertyChanged(); } }
 
         public string Check1Result_ = "?";
-        public string Check1Result { get => Check1Result_; set { 
+        public string Check1Result
+        {
+            get => Check1Result_; set
+            {
                 Check1Result_ = value; OnPropertyChanged();
-                if (value=="√")
+                if (value == "√")
                 {
                     CheckTP1C = CheckTPOK;
                 }
                 else
                 {
-                    if (value=="?")
+                    if (value == "?")
                     {
                         CheckTP1C = CheckTPquest;
                     }
@@ -150,13 +151,18 @@ namespace PowerMill_Helper.Class
                     {
                         CheckTP1C = CheckTPError;
                     }
-                        
-                        
+
+
                 }
                 Onchange("CheckTP1C");
-            } }
+            }
+        }
         public string Check2Result_ = "?";
-        public string Check2Result { get => Check1Result_; set { Check1Result_ = value; OnPropertyChanged();
+        public string Check2Result
+        {
+            get => Check1Result_; set
+            {
+                Check1Result_ = value; OnPropertyChanged();
                 if (value == "√")
                 {
                     CheckTP2C = CheckTPOK;
@@ -173,12 +179,13 @@ namespace PowerMill_Helper.Class
                     }
                 }
                 Onchange("CheckTP2C");
-            } }
+            }
+        }
 
         public Brush CheckTPError = Brushes.OrangeRed;
         public Brush CheckTPOK = Brushes.LightGreen;
         public Brush CheckTPquest = Brushes.Orange;
-        public Brush CheckTP1C {  get; set; } = Brushes.Black;
+        public Brush CheckTP1C { get; set; } = Brushes.Black;
         public Brush CheckTP2C { get; set; } = Brushes.Black;
 
         public string CheckTP1Msg { get; set; }

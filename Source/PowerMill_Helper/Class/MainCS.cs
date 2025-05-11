@@ -2,47 +2,68 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Net.NetworkInformation;
 using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Media;
-using PowerMill_Helper.Theme;
 using System.Windows;
+using System.Windows.Media;
 using MessageBox = System.Windows.Forms.MessageBox;
-using System.Text.RegularExpressions;
 
 
 namespace PowerMill_Helper.Class
 {
     public class MainCS : INotifyPropertyChanged
     {
-        public MainCS() {
+        public MainCS()
+        {
 
             try
             {
+                #region SaveLed
                 _ = StartOpacityAnimation();
                 SaveStateColor = new SolidColorBrush(Colors.GreenYellow);
                 SaveStateEffect = Colors.GreenYellow;
+                #endregion
+
+                #region Info
                 ProjectName = "NULL";
                 PluginPath = this.GetType().Assembly.Location;
                 FileInfo fileInfo_ = new FileInfo(PluginPath);
                 PluginFolder = fileInfo_.Directory.FullName;
+                DirectoryInfo WrokPathEXE = new FileInfo(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName).Directory;
+                popupsFolderPath = Path.Combine(WrokPathEXE?.Parent?.FullName, "hci", "popups");
+                CTempPath = @"C:\Windows\Temp";
+                var versionInfo = FileVersionInfo.GetVersionInfo(PluginPath);
+                Version= versionInfo.ProductVersion.ToString().Trim();
+                #endregion
+
+                #region 配置文件初始化？
                 //ConfigInitPath = System.IO.Path.Combine(PluginFolder, "config.ini");
                 ConfigInitPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "PowerMoFunPMPlugin", "config.ini");
                 string directoryPath = Path.GetDirectoryName(ConfigInitPath);
                 if (!Directory.Exists(directoryPath)) Directory.CreateDirectory(directoryPath);
-                if (!File.Exists(ConfigInitPath)) File.Create(ConfigInitPath).Dispose(); 
+                if (!File.Exists(ConfigInitPath)) File.Create(ConfigInitPath).Dispose();
+                #endregion
+
+                #region 初始化PMEmtitys
                 PMEmtitys_Setup();
+                #endregion
+
+                #region GUI初始化
                 IsolateShow_ = false;
+                #endregion
 
-                DirectoryInfo WrokPathEXE = new FileInfo(System.Diagnostics.Process.GetCurrentProcess().MainModule.FileName).Directory;
-                popupsFolderPath = Path.Combine(WrokPathEXE?.Parent?.FullName, "hci", "popups");
-
-                CTempPath = @"C:\Windows\Temp";
-
+                #region LocalTcp
+                try
+                {
+                    LocalServicePort = int.Parse(ConfigINI.ReadSetting(ConfigInitPath, "LocalTCP", "prot", "8910"));
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("读取tcp端口号出现问题\r" + ex.ToString());
+                }
+                #endregion
             }
             catch (Exception ex)
             {
@@ -54,7 +75,8 @@ namespace PowerMill_Helper.Class
         public event PropertyChangedEventHandler PropertyChanged;
         public void Onchange(string PropertyName)
         {
-            if (PropertyChanged != null) {
+            if (PropertyChanged != null)
+            {
                 PropertyChanged(this, new PropertyChangedEventArgs(PropertyName));
             }
         }
@@ -90,7 +112,7 @@ namespace PowerMill_Helper.Class
         public void LogVoid(string str)
         {
             if (Debugstr_.Length > 110000) Debugstr_ = "";
-            Debugstr_ = str + "\r" + Debugstr_;
+            Debugstr_ = DateTime.Now.ToString("HH:mm:s") + "=>" + str + "\r" + Debugstr_;
             Onchange("Logstr");
         }
         #endregion
@@ -99,8 +121,9 @@ namespace PowerMill_Helper.Class
         #endregion
 
         #region System
-        private bool IsolateShow_;
-        public bool IsolateShow {
+        private bool IsolateShow_;//隔离层显示
+        public bool IsolateShow
+        {
             get => IsolateShow_;
             set
             {
@@ -124,6 +147,60 @@ namespace PowerMill_Helper.Class
         }
         public double AppGirdBlurRadius { get; set; } = 0;
         public Visibility IsolateTouch { get; set; } = Visibility.Hidden;
+
+        public int LocalServicePort = 8901;
+
+
+        private string Version_;
+        public string Version
+        {
+            get
+            {
+                return Version_;
+            }
+            set
+            {
+                Version_=value;
+                OnPropertyChanged();
+            }
+
+        }
+
+        private string Serverversion_;
+        public string Serverversion
+        {
+            get => Serverversion_;
+            set
+            {
+                Serverversion_ = value;
+                OnPropertyChanged();
+                if (value != Version)
+                {
+                    Updatetitle = "有更新";
+                }
+                else
+                {
+                    Updatetitle = "已是最新";
+                }
+                Onchange("Updatetitle");
+            }
+        }
+
+        private string SoftUpdateNote_;
+        public string Updatetitle { get; set; } = "已是最新";
+
+        public string SoftUpdateNote
+        {
+            get => SoftUpdateNote_;
+            set
+            {
+                SoftUpdateNote_ = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+
 
         #endregion
 
@@ -378,7 +455,10 @@ namespace PowerMill_Helper.Class
         public ObservableCollection<PMEntity> NcOutToolpathCollection { get => NcOutToolpathCollection_; set { NcOutToolpathCollection_ = value; OnPropertyChanged(); } }
 
         public NcoutOpt NcoutOptSelectOpt_ = null;
-        public NcoutOpt NcoutOptSelectOpt { get => NcoutOptSelectOpt_; set {
+        public NcoutOpt NcoutOptSelectOpt
+        {
+            get => NcoutOptSelectOpt_; set
+            {
                 NcoutOptSelectOpt_ = value;
                 if (value.OptCanSelectWkOutput)
                 {
@@ -402,7 +482,8 @@ namespace PowerMill_Helper.Class
                 Onchange("NcoutSetWorkplanesVisibility");
                 Onchange("NcoutShowWorkplanesVisibility");
                 Onchange("NcoutShowChangeworkplaneVisibility");
-            } }
+            }
+        }
         public Visibility NcoutSetWorkplanesVisibility { get; set; }
         public int NcoutShowWorkplanesVisibility { get; set; } = 45;
         public int NcoutShowChangeworkplaneVisibility { get; set; } = 23;
@@ -443,22 +524,26 @@ namespace PowerMill_Helper.Class
         public int CheckTP_Checktype { get; set; } = 1;
 
         private int CheckTP_refer_Selectindex_ = 0;
-        public int CheckTP_refer_Selectindex { get => CheckTP_refer_Selectindex_; 
-            set { 
+        public int CheckTP_refer_Selectindex
+        {
+            get => CheckTP_refer_Selectindex_;
+            set
+            {
                 CheckTP_refer_Selectindex_ = value; OnPropertyChanged();
-                if (CheckTP_refer_Selectindex_==1)
+                if (CheckTP_refer_Selectindex_ == 1)
                 {
-                    CheckTP_refer_UseSTockmodel= Visibility.Visible;
+                    CheckTP_refer_UseSTockmodel = Visibility.Visible;
                 }
                 else
                 {
                     CheckTP_refer_UseSTockmodel = Visibility.Hidden;
-                   
+
                 }
                 Onchange("CheckTP_refer_UseSTockmodel");
-            } }
+            }
+        }
 
-        public Visibility CheckTP_refer_UseSTockmodel { get; set; }= Visibility.Hidden;
+        public Visibility CheckTP_refer_UseSTockmodel { get; set; } = Visibility.Hidden;
 
         private bool CheckTP_SplitTP_ = true;
 
@@ -472,7 +557,9 @@ namespace PowerMill_Helper.Class
 
         private double CheckTP_CkeckToolHolderGAP_ = 0.2;
 
-        public double CheckTP_CkeckToolHolderGAP { get => CheckTP_CkeckToolHolderGAP_; set
+        public double CheckTP_CkeckToolHolderGAP
+        {
+            get => CheckTP_CkeckToolHolderGAP_; set
             {
                 if (value < 0)
                 {
@@ -480,18 +567,23 @@ namespace PowerMill_Helper.Class
                     return;
                 }
                 CheckTP_CkeckToolHolderGAP_ = value; OnPropertyChanged();
-             
-            } }
+
+            }
+        }
         private double CheckTP_CkeckToolGAP_ = 0;
 
-        public double CheckTP_CkeckToolGAP { get => CheckTP_CkeckToolGAP_; set
+        public double CheckTP_CkeckToolGAP
+        {
+            get => CheckTP_CkeckToolGAP_; set
             {
                 if (value < 0)
                 {
                     MessageBox.Show("不可为负数");
                     return;
                 }
-                CheckTP_CkeckToolGAP_ = value; OnPropertyChanged(); } }
+                CheckTP_CkeckToolGAP_ = value; OnPropertyChanged();
+            }
+        }
 
 
         private bool CheckTP_CheckSafeDepth_ = true;
@@ -501,9 +593,13 @@ namespace PowerMill_Helper.Class
 
         public bool CheckTP_ShowUnSafe { get => CheckTP_ShowUnSafe_; set { CheckTP_ShowUnSafe_ = value; OnPropertyChanged(); } }
 
-        public int CheckTP_transform_Type_  = 0;
-        public int CheckTP_transform_Type { get => CheckTP_transform_Type_; set { CheckTP_transform_Type_ = value; OnPropertyChanged();
-                if (value==2)
+        public int CheckTP_transform_Type_ = 0;
+        public int CheckTP_transform_Type
+        {
+            get => CheckTP_transform_Type_; set
+            {
+                CheckTP_transform_Type_ = value; OnPropertyChanged();
+                if (value == 2)
                 {
                     CheckTP_transform_Enable = Visibility.Visible;
                 }
@@ -512,7 +608,8 @@ namespace PowerMill_Helper.Class
                     CheckTP_transform_Enable = Visibility.Hidden;
                 }
                 Onchange("CheckTP_transform_Enable");
-            } }
+            }
+        }
 
         public Visibility CheckTP_transform_Enable { get; set; } = Visibility.Hidden;
 

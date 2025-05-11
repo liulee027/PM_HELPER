@@ -1,5 +1,4 @@
 ﻿using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using PowerMill_Helper.Class;
 using System;
 using System.Collections;
@@ -9,16 +8,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PowerMill_Helper.Tool
 {
@@ -30,7 +22,7 @@ namespace PowerMill_Helper.Tool
         public NCout(MainCS mainCS_, PowerMILL.PluginServices PmServices_)
         {
             InitializeComponent();
-            PmServices= PmServices_;
+            PmServices = PmServices_;
             MCS = mainCS_;
             this.DataContext = MCS;
             Ncout_ReadSetting();
@@ -247,13 +239,13 @@ namespace PowerMill_Helper.Tool
                 MessageBox.Show("NCout_ClearRight\r" + ex.ToString());
             }
         }
-    
+
         #endregion
 
         #region 刀具路径添加入待输出列表
         private void ChooseTpToRight(object sender, RoutedEventArgs e)
-        {         
-      
+        {
+
             try
             {
                 foreach (PMEntity item in LeftList.SelectedItems)
@@ -365,7 +357,7 @@ namespace PowerMill_Helper.Tool
             {
                 MessageBox.Show("ChangeTlNumberinputEnter\r" + ex.ToString());
             }
-           
+
         }
         private void ChangeTlNumberinputEnterVoid(object sender, RoutedEventArgs e)
         {
@@ -415,7 +407,7 @@ namespace PowerMill_Helper.Tool
         {
             try
             {
-               
+
                 foreach (PMEntity item in selectedItems)
                 {
                     item.NcoutToolNumber = number;
@@ -429,7 +421,7 @@ namespace PowerMill_Helper.Tool
         #endregion
 
         #region 创建Nc程序
-      
+
         private void CreateToNcToolpath(object sender, RoutedEventArgs e)
         {
             try
@@ -527,7 +519,7 @@ namespace PowerMill_Helper.Tool
         #endregion
 
         #region 输出程序单
-  
+
         private void CreateSheet(object sender, RoutedEventArgs e)
         {
             try
@@ -762,7 +754,7 @@ namespace PowerMill_Helper.Tool
             {
                 MessageBox.Show("NCout_CreateSheet\r" + ex.ToString());
             }
-            
+
         }
 
         #endregion
@@ -778,24 +770,11 @@ namespace PowerMill_Helper.Tool
             {
                 MessageBox.Show("NCout_CreateSheet\r" + ex.ToString());
             }
-            
+
         }
-      
+
         #endregion
 
-        /*
-       
-        public delegate void OnSelectTpToRight(ObservableCollection<PMEntity> PMEntitys);
-        public event OnSelectTpToRight OnSelectTpToRight_Event;
-        public event RoutedEventHandler Ncout_ClearRight_Event;
-        public delegate void ChangeTlNumber(int number, IList selectedItems);
-        public event ChangeTlNumber ChangeTlNumber_Event;
-        public delegate void ChangeTpworkplane(string workplane, IList selectedItems);
-        public event ChangeTpworkplane ChangeTpworkplane_Event;
-        public event RoutedEventHandler CreateToNcToolpath_Event;
-        public event RoutedEventHandler CreateSheet_Event;
-        public event RoutedEventHandler OutPutNc_Click;
-        public event RoutedEventHandler openNCFolder_Click;
-        */
+
     }
 }

@@ -100,11 +100,11 @@
                             <TextBlock Text="灵动岛" FontWeight="Bold"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="显示" Margin="10,0,0,0"/>
+                            <TextBlock Text="灵动岛显示" Margin="10,0,0,0"/>
                             <CheckBox   IsChecked="{Binding DynamicIslandIsVisibility}" Margin="3,0,0,0"/>
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel Margin="0,10,0,0">
+                    <StackPanel Margin="0,10,0,0" d:Height="15">
                         <StackPanel>
                             <TextBlock Text="宏库" FontWeight="Bold"/>
                         </StackPanel>
@@ -128,7 +128,7 @@
                         
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel Margin="0,10,0,0">
+                    <StackPanel Margin="0,10,0,0" d:Height="15">
                         <StackPanel>
                             <TextBlock Text="Nc写出" FontWeight="Bold"/>
                         </StackPanel>
@@ -199,12 +199,18 @@
                         </StackPanel>
                     </StackPanel>
                     <StackPanel Margin="0,10,0,0">
-                        <StackPanel>
-                            <TextBlock Text="DEBUG" FontWeight="Bold"/>
+                        <StackPanel> 
+                            <TextBlock Text="系统" FontWeight="Bold"/>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Button Click="NCout_OpenSettingini" Cursor="Hand" Content="打开设置文本" BorderThickness="0"/>
-                     
+                        <StackPanel  Margin="0,3,0,0">
+                            <Button Click="NCout_OpenSettingini" Cursor="Hand" Content="打开配置文本" BorderThickness="0" HorizontalAlignment="Left"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,3,0,0">
+                                <TextBlock Text="版本：" />
+                                <TextBlock Text="{Binding Version}" Margin="5,0,0,0"/>
+                                <TextBlock Text="检查版本=>" Margin="15,0,0,0"/>
+                                <Button Click="UpdataPmHelperClick" Content="{Binding Updatetitle}" Margin="3,0,0,0" BorderThickness="0"/>
+                                
+                            </StackPanel>
                         </StackPanel>
                     </StackPanel>
                     </StackPanel>

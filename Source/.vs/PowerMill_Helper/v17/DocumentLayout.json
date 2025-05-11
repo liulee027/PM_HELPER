@@ -3,31 +3,33 @@
   "WorkspaceRootPath": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A85DCD80-8718-4DB2-8DFE-BEE99118D88A}|PostSoft2Server\\PostSoft2Server.csproj|c:\\users\\liyuj\\documents\\source\\pm_helper\\source\\postsoft2server\\postman.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{A85DCD80-8718-4DB2-8DFE-BEE99118D88A}|PostSoft2Server\\PostSoft2Server.csproj|solutionrelative:postsoft2server\\postman.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A85DCD80-8718-4DB2-8DFE-BEE99118D88A}|PostSoft2Server\\PostSoft2Server.csproj|c:\\users\\liyuj\\documents\\source\\pm_helper\\source\\postsoft2server\\postman.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A85DCD80-8718-4DB2-8DFE-BEE99118D88A}|PostSoft2Server\\PostSoft2Server.csproj|solutionrelative:postsoft2server\\postman.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{22CB4B6F-FBD7-4408-BD4A-E5BE0EDA610E}|PowerMill_Helper\\PowerMill_Helper.csproj|C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\powermill_helper\\class\\maincs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{22CB4B6F-FBD7-4408-BD4A-E5BE0EDA610E}|PowerMill_Helper\\PowerMill_Helper.csproj|solutionrelative:powermill_helper\\class\\maincs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{65BFA3DA-6D28-4942-9F17-D24AEDA2239D}|PMH_Service\\PMH_Service.csproj|C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\pmh_service\\service_application.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{65BFA3DA-6D28-4942-9F17-D24AEDA2239D}|PMH_Service\\PMH_Service.csproj|solutionrelative:pmh_service\\service_application.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F4E25949-2ADD-9949-DFD7-58EA5E8B5977}|..\\..\\PM_Server\\PM_Server.csproj|c:\\users\\liyuj\\documents\\source\\pm_server\\controllers\\pmclient.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{22CB4B6F-FBD7-4408-BD4A-E5BE0EDA610E}|PowerMill_Helper\\PowerMill_Helper.csproj|C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\powermill_helper\\mainform.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
-      "RelativeMoniker": "D:0:0:{22CB4B6F-FBD7-4408-BD4A-E5BE0EDA610E}|PowerMill_Helper\\PowerMill_Helper.csproj|solutionrelative:powermill_helper\\mainform.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+      "AbsoluteMoniker": "D:0:0:{F4E25949-2ADD-9949-DFD7-58EA5E8B5977}|..\\..\\PM_Server\\PM_Server.csproj|c:\\users\\liyuj\\documents\\source\\pm_server\\controllers\\uploadpmsetup.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{22CB4B6F-FBD7-4408-BD4A-E5BE0EDA610E}|PowerMill_Helper\\PowerMill_Helper.csproj|c:\\users\\liyuj\\documents\\source\\pm_helper\\source\\powermill_helper\\tool\\settingform.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{22CB4B6F-FBD7-4408-BD4A-E5BE0EDA610E}|PowerMill_Helper\\PowerMill_Helper.csproj|solutionrelative:powermill_helper\\tool\\settingform.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{F4E25949-2ADD-9949-DFD7-58EA5E8B5977}|..\\..\\PM_Server\\PM_Server.csproj|c:\\users\\liyuj\\documents\\source\\pm_server\\class\\sys.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{22CB4B6F-FBD7-4408-BD4A-E5BE0EDA610E}|PowerMill_Helper\\PowerMill_Helper.csproj|C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\powermill_helper\\basicplugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{22CB4B6F-FBD7-4408-BD4A-E5BE0EDA610E}|PowerMill_Helper\\PowerMill_Helper.csproj|c:\\users\\liyuj\\documents\\source\\pm_helper\\source\\powermill_helper\\tool\\settingform.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
+      "RelativeMoniker": "D:0:0:{22CB4B6F-FBD7-4408-BD4A-E5BE0EDA610E}|PowerMill_Helper\\PowerMill_Helper.csproj|solutionrelative:powermill_helper\\tool\\settingform.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22CB4B6F-FBD7-4408-BD4A-E5BE0EDA610E}|PowerMill_Helper\\PowerMill_Helper.csproj|c:\\users\\liyuj\\documents\\source\\pm_helper\\source\\powermill_helper\\basicplugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{22CB4B6F-FBD7-4408-BD4A-E5BE0EDA610E}|PowerMill_Helper\\PowerMill_Helper.csproj|solutionrelative:powermill_helper\\basicplugin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22CB4B6F-FBD7-4408-BD4A-E5BE0EDA610E}|PowerMill_Helper\\PowerMill_Helper.csproj|C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\powermill_helper\\mainform.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22CB4B6F-FBD7-4408-BD4A-E5BE0EDA610E}|PowerMill_Helper\\PowerMill_Helper.csproj|solutionrelative:powermill_helper\\mainform.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{22CB4B6F-FBD7-4408-BD4A-E5BE0EDA610E}|PowerMill_Helper\\PowerMill_Helper.csproj|C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\powermill_helper\\class\\maincs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{22CB4B6F-FBD7-4408-BD4A-E5BE0EDA610E}|PowerMill_Helper\\PowerMill_Helper.csproj|solutionrelative:powermill_helper\\class\\maincs.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -37,45 +39,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 894,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 12,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MainCS.cs",
-              "DocumentMoniker": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PowerMill_Helper\\Class\\MainCS.cs",
-              "RelativeDocumentMoniker": "PowerMill_Helper\\Class\\MainCS.cs",
-              "ToolTip": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PowerMill_Helper\\Class\\MainCS.cs",
-              "RelativeToolTip": "PowerMill_Helper\\Class\\MainCS.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAA8AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-04-03T03:16:13.955Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MainForm.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PowerMill_Helper\\MainForm.xaml.cs",
-              "RelativeDocumentMoniker": "PowerMill_Helper\\MainForm.xaml.cs",
-              "ToolTip": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PowerMill_Helper\\MainForm.xaml.cs",
-              "RelativeToolTip": "PowerMill_Helper\\MainForm.xaml.cs",
-              "ViewState": "AgIAAJoDAAAAAAAAAAAmwA4EAAASAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T06:01:09.375Z",
-              "IsPinned": true,
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
               "Title": "BasicPlugin.cs",
               "DocumentMoniker": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PowerMill_Helper\\BasicPlugin.cs",
               "RelativeDocumentMoniker": "PowerMill_Helper\\BasicPlugin.cs",
               "ToolTip": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PowerMill_Helper\\BasicPlugin.cs",
               "RelativeToolTip": "PowerMill_Helper\\BasicPlugin.cs",
-              "ViewState": "AgIAAAYAAAAAAAAAAAAAABYAAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAADQAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-05-02T03:05:20.725Z",
               "IsPinned": true,
@@ -83,40 +57,30 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "PostMan.xaml",
-              "DocumentMoniker": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PostSoft2Server\\PostMan.xaml",
-              "RelativeDocumentMoniker": "PostSoft2Server\\PostMan.xaml",
-              "ToolTip": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PostSoft2Server\\PostMan.xaml",
-              "RelativeToolTip": "PostSoft2Server\\PostMan.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-04T07:42:44.981Z",
+              "DocumentIndex": 7,
+              "Title": "MainCS.cs",
+              "DocumentMoniker": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PowerMill_Helper\\Class\\MainCS.cs",
+              "RelativeDocumentMoniker": "PowerMill_Helper\\Class\\MainCS.cs",
+              "ToolTip": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PowerMill_Helper\\Class\\MainCS.cs",
+              "RelativeToolTip": "PowerMill_Helper\\Class\\MainCS.cs",
+              "ViewState": "AgIAAK4AAAAAAAAAAAAxwL8AAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-11T05:27:31.992Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "PostMan.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PostSoft2Server\\PostMan.xaml.cs",
-              "RelativeDocumentMoniker": "PostSoft2Server\\PostMan.xaml.cs",
-              "ToolTip": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PostSoft2Server\\PostMan.xaml.cs",
-              "RelativeToolTip": "PostSoft2Server\\PostMan.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAADwvxsAAAAAAAAAAAAAAA==",
+              "DocumentIndex": 6,
+              "Title": "MainForm.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PowerMill_Helper\\MainForm.xaml.cs",
+              "RelativeDocumentMoniker": "PowerMill_Helper\\MainForm.xaml.cs",
+              "ToolTip": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PowerMill_Helper\\MainForm.xaml.cs",
+              "RelativeToolTip": "PowerMill_Helper\\MainForm.xaml.cs",
+              "ViewState": "AgIAAGgDAAAAAAAAAAAzwNMDAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T07:40:48.24Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "PmClient.cs",
-              "DocumentMoniker": "C:\\Users\\liyuj\\Documents\\Source\\PM_Server\\Controllers\\PmClient.cs",
-              "RelativeDocumentMoniker": "..\\..\\PM_Server\\Controllers\\PmClient.cs",
-              "ToolTip": "C:\\Users\\liyuj\\Documents\\Source\\PM_Server\\Controllers\\PmClient.cs",
-              "RelativeToolTip": "..\\..\\PM_Server\\Controllers\\PmClient.cs",
-              "ViewState": "AgIAABUAAAAAAAAAAAA3wDAAAAARAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-05-04T07:37:38.793Z",
+              "WhenOpened": "2025-05-11T05:27:16.677Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
@@ -141,14 +105,67 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "SettingForm.xaml",
-              "DocumentMoniker": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PowerMill_Helper\\Tool\\SettingForm.xaml",
-              "RelativeDocumentMoniker": "PowerMill_Helper\\Tool\\SettingForm.xaml",
-              "ToolTip": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PowerMill_Helper\\Tool\\SettingForm.xaml",
-              "RelativeToolTip": "PowerMill_Helper\\Tool\\SettingForm.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-05-04T06:16:01.388Z",
+              "DocumentIndex": 4,
+              "Title": "SettingForm.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PowerMill_Helper\\Tool\\SettingForm.xaml.cs",
+              "RelativeDocumentMoniker": "PowerMill_Helper\\Tool\\SettingForm.xaml.cs",
+              "ToolTip": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PowerMill_Helper\\Tool\\SettingForm.xaml.cs",
+              "RelativeToolTip": "PowerMill_Helper\\Tool\\SettingForm.xaml.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAgwHwBAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-11T10:50:24.406Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PmClient.cs",
+              "DocumentMoniker": "C:\\Users\\liyuj\\Documents\\Source\\PM_Server\\Controllers\\PmClient.cs",
+              "RelativeDocumentMoniker": "..\\..\\PM_Server\\Controllers\\PmClient.cs",
+              "ToolTip": "C:\\Users\\liyuj\\Documents\\Source\\PM_Server\\Controllers\\PmClient.cs",
+              "RelativeToolTip": "..\\..\\PM_Server\\Controllers\\PmClient.cs",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAkwG8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-11T09:40:11.927Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Sys.cs",
+              "DocumentMoniker": "C:\\Users\\liyuj\\Documents\\Source\\PM_Server\\Class\\Sys.cs",
+              "RelativeDocumentMoniker": "..\\..\\PM_Server\\Class\\Sys.cs",
+              "ToolTip": "C:\\Users\\liyuj\\Documents\\Source\\PM_Server\\Class\\Sys.cs",
+              "RelativeToolTip": "..\\..\\PM_Server\\Class\\Sys.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-11T09:38:49.349Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UpLoadPmSetup.cs",
+              "DocumentMoniker": "C:\\Users\\liyuj\\Documents\\Source\\PM_Server\\Controllers\\UpLoadPmSetup.cs",
+              "RelativeDocumentMoniker": "..\\..\\PM_Server\\Controllers\\UpLoadPmSetup.cs",
+              "ToolTip": "C:\\Users\\liyuj\\Documents\\Source\\PM_Server\\Controllers\\UpLoadPmSetup.cs",
+              "RelativeToolTip": "..\\..\\PM_Server\\Controllers\\UpLoadPmSetup.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAowDQAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-11T09:38:43.09Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Service_Application.cs",
+              "DocumentMoniker": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PMH_Service\\Service_Application.cs",
+              "RelativeDocumentMoniker": "PMH_Service\\Service_Application.cs",
+              "ToolTip": "C:\\Users\\liyuj\\Documents\\Source\\PM_HELPER\\Source\\PMH_Service\\Service_Application.cs",
+              "RelativeToolTip": "PMH_Service\\Service_Application.cs",
+              "ViewState": "AgIAANUAAAAAAAAAAAAywOUAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-11T04:55:59.863Z",
               "EditorCaption": ""
             }
           ]

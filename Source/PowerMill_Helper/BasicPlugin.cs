@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using Delcam.Plugins.Framework;
+using System;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
-using PowerMILL;
-using Delcam.Plugins.Framework;
-using MessageBox = System.Windows.Forms.MessageBox;
-using System.Threading;
-using System.Windows;
-using System.Windows.Forms;
 using System.Windows.Interop;
-using Application = PowerMILL.Application;
+using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace PowerMill_Helper
 {
@@ -22,7 +13,7 @@ namespace PowerMill_Helper
     {
         public BasicPlugin()
         {
-            //这里初始化你的插件
+
 
         }
 
@@ -52,10 +43,12 @@ namespace PowerMill_Helper
         {
             //这里打开你的垂直插件面板
             //Plugin_PanesPage = new Plugin_PanesPage(this, Token, Services,(IntPtr)this.ParentWindow);
-           // register_pane(new PaneDefinition(Plugin_PanesPage,700,300,"PowerMill_Plugin",null));
-          
+            // register_pane(new PaneDefinition(Plugin_PanesPage,700,300,"PowerMill_Plugin",null));
+
+            //垂直插件面板入口启动全屏界面
+            //在插件入口启动会报错？
             OpenMainFrom();
-     
+
         }
         #endregion
 
@@ -63,7 +56,7 @@ namespace PowerMill_Helper
         protected override void register_tabs()
         {
             //这里打开你的水平插件面板
-        
+
 
             //这里打开你的水平插件面板
 
@@ -77,7 +70,7 @@ namespace PowerMill_Helper
             if (Command.Contains("Shutdown"))
             {
 
-                Shutdown(); 
+                Shutdown();
             }
             if (Command.Contains("VerifyToolpathS"))
             {
@@ -90,26 +83,26 @@ namespace PowerMill_Helper
 
 
         }
-        #endregion
+        #endregion 
         #region OpenMainFrom
         MainForm mainForm;
-        private void  OpenMainFrom()
+        private void OpenMainFrom()
         {
             try
             {
-                    mainForm = new MainForm(this, Token, Services, (IntPtr)this.ParentWindow);
-                    WindowInteropHelper wih = new WindowInteropHelper(mainForm);
-                    wih.Owner = new IntPtr((int)this.ParentWindow);
-                    RECT rect = new RECT();
-                    GetWindowRect((IntPtr)this.ParentWindow, ref rect);
-                    mainForm.ShowInTaskbar = false;
-                    mainForm.Left = 0;
-                    mainForm.Top = 0;
-                    mainForm.Show();
+                mainForm = new MainForm(this, Token, Services, (IntPtr)this.ParentWindow);
+                WindowInteropHelper wih = new WindowInteropHelper(mainForm);
+                wih.Owner = new IntPtr((int)this.ParentWindow);
+                RECT rect = new RECT();
+                GetWindowRect((IntPtr)this.ParentWindow, ref rect);
+                mainForm.ShowInTaskbar = false;
+                mainForm.Left = 0;
+                mainForm.Top = 0;
+                mainForm.Show();
             }
             catch (Exception EX)
             {
-                MessageBox.Show("ErrorVoid: OpenMainFrom\r"+EX.ToString());
+                MessageBox.Show("ErrorVoid: OpenMainFrom\r" + EX.ToString());
             }
         }
         [DllImport("user32.dll")]
@@ -133,9 +126,9 @@ namespace PowerMill_Helper
             }
             catch (Exception ex)
             {
-                MessageBox.Show("shutdown_framework Error\r "+ ex.ToString());
+                MessageBox.Show("shutdown_framework Error\r " + ex.ToString());
             }
-            
+
         }
         #endregion
 

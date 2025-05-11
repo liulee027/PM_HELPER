@@ -1,20 +1,9 @@
-﻿using PowerMILL;
-using PowerMill_Helper.Class;
+﻿using PowerMill_Helper.Class;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace PowerMill_Helper.Tool
 {
@@ -156,7 +145,7 @@ namespace PowerMill_Helper.Tool
             {
                 string[] names = fbd.FileNames;
                 selected_folders = string.Join(",", names);
-            } 
+            }
             else
             {
                 selected_folders = fbd.FileName;

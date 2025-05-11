@@ -313,5 +313,11 @@
       <DependentUpon>Plugin_PanesPage_WinForm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\General_lib\General_lib.csproj">
+      <Project>{6DFC4362-A7B3-4DBB-A89E-83426719F947}</Project>
+      <Name>General_lib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,23 +1,13 @@
 ﻿using Newtonsoft.Json;
 using PowerMill_Helper.Class;
 using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 using MessageBox = System.Windows.MessageBox;
 using Path = System.IO.Path;
 using UserControl = System.Windows.Controls.UserControl;
@@ -36,7 +26,7 @@ namespace PowerMill_Helper.Tool
             MCS = mainCS_;
             this.DataContext = MCS;
 
-            
+
         }
         private MainCS MCS;
 
@@ -261,7 +251,7 @@ namespace PowerMill_Helper.Tool
         {
             try
             {
-               System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
+                System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
                 {
                     Title = "选择 程序单模板",
                     Filter = "所有文件 (*.*)|*.*",
@@ -355,7 +345,7 @@ namespace PowerMill_Helper.Tool
         #endregion
         #endregion
 
-        
+
         public static string OpenFileBrowserDialog(bool multiselect)
         {
             FolderSelectDialog fbd = new FolderSelectDialog();
@@ -385,8 +375,37 @@ namespace PowerMill_Helper.Tool
                 Process.Start("notepad.exe", MCS.ConfigInitPath);
             }
         }
+
         #endregion
 
+
+        #region 下载更新
+        private void UpdataPmHelperClick(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (MCS.Version != MCS.Serverversion)
+                {
+                    // 使用系统对话框提示用户
+                    MessageBoxResult result = MessageBox.Show(MCS.SoftUpdateNote, $"检测到新版本：{MCS.Serverversion}", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        GetnewVersionSetup?.Invoke(sender, e);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("已是最新版本：）");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("error UpdataPmHelperClick\r"+ex.ToString());
+            }
+           
+        }
+        public event RoutedEventHandler GetnewVersionSetup;
+        #endregion
 
     }
 }

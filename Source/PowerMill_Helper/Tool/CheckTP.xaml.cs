@@ -1,27 +1,14 @@
-﻿using PowerMill_Helper.Class;
+﻿using PowerMILL;
+using PowerMill_Helper.Class;
 using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using Point = System.Windows.Point;
-using Path = System.IO.Path;
 using File = System.IO.File;
-using System.Collections;
-using PowerMILL;
-using System.IO;
-using System.Runtime.CompilerServices;
+using Path = System.IO.Path;
+using Point = System.Windows.Point;
 
 namespace PowerMill_Helper.Tool
 {
@@ -245,7 +232,7 @@ namespace PowerMill_Helper.Tool
             }
             catch (Exception ex)
             {
-               MessageBox.Show("GetexplorerSelectTP\r"+ex.ToString());
+                MessageBox.Show("GetexplorerSelectTP\r" + ex.ToString());
             }
         }
         #endregion
@@ -285,7 +272,7 @@ namespace PowerMill_Helper.Tool
         #region 选择参考残留模型
         private void Selectentity_Click(object sender, RoutedEventArgs e)
         {
-            entitySelect_Event?.Invoke(sender,e);
+            entitySelect_Event?.Invoke(sender, e);
         }
 
         #endregion
@@ -305,18 +292,18 @@ namespace PowerMill_Helper.Tool
             try
             {
                 if (MCS.CheckTPToolpathCollection.Count == 0) return;
-                if (MCS.CheckTP_refer_Selectindex==1)
+                if (MCS.CheckTP_refer_Selectindex == 1)
                 {
-                    if (MCS.CheckTP_refer_StockmodelName.Name=="")
+                    if (MCS.CheckTP_refer_StockmodelName.Name == "")
                     {
                         MessageBox.Show("选择了参考【参考模型】检查但是还没有指定【参考模型】，检查结束"); return;
                     }
                 }
-                if (MCS.CheckTP_transform_Type==2)
+                if (MCS.CheckTP_transform_Type == 2)
                 {
                     if (MCS.CheckTP_transform_Workplane.Name == "")
                     {
-                        MessageBox.Show("选择了多轴变换模型 但是还没有指定变换【基准】，检查结束");return;
+                        MessageBox.Show("选择了多轴变换模型 但是还没有指定变换【基准】，检查结束"); return;
                     }
                 }
                 var models = PmServices.Project.Models;
@@ -325,12 +312,12 @@ namespace PowerMill_Helper.Tool
                 string MacroTempMSGFile = Path.Combine(MCS.CTempPath, "CheckTpTempMSG.mac");
                 if (File.Exists(MacroTempMacriFile)) File.Delete(MacroTempMacriFile);
                 if (File.Exists(MacroTempMSGFile)) File.Delete(MacroTempMSGFile);
-                using (FileStream fs =new FileStream(MacroTempMacriFile, FileMode.Create, FileAccess.Write))
+                using (FileStream fs = new FileStream(MacroTempMacriFile, FileMode.Create, FileAccess.Write))
                 {
                     using (StreamWriter sw = new StreamWriter(fs))
                     {
                         //sw.WriteLine("Print");
-                        
+
                         sw.WriteLine("PROJECT SAVE");
                         sw.WriteLine("ECHO OFF DCPDEBUG UNTRACE COMMAND ACCEPT");
                         sw.WriteLine("RESET LOCALVARS");
@@ -342,7 +329,7 @@ namespace PowerMill_Helper.Tool
                         sw.WriteLine("string list Messageing = {}");
                         sw.WriteLine("string MessageTemp = ''");
                         sw.WriteLine("string CMDText = ''");
-                        
+
                         //在宏中指定变换类型
                         sw.WriteLine("EDIT PAR create string 'Plugin_checkTP_transform_TYPE'");
                         sw.WriteLine($"EDIT PAR 'project.Plugin_checkTP_transform_TYPE' '{MCS.CheckTP_transform_Type}'");
@@ -376,7 +363,7 @@ namespace PowerMill_Helper.Tool
                             if (MCS.CheckTP_Checktype <= 1)
                             {
                                 sw.WriteLine($"EDIT COLLISION TYPE COLLISION");//切换到碰撞检查模式
-                                
+
 
                                 sw.WriteLine($"EDIT COLLISION HOLDER_CLEARANCE '{MCS.CheckTP_CkeckToolHolderGAP}'");//刀具夹持间隙
                                 sw.WriteLine($"EDIT COLLISION SHANK_CLEARANCE '{MCS.CheckTP_CkeckToolGAP}'");//刀具夹持间隙
@@ -448,7 +435,7 @@ namespace PowerMill_Helper.Tool
             }
             catch (Exception ex)
             {
-                MessageBox.Show("CheckTP 检查出现问题\r"+ex.ToString());
+                MessageBox.Show("CheckTP 检查出现问题\r" + ex.ToString());
             }
 
         }
@@ -506,7 +493,7 @@ namespace PowerMill_Helper.Tool
             }
         }
 
-        private void SendCOLLISIONMSG(StreamWriter sw,string CheckTPMSGTYPE, string Tpname)
+        private void SendCOLLISIONMSG(StreamWriter sw, string CheckTPMSGTYPE, string Tpname)
         {
             string ComHeader = "plugin {BC3610A0-A0F6-4244-8053-A99AADE569F5}";
             sw.WriteLine($"FILE OPEN $MSGFIlePath FOR READ AS 'file'");
@@ -530,7 +517,7 @@ namespace PowerMill_Helper.Tool
 
                 if (selectedItem == null)
                 {
-                    
+
                     return;
                 }
 

@@ -1,0 +1,13 @@
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PMH_Service\bin\Debug\PMH_Service.exe.config
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PMH_Service\bin\Debug\PMH_Service.exe
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PMH_Service\bin\Debug\PMH_Service.pdb
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PMH_Service\bin\Debug\General_lib.dll
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PMH_Service\bin\Debug\SanNiuSignal.dll
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PMH_Service\bin\Debug\SanNiuSignal.xml
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PMH_Service\obj\Debug\PMH_Service.csproj.AssemblyReference.cache
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PMH_Service\obj\Debug\PMH_Service.csproj.CoreCompileInputs.cache
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PMH_Service\obj\Debug\PMH_Serv.7324351D.Up2Date
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PMH_Service\obj\Debug\PMH_Service.exe
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PMH_Service\obj\Debug\PMH_Service.pdb
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PMH_Service\bin\Debug\Newtonsoft.Json.dll
+C:\Users\liyuj\Documents\Source\PM_HELPER\Source\PMH_Service\bin\Debug\Newtonsoft.Json.xml
