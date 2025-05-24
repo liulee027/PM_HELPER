@@ -4,7 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:PowerMill_Helper.Tool"
-             mc:Ignorable="d"   Canvas.Left="300" Canvas.Top="240" 
+             mc:Ignorable="d" Canvas.Left="300" Canvas.Top="240" 
              Height="450" Width="700">
     <UserControl.Resources>
         <Style  x:Key="AppRes" TargetType="{x:Type Button}">
@@ -80,35 +80,97 @@
 
 
         </Style>
+        <Style x:Key="NavButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="#333"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="15"/>
+            <Setter Property="Margin" Value="10,10,10,0"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Height" Value="38"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border"
+                                Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#4f8cff"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter TargetName="border" Property="Effect">
+                                    <Setter.Value>
+                                        <DropShadowEffect BlurRadius="8" ShadowDepth="0" Color="#4f8cff" Opacity="0.3"/>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#2563eb"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="#4f8cff"/>
+                                <Setter TargetName="border" Property="BorderThickness" Value="2"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </UserControl.Resources>
-    <Border UseLayoutRounding="True"  Background="WhiteSmoke"   Margin="0" Opacity="1" CornerRadius="14" >
+    <Border UseLayoutRounding="True" Background="WhiteSmoke" Margin="0" Opacity="1" CornerRadius="14">
         <Border.Effect>
             <DropShadowEffect ShadowDepth="1" RenderingBias="Quality" BlurRadius="10" />
         </Border.Effect>
         <Grid>
-            <!--
-                        <Button  Click="NCoutputRes_Click" Uid="♻"  Style="{StaticResource AppRes}"  Margin="5,5,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-            -->
-            <Label Name="设置" Style="{StaticResource AppTitle}" />
-            <ScrollViewer   Margin="15,35,15,15" 
- VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Hidden"
-                             >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <!-- 左侧导航栏 -->
+            <StackPanel  Grid.Column="0" VerticalAlignment="Stretch">
+                <Label Name="设置" Style="{StaticResource AppTitle}" Width="140" Margin="0,5,0,10"/>
+                <StackPanel >
+                    
+                    <Button Content="灵动岛" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click"/>
+                    <Button Content="宏库" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click"/>
+                    <Button Content="NC写出" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click"/>
+                    <Button Content="批量碰撞过切检查" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click"/>
+                    <Button Content="系统" Style="{StaticResource NavButtonStyle}" Click="NavButton_Click"/>
+                </StackPanel>
+            </StackPanel>
 
-                <StackPanel Margin="0,35,0,10">
-                    <StackPanel>
+            <!-- 右侧内容区 -->
+            <Grid x:Name="SteetingPage" Grid.Column="1" Margin="20,20,20,20">
+                <StackPanel d:Visibility="Hidden" Visibility="Visible">
+
+                    <TextBlock Text="灵动岛" FontWeight="Bold" FontSize="25">
+                        <TextBlock.Effect>
+                            <DropShadowEffect BlurRadius="2" ShadowDepth="1" />
+                        </TextBlock.Effect>
+                    </TextBlock>
+                    <StackPanel Orientation="Horizontal" Margin="10,20,0,0">
+                            <TextBlock Text="灵动岛显示" Margin="0,0,0,0"/>
+                            <CheckBox IsChecked="{Binding DynamicIslandIsVisibility}" Margin="3,0,0,0"/>
+                        </StackPanel>
+                   
+                </StackPanel>
+                <StackPanel Visibility="Hidden" >
+                    
                         <StackPanel>
-                            <TextBlock Text="灵动岛" FontWeight="Bold"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="灵动岛显示" Margin="10,0,0,0"/>
-                            <CheckBox   IsChecked="{Binding DynamicIslandIsVisibility}" Margin="3,0,0,0"/>
-                        </StackPanel>
-                    </StackPanel>
-                    <StackPanel Margin="0,10,0,0" d:Height="15">
-                        <StackPanel>
-                            <TextBlock Text="宏库" FontWeight="Bold"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="宏库" FontWeight="Bold" FontSize="25">
+                            <TextBlock.Effect>
+                                <DropShadowEffect BlurRadius="2" ShadowDepth="1" />
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </StackPanel >
+                    <StackPanel Orientation="Horizontal" Margin="10,20,0,0">
                             <StackPanel>
                                 <Button Content="添加" Click="MacroLib_addFolder" Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
                                 <Button Content="移除" Click="MacroLib_Remover"  Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
@@ -117,106 +179,146 @@
                                 <Button Content="重载" Click="MacroLib_RES"  Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
                             </StackPanel>
                             <ListBox SelectedValue="{Binding MacorLibFolderssettingSelected}" SelectionMode="Single"
-                                     Width="500" Height="100" Margin="15,5,0,0"
-                                     ItemsSource="{Binding MacorLibFolders}" VerticalAlignment="Top">
+                  Width="450" Height="100" Margin="15,5,0,0"
+                  ItemsSource="{Binding MacorLibFolders}" VerticalAlignment="Top">
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
-                                            <TextBlock Text="{Binding}" />
+                                        <TextBlock Text="{Binding}" />
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
                             </ListBox>
-                        
                         </StackPanel>
+                   
+                </StackPanel>
+                <StackPanel  Visibility="Hidden" d:Visibility="Hidden" >
+                    <StackPanel>
+                        <TextBlock Text="Nc写出" FontWeight="Bold" FontSize="25">
+                            <TextBlock.Effect>
+                                <DropShadowEffect BlurRadius="2" ShadowDepth="1" />
+                            </TextBlock.Effect>
+                        </TextBlock>
                     </StackPanel>
-                    <StackPanel Margin="0,10,0,0" d:Height="15">
-                        <StackPanel>
-                            <TextBlock Text="Nc写出" FontWeight="Bold"/>
-                        </StackPanel>
-                        <StackPanel Orientation="Vertical" Margin="5,2,0,0">
-                            <StackPanel Orientation="Horizontal">
-                                <Button Click="NCout_Settingoutfolder" Cursor="Hand" Content="选择Nc写出文件夹：" BorderThickness="0"/>
+                    <StackPanel Orientation="Vertical" Margin="10,20,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Click="NCout_Settingoutfolder" Cursor="Hand" Content="选择Nc写出文件夹：" BorderThickness="0"/>
                             <TextBlock Text="{Binding Ncout_OutputFolderPath}" Margin="5,0,0,0"/>
-                            </StackPanel>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,3,0,0" >
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0" >
                             <TextBlock Text="合并输出"/>
                             <CheckBox Margin="5,0,0,0"  IsChecked="{Binding Ncout_AllTpOutput}"  Cursor="Hand"/>
                             <TextBlock Text="单独输出" Margin="10,0,0,0"/>
                             <CheckBox Margin="5,0,0,0"  IsChecked="{Binding Ncout_SingleTpOutput}"  Cursor="Hand"/>
                         </StackPanel>
-                        <StackPanel Margin="0,3,0,0">
-                                <StackPanel Orientation="Horizontal">
-                                    <Button Click="Ncout_SettingSelectsheetpath" Cursor="Hand" Content="选择程序单模板：" BorderThickness="0"/>
+                        <StackPanel Margin="0,10,0,0">
+                            <StackPanel Orientation="Horizontal">
+                                <Button Click="Ncout_SettingSelectsheetpath" Cursor="Hand" Content="选择程序单模板：" BorderThickness="0"/>
                                 <TextBlock Text="{Binding Ncout_sheetTemplatePath}" Margin="5,0,0,0"/>
-                                </StackPanel>
-                            
-                            </StackPanel>
-                            <TextBlock Text="后处理配置" Margin="0,5,0,0"/>
-                            <StackPanel Orientation="Horizontal" >
-                            
-                                <Button  HorizontalAlignment="Left" VerticalAlignment="Center"  Content="添加" Click="NCout_SettingAddopt" Margin="0,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
-                                <Button  HorizontalAlignment="Left"  Content="移除" Click="NCout_SettingRemoveopt" Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
-                                <Button  HorizontalAlignment="Left"  Content="保存" Click="NCout_SettingSaveopt" Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
-                            </StackPanel>
-                            <ListView  SelectionMode="Extended"
-                                          HorizontalAlignment="Left" Height="130"
-              VerticalAlignment="Top" Width="550" BorderThickness="1"
-                                          ItemsSource="{Binding NcOpts}"
-                                          SelectedItem="{Binding SettingNcoutSelectOpt}"
-                                          >
-                                    <ListView.View>
-                                        <GridView>
-                                            <GridViewColumn Header="后处理名称" Width="100">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBlock Text="{Binding Name}" />
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                            <GridViewColumn Header="可指定输出基准" Width="100">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <CheckBox IsChecked="{Binding OptCanSelectWkOutput}"/>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                            <GridViewColumn Header="可指定输出坐标系" Width="100">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <CheckBox IsChecked="{Binding OptCanSelectMachineWk}"/>
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                            <GridViewColumn Header="输出坐标系列表" Width="250">
-                                                <GridViewColumn.CellTemplate>
-                                                    <DataTemplate>
-                                                        <TextBox Text="{Binding OptSelectMachineWkName}" />
-                                                    </DataTemplate>
-                                                </GridViewColumn.CellTemplate>
-                                            </GridViewColumn>
-                                        </GridView>
-                                    </ListView.View>
-                                </ListView>
-                        </StackPanel>
-                    </StackPanel>
-                    <StackPanel Margin="0,10,0,0">
-                        <StackPanel> 
-                            <TextBlock Text="系统" FontWeight="Bold"/>
-                        </StackPanel>
-                        <StackPanel  Margin="0,3,0,0">
-                            <Button Click="NCout_OpenSettingini" Cursor="Hand" Content="打开配置文本" BorderThickness="0" HorizontalAlignment="Left"/>
-                            <StackPanel Orientation="Horizontal" Margin="0,3,0,0">
-                                <TextBlock Text="版本：" />
-                                <TextBlock Text="{Binding Version}" Margin="5,0,0,0"/>
-                                <TextBlock Text="检查版本=>" Margin="15,0,0,0"/>
-                                <Button Click="UpdataPmHelperClick" Content="{Binding Updatetitle}" Margin="3,0,0,0" BorderThickness="0"/>
-                                
                             </StackPanel>
                         </StackPanel>
+                        <TextBlock Text="后处理配置" Margin="0,10,0,0"/>
+                        <StackPanel Orientation="Horizontal" >
+                            <Button  HorizontalAlignment="Left" VerticalAlignment="Center"  Content="添加" Click="NCout_SettingAddopt" Margin="0,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
+                            <Button  HorizontalAlignment="Left"  Content="移除" Click="NCout_SettingRemoveopt" Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
+                            <Button  HorizontalAlignment="Left"  Content="保存" Click="NCout_SettingSaveopt" Margin="5,5,0,0" Padding="5,1,5,1" BorderThickness="0" Cursor="Hand"/>
+                        </StackPanel>
+                        <ListView  SelectionMode="Extended"
+              HorizontalAlignment="Left" Height="130"
+              VerticalAlignment="Top" Width="500" BorderThickness="1"
+              ItemsSource="{Binding NcOpts}"
+              SelectedItem="{Binding SettingNcoutSelectOpt}">
+                            <ListView.View>
+                                <GridView>
+                                    <GridViewColumn Header="后处理名称" Width="100">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock Text="{Binding Name}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="可指定输出基准" Width="100">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding OptCanSelectWkOutput}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="可指定输出坐标系" Width="100">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <CheckBox IsChecked="{Binding OptCanSelectMachineWk}"/>
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                    <GridViewColumn Header="输出坐标系列表" Width="250">
+                                        <GridViewColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBox Text="{Binding OptSelectMachineWkName}" />
+                                            </DataTemplate>
+                                        </GridViewColumn.CellTemplate>
+                                    </GridViewColumn>
+                                </GridView>
+                            </ListView.View>
+                        </ListView>
                     </StackPanel>
+                </StackPanel>
+                <StackPanel Visibility="Hidden"  d:Visibility="Visible">
+                    <StackPanel>
+                        <TextBlock Text="批量碰撞过切检查" FontWeight="Bold" FontSize="25">
+                            <TextBlock.Effect>
+                                <DropShadowEffect BlurRadius="2" ShadowDepth="1" />
+                            </TextBlock.Effect>
+                        </TextBlock>
                     </StackPanel>
-            </ScrollViewer>
+                    <StackPanel  Margin="10,20,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <Button Click="CheckTp_AddExperCOM" Cursor="Hand" Content="在右键菜单中插入命令" BorderThickness="0" HorizontalAlignment="Left"/>
+                            <TextBlock Margin="5,0,0,0" Foreground="Gray" VerticalAlignment="Center" Text="此按钮会将[批量碰撞过切检查]的功能入口添加在右键菜单默认位置中"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,20,0,0">
+                            <Button Click="CheckTp_RemoveExperCOM" Cursor="Hand" Content="在右键菜单中删除命令" BorderThickness="0" HorizontalAlignment="Left"/>
+                            <TextBlock Margin="5,0,0,0" Foreground="Gray" VerticalAlignment="Center" Text="此按钮将移除右键菜单中[批量碰撞过切检查]的调用按钮"/>
+                        </StackPanel>
+                        <Border Padding="5" Margin="0,20,0,0" CornerRadius="5" Cursor="IBeam" >
+                            <Border.Background  >
+                                <SolidColorBrush Color="Gray" Opacity="0.3"/>
+                            </Border.Background>
+                            <TextBox IsReadOnly="True"  BorderThickness="0" Background="Transparent" FontSize="12"  FontFamily="pack://application:,,,/Theme/#Maple Mono Normal CN"  
+                            Text="&lt;button &#x0a;
+command='plugin {BC3610A0-A0F6-4244-8053-A99AADE569F5}VerifyToolpathS'&#x0a;
+label='检查程序碰撞过切'&#x0a;
+behaviour='shift_key_modify'&#x0a;
+multiple_selection='allowed'&#x0a;
+/&gt;"/>
+                        </Border>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Click="CheckTp_AddExper_ComtextCopy" Cursor="Hand" BorderThickness="0" Content="复制" Margin="5,3,0,0" HorizontalAlignment="Left" Padding="3"/>
+                            <Button Click="CheckTp_Openexplorer" Cursor="Hand" BorderThickness="0" Content="备份并打开explorer.ppm" Margin="5,3,0,0" HorizontalAlignment="Left" Padding="3"/>
+                        </StackPanel>
+
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Visibility="Hidden"  >
+                    <StackPanel>
+                        <TextBlock Text="系统" FontWeight="Bold" FontSize="25">
+                            <TextBlock.Effect>
+                                <DropShadowEffect BlurRadius="2" ShadowDepth="1" />
+                            </TextBlock.Effect>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel  Margin="10,20,0,0">
+                        <Button Click="NCout_OpenSettingini" Cursor="Hand" Content="打开配置文本" BorderThickness="0" HorizontalAlignment="Left"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <TextBlock Text="版本：" />
+                            <TextBlock Text="{Binding Version}" Margin="5,0,0,0"/>
+                            <TextBlock Text="检查版本=>" Margin="15,0,0,0"/>
+                            <Button Click="UpdataPmHelperClick" Content="{Binding Updatetitle}" Margin="3,0,0,0" BorderThickness="0"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+           
+      
+       
         </Grid>
-        
     </Border>
-    
 </UserControl>

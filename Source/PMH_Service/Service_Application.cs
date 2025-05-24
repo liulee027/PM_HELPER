@@ -201,57 +201,31 @@ namespace PMH_Service
         #endregion
 
         #region 最新软件包下载
-        private async void DownLoadNewPmSetup()
+        //因为使用了CloudFire代理服务器，直接用服务器Get安装包下载速度很慢
+        //因此软件获取最新安装包将会通过网页来获取
+        //后期考虑将安装包部署在CloudFire R2资源服务器中来为用户提供下载通道(已测试成功但是安全性未知)
+        private void DownLoadNewPmSetup()
         {
+            string url = "https://liu1ee.online/download.html";
             try
             {
-                var content = new MultipartFormDataContent();
-                content.Add(new StringContent("DownLoadNewPmSetup"), "FileDownLoad"); 
-                using (var response = await _PMClient.PostAsync(PMserverApiurl + "PmClient/downloadPmSetup", content))
+                var psi = new ProcessStartInfo
                 {
-                    Console.WriteLine($"StatusCode: {response.StatusCode}, Reason: {response.ReasonPhrase}");
-
-                    if (response.IsSuccessStatusCode)
-                    {
-                        Console.WriteLine("下载最新安装包成功");
-                        // 获取文件名
-                        var contentDisposition = response.Content.Headers.ContentDisposition;
-                        string fileName = contentDisposition?.FileName?.Trim('"') ?? "update.exe";
-
-                        // 保存路径
-                        string filePath = Path.Combine(@"C:\Windows\Temp", fileName);
-
-                        // 保存文件
-                        var fileBytes = await response.Content.ReadAsByteArrayAsync();
-                        File.WriteAllBytes(filePath, fileBytes);
-
-                        // 启动新程序，并关闭当前程序
-                        ProcessStartInfo psi = new ProcessStartInfo
-                        {
-                            FileName = filePath,
-                            UseShellExecute = true,
-                        };
-                        Process.Start(psi);
-                    }
-                    else
-                    {
-                        string error = await response.Content.ReadAsStringAsync();
-                        Console.WriteLine($"下载失败，状态码: {response.StatusCode}, 错误信息: {error}");
-                    }
-                    //response.EnsureSuccessStatusCode();
-
-
-
-                }
+                    FileName = url,
+                    UseShellExecute = true 
+                };
+                Process.Start(psi);
             }
             catch (Exception ex)
             {
-                Console.WriteLine("下载最新安装包出现错误\r"+ex.ToString());
+                MessageBox.Show("无法打开浏览器: " + ex.Message);
             }
-           
-            
 
         }
+
+
+
+
         #endregion
     }
 }

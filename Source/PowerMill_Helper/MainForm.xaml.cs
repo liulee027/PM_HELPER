@@ -40,7 +40,7 @@ namespace PowerMill_Helper
         public PowerMILL.PluginServices PmServices;
         private IPluginCommunicationsInterface PmCom;
         private IntPtr PowerMIlInptr;
-        MainCS MCS = null;
+        public MainCS MCS = null;
         public MainForm(IPluginCommunicationsInterface conn, string token, PowerMILL.PluginServices servicess, IntPtr Pminptr)
         {
             InitializeComponent();
@@ -673,6 +673,7 @@ namespace PowerMill_Helper
 
         #endregion
 
+
         #region MacroLib
         private MacroLib MacroLib_ = null;
         private void LoadMacroLib()
@@ -739,6 +740,28 @@ namespace PowerMill_Helper
             AppGrid.Children.Add(CheckTP_);
 
         }
+
+        private void SettingForm__SetCheckTp_AddExperCOM_Click(object sender, RoutedEventArgs e)
+        {
+            CheckTP_.CheckExperMenu();
+        }
+      
+
+        private void SettingForm__SetCheckTp_RemoveExperCOM_Click(object sender, RoutedEventArgs e)
+        {
+            CheckTP_.RemoveExperMenuButton();
+        }
+
+        private void SettingForm__SetCheckTp_AddExper_ComtextCopy_Click(object sender, RoutedEventArgs e)
+        {
+            CheckTP_.CopyCheckButtonXmlToClipboard();
+           
+        }
+        private void SettingForm__SetCheckTp_Openexplorer(object sender, RoutedEventArgs e)
+        {
+            CheckTP_.OpenExplorerPpmWithEditor();
+        }
+
         public void OpenCheckTP()
         {
             try
@@ -808,9 +831,9 @@ namespace PowerMill_Helper
         }
         #endregion
 
-        #region SettingForm
-        SettingForm SettingForm_ = null;
-        private void SettingForm_Start()
+        #region Setting Form
+       public SettingForm SettingForm_ = null;
+        public void SettingForm_Start()
         {
             try
             {
@@ -825,6 +848,12 @@ namespace PowerMill_Helper
                     SettingForm_.PreviewMouseDown += Usercortol_MoveIndexTop;
                     SettingForm_.GetnewVersionSetup += GetNewPmSetup;
                     SettingForm_.Visibility = Visibility.Hidden;
+
+                    SettingForm_.SetCheckTp_AddExperCOM_Click += SettingForm__SetCheckTp_AddExperCOM_Click;
+                    SettingForm_.SetCheckTp_RemoveExperCOM_Click += SettingForm__SetCheckTp_RemoveExperCOM_Click;
+                    SettingForm_.SetCheckTp_AddExper_ComtextCopy_Click += SettingForm__SetCheckTp_AddExper_ComtextCopy_Click;
+                    SettingForm_.SetCheckTp_Openexplorer += SettingForm__SetCheckTp_Openexplorer;
+
                 }
             }
             catch (Exception ex)
@@ -832,6 +861,8 @@ namespace PowerMill_Helper
                 MessageBox.Show("SettingForm_Start\r" + ex.ToString());
             }
         }
+
+       
 
         private void GetNewPmSetup(object sender, RoutedEventArgs e)
         {

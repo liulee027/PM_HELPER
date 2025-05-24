@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // 有关程序集的一般信息由以下
 // 控制。更改这些特性值可修改
 // 与程序集关联的信息。
-[assembly: AssemblyTitle("PowerMill灵动助手")]
+[assembly: AssemblyTitle("PowerMill灵动助手插件")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("HP Inc.")]
-[assembly: AssemblyProduct("PowerMill灵动助手")]
+[assembly: AssemblyCompany("动力磨坊")]
+[assembly: AssemblyProduct("PowerMill灵动助手插件")]
 [assembly: AssemblyCopyright("© 动力磨坊. 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -31,7 +31,7 @@ using System.Runtime.InteropServices;
 //可以指定所有这些值，也可以使用“生成号”和“修订号”的默认值
 //通过使用 "*"，如下所示:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("0.3.662.0")]
-[assembly: AssemblyFileVersion("0.3.662.0")]
+[assembly: AssemblyVersion("0.3.675.0")]
+[assembly: AssemblyFileVersion("0.3.675.0")]
 
-[assembly: AssemblyInformationalVersion("0.3.662.0")]
+[assembly: AssemblyInformationalVersion("0.3.675.0")]

@@ -30,6 +30,8 @@ namespace PowerMill_Helper.Tool
         }
         private MainCS MCS;
 
+
+
         #region PmCommand
         public string token;
         public PowerMILL.PluginServices PmServices;
@@ -114,6 +116,41 @@ namespace PowerMill_Helper.Tool
                 MessageBox.Show("BorderCloserButton\r" + ex.ToString());
             }
 
+        }
+        private void NavButton_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // 1. sender转为Button
+                var btn = sender as Button;
+                if (btn == null) return;
+
+                // 2. 获取Button的父StackPanel
+                var parentStackPanel = btn.Parent as StackPanel;
+                if (parentStackPanel == null) return;
+
+                // 3. 查询Button在StackPanel中的index
+                int btnIndex = parentStackPanel.Children.IndexOf(btn);
+                if (btnIndex < 0) return;
+
+                // 4. 查找名为"SteetingPage"的Grid
+                var grid = this.FindName("SteetingPage") as Grid;
+                if (grid == null) return;
+
+                // 5. 遍历Grid下的StackPanel，设置对应index的为显示，其余为隐藏
+                for (int i = 0; i < grid.Children.Count; i++)
+                {
+                    var sp = grid.Children[i] as StackPanel;
+                    if (sp != null)
+                    {
+                        sp.Visibility = (i == btnIndex) ? Visibility.Visible : Visibility.Collapsed;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("设置导航页面出错\r" + ex.ToString());
+            }
         }
         #endregion
 
@@ -345,7 +382,30 @@ namespace PowerMill_Helper.Tool
         #endregion
         #endregion
 
+        #region 碰撞检查
+        public event RoutedEventHandler SetCheckTp_AddExperCOM_Click;
+        private void CheckTp_AddExperCOM(object sender, RoutedEventArgs e)
+        {
+            SetCheckTp_AddExperCOM_Click?.Invoke(sender, e);
+        }
+        public event RoutedEventHandler SetCheckTp_RemoveExperCOM_Click;
+        private void CheckTp_RemoveExperCOM(object sender, RoutedEventArgs e)
+        {
+            SetCheckTp_RemoveExperCOM_Click?.Invoke(sender, e);
+        }
+        public event RoutedEventHandler SetCheckTp_AddExper_ComtextCopy_Click;
+        private void CheckTp_AddExper_ComtextCopy(object sender, RoutedEventArgs e)
+        {
+            SetCheckTp_AddExper_ComtextCopy_Click?.Invoke(sender, e);
+        }
+        public event RoutedEventHandler SetCheckTp_Openexplorer;
+        private void CheckTp_Openexplorer(object sender, RoutedEventArgs e)
+        {
+            SetCheckTp_Openexplorer?.Invoke(sender, e);
+        }
+        #endregion
 
+        #region 文件夹询问Window Void
         public static string OpenFileBrowserDialog(bool multiselect)
         {
             FolderSelectDialog fbd = new FolderSelectDialog();
@@ -366,6 +426,8 @@ namespace PowerMill_Helper.Tool
 
             return selected_folders;
         }
+        #endregion
+
 
         #region 打开配置文件
         private void NCout_OpenSettingini(object sender, RoutedEventArgs e)
@@ -387,7 +449,7 @@ namespace PowerMill_Helper.Tool
                 if (MCS.Version != MCS.Serverversion)
                 {
                     // 使用系统对话框提示用户
-                    MessageBoxResult result = MessageBox.Show(MCS.SoftUpdateNote, $"检测到新版本：{MCS.Serverversion}", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                    MessageBoxResult result = MessageBox.Show(MCS.SoftUpdateNote, $"是否要去官网下载最新新版本：{MCS.Serverversion}", MessageBoxButton.YesNo, MessageBoxImage.Question);
                     if (result == MessageBoxResult.Yes)
                     {
                         GetnewVersionSetup?.Invoke(sender, e);
@@ -405,7 +467,11 @@ namespace PowerMill_Helper.Tool
            
         }
         public event RoutedEventHandler GetnewVersionSetup;
+
+
+
         #endregion
 
+       
     }
 }

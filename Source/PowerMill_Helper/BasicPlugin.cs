@@ -1,6 +1,7 @@
 ﻿using Delcam.Plugins.Framework;
 using System;
 using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Interop;
 using MessageBox = System.Windows.Forms.MessageBox;
 
@@ -18,7 +19,7 @@ namespace PowerMill_Helper
         }
 
         #region 插件信息
-        public override string PluginName => "【动力磨坊】灵动助手";
+        public override string PluginName => "【动力磨坊】PowerMill灵动助手插件"; 
 
         public override string PluginAuthor => "Liu1ee";
 
@@ -67,18 +68,36 @@ namespace PowerMill_Helper
         // plugin {BC3610A0-A0F6-4244-8053-A99AADE569F5}
         public override void ProcessPluginCommand(string Command)
         {
-            if (Command.Contains("Shutdown"))
+            // plugin {BC3610A0-A0F6-4244-8053-A99AADE569F5}Shutdown
+            if (Command=="Shutdown")
             {
 
                 Shutdown();
             }
-            if (Command.Contains("VerifyToolpathS"))
+            // plugin {BC3610A0-A0F6-4244-8053-A99AADE569F5}VerifyToolpathS
+            if (Command=="VerifyToolpathS")
             {
                 mainForm.OpenCheckTP();
             }
+            // plugin {BC3610A0-A0F6-4244-8053-A99AADE569F5}CheckTPMsg
             if (Command.Contains("CheckTPMsg"))
             {
                 mainForm.GetCheckTP_Msg(Command);
+            }
+            // plugin {BC3610A0-A0F6-4244-8053-A99AADE569F5}showSettingPage
+            if (Command == "showDynamicIslaned")
+            {
+                mainForm.MCS.DynamicIslandIsVisibility = true;
+            }
+            // plugin {BC3610A0-A0F6-4244-8053-A99AADE569F5}hiddenDynamicIslaned
+            if (Command == "hiddenDynamicIslaned")
+            {
+                mainForm.MCS.DynamicIslandIsVisibility = false;
+            }
+            // plugin {BC3610A0-A0F6-4244-8053-A99AADE569F5}showSettingPage
+            if (Command == "showSettingPage")
+            {
+                mainForm.SettingForm_.Visibility = Visibility.Visible;
             }
 
 
