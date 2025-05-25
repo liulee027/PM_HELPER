@@ -675,7 +675,7 @@ namespace PowerMill_Helper
 
 
         #region MacroLib
-        private MacroLib MacroLib_ = null;
+        public MacroLib MacroLib_ = null;
         private void LoadMacroLib()
         {
             MacroLib_ = new MacroLib(MCS, PmServices);
@@ -705,7 +705,7 @@ namespace PowerMill_Helper
         #endregion
 
         #region NCout
-        private NCout NCout_ = null;
+        public NCout NCout_ = null;
         private void LoadNcout()
         {
             NCout_ = new NCout(MCS, PmServices);
@@ -718,7 +718,7 @@ namespace PowerMill_Helper
         {
             try
             {
-                NCout_.Visibility = Visibility.Visible;
+                NCout_.Show();
 
             }
             catch (Exception ex)

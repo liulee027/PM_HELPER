@@ -201,7 +201,7 @@
                     <StackPanel Orientation="Vertical" Margin="10,20,0,0">
                         <StackPanel Orientation="Horizontal">
                             <Button Click="NCout_Settingoutfolder" Cursor="Hand" Content="选择Nc写出文件夹：" BorderThickness="0"/>
-                            <TextBlock Text="{Binding Ncout_OutputFolderPath}" Margin="5,0,0,0"/>
+                            <TextBlock Text="{Binding Ncout_OutputFolderPath}" ToolTip="{Binding Ncout_OutputFolderPath}" Margin="5,0,0,0"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,10,0,0" >
                             <TextBlock Text="合并输出"/>

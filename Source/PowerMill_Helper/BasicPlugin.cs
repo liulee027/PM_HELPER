@@ -94,10 +94,15 @@ namespace PowerMill_Helper
             {
                 mainForm.MCS.DynamicIslandIsVisibility = false;
             }
-            // plugin {BC3610A0-A0F6-4244-8053-A99AADE569F5}showSettingPage
-            if (Command == "showSettingPage")
+            // plugin {BC3610A0-A0F6-4244-8053-A99AADE569F5}showNcoutPage
+            if (Command == "showNcoutPage")
             {
-                mainForm.SettingForm_.Visibility = Visibility.Visible;
+                mainForm.NCout_.Show();
+            }
+            // plugin {BC3610A0-A0F6-4244-8053-A99AADE569F5}showMacrolibPage
+            if (Command == "showMacrolibPage")
+            {
+                mainForm.MacroLib_.Visibility = Visibility.Visible;
             }
 
 

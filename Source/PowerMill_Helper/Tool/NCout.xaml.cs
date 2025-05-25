@@ -36,7 +36,7 @@ namespace PowerMill_Helper.Tool
         {
             if (File.Exists(MCS.ConfigInitPath))
             {
-                MCS.Ncout_sheetTemplatePath_ = ConfigINI.ReadSetting(MCS.ConfigInitPath, "Ncout", "sheetTemplatePath", "");
+                MCS.Ncout_sheetTemplatePath_ = ConfigINI.ReadSetting(MCS.ConfigInitPath, "Ncout", "sheetTemplatePath", Path.Combine(MCS.PluginFolder, "File", "Ncout", "NCSheet.html"));
                 MCS.Onchange(nameof(MCS.Ncout_sheetTemplatePath));
                 MCS.ncoutOutputFolderPath_ = ConfigINI.ReadSetting(MCS.ConfigInitPath, "Ncout", "OutputFolderPath", "");
                 MCS.Onchange(nameof(MCS.Ncout_OutputFolderPath));
@@ -47,6 +47,16 @@ namespace PowerMill_Helper.Tool
 
             }
 
+        }
+
+        public void Show()
+        {
+            this.Visibility=Visibility.Visible;
+            Ncout_ResToolpathCollection();
+        }
+        public void Hide()
+        {
+            this.Visibility = Visibility.Hidden;
         }
 
         #region PmCommand
@@ -561,7 +571,7 @@ namespace PowerMill_Helper.Tool
                     }
                     else
                     {
-                        TpOutWkName = GetPMVal($"entity('toolpath','{TpName_}').workplane");
+                        TpOutWkName = GetPMVal($"entity('toolpath','{TpName_}').workplane.name");
                     }
                     string tlDim = GetPMVal($"entity('tool','{TpTlName}').diameter");
                     string tlRadius = GetPMVal($"entity('tool','{TpTlName}').TipRadius");
@@ -658,7 +668,7 @@ namespace PowerMill_Helper.Tool
                     ProgramerName_ = ProgramerName_.Replace("_" + ProgramerName_.Substring(ProgramerName_.LastIndexOf("_") + 1, ProgramerName_.Length - ProgramerName_.LastIndexOf("_") - 1).Trim(), "");
                 }
                 Htmltxt = Htmltxt.Replace("{project}", ProgramerName_);
-                Htmltxt = Htmltxt.Replace("{project.programmer}", MCS.ProjectName);
+                Htmltxt = Htmltxt.Replace("{project.programmer}", GetPMVal("project.Programmer"));
                 DirectoryInfo directoryInfo = new DirectoryInfo(MCS.ProjectPath);
                 Htmltxt = Htmltxt.Replace("{project.date}", directoryInfo.CreationTime.ToString("yyyy/MM/dd_hh:mm:ss"));
                 Htmltxt = Htmltxt.Replace("{PD_TotalTime}", theCutAllTimesstr);
@@ -706,7 +716,7 @@ namespace PowerMill_Helper.Tool
                 PMCom("VIEW MODEL ; SHADE NORMAL");
                 if (MCS.NcoutOptSelectOpt.OptCanSelectWkOutput)
                 {
-                    PMCom($"DRAW Workplane '{MCS.NcoutOptSelectOpt.Name}'");
+                    PMCom($"DRAW Workplane '{MCS.Ncout_Selected_OutputWorkplane.Name}'");
                 }
                 else
                 {
