@@ -109,13 +109,13 @@ To="WhiteSmoke" Duration="0:0:0.2" BeginTime="0:0:0"/>
 
 
                     <!--Logo-->
-                    <Border Width="57" Height="16" Padding="0" BorderThickness="0"
-          HorizontalAlignment="Left" VerticalAlignment="Center"
-          Margin="5,0,0,0" CornerRadius="8">
-                        <Border.Clip>
-                            <RectangleGeometry Rect="0,0,57,16" RadiusX="8" RadiusY="8" />
-                        </Border.Clip>
-                        <Image Source="Image/Logo.png" Stretch="UniformToFill"/>
+                    <Border Height="16" Padding="0" BorderThickness="0"
+                        HorizontalAlignment="Left" VerticalAlignment="Center"
+                        Margin="5,0,0,0" CornerRadius="8" Background="Transparent">
+                                        <Image Source="{Binding DynamicIslandLogo}"
+                           Stretch="Uniform"
+                           VerticalAlignment="Stretch"
+                           HorizontalAlignment="Left"/>
                     </Border>
                     <!--打开项目按钮-->
                     <Image PreviewMouseUp="Image_PreviewMouseUp" Margin="5,0,0,0" Width="15"  Height="15"  Source="Image/OpenFile.png"   Cursor="Hand">

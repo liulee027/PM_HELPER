@@ -291,9 +291,6 @@
     <Resource Include="Image\Icon\Mofun32.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Tool\Image\Logo.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Tool\Image\OpenFile.png" />
   </ItemGroup>
   <ItemGroup>

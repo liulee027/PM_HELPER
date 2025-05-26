@@ -338,6 +338,28 @@ namespace PowerMill_Helper.Class
         private double ExpenDynamicIslandOpenEffect_ = 0;
         public double ExpenDynamicIslandCloseEffect_ { get => ExpenDynamicIslandOpenEffect_; set { ExpenDynamicIslandOpenEffect_ = value; OnPropertyChanged(); } }
 
+        private string DynamicIslandLogopath_;
+        public string DynamicIslandLogo
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(DynamicIslandLogopath_))
+                {
+                    // 读取配置参数
+                    string configValue = ConfigINI.ReadSetting(ConfigInitPath, "DynamicIslaned", "DynamicIslandLogoPath",Path.Combine(PluginFolder, "File", "Logo", "PowerMofunLogo_R.png"));
+                  
+                    DynamicIslandLogopath_ = configValue;
+                }
+                return DynamicIslandLogopath_;
+            }
+            set
+            {
+                DynamicIslandLogopath_ = value;
+                ConfigINI.WriteSetting(ConfigInitPath, "DynamicIslaned", "DynamicIslandLogoPath", value?.ToString());
+                OnPropertyChanged();
+            }
+        }
+
 
 
         #endregion

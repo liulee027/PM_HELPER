@@ -148,7 +148,7 @@
 
             <!-- 右侧内容区 -->
             <Grid x:Name="SteetingPage" Grid.Column="1" Margin="20,20,20,20">
-                <StackPanel d:Visibility="Hidden" Visibility="Visible">
+                <StackPanel d:Visibility="Visible" Visibility="Visible">
 
                     <TextBlock Text="灵动岛" FontWeight="Bold" FontSize="25">
                         <TextBlock.Effect>
@@ -159,7 +159,11 @@
                             <TextBlock Text="灵动岛显示" Margin="0,0,0,0"/>
                             <CheckBox IsChecked="{Binding DynamicIslandIsVisibility}" Margin="3,0,0,0"/>
                         </StackPanel>
-                   
+                    <StackPanel Orientation="Horizontal" Margin="10,20,0,0">
+                        <TextBlock Text="灵动岛Logo" Margin="0,0,0,0"/>
+                        <Button Click="Select_DyniclandLogo" Content="选择Logo" Cursor="Hand" BorderThickness="0" Margin="5,0,0,0" Padding="5,0,5,0"/>
+                    </StackPanel>
+
                 </StackPanel>
                 <StackPanel Visibility="Hidden" >
                     
@@ -261,7 +265,7 @@
                         </ListView>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Visibility="Hidden"  d:Visibility="Visible">
+                <StackPanel Visibility="Hidden"  d:Visibility="Hidden">
                     <StackPanel>
                         <TextBlock Text="批量碰撞过切检查" FontWeight="Bold" FontSize="25">
                             <TextBlock.Effect>

@@ -152,6 +152,33 @@ namespace PowerMill_Helper.Tool
                 MessageBox.Show("设置导航页面出错\r" + ex.ToString());
             }
         }
+
+        #endregion
+
+        #region Dynamicisland
+        private void Select_DyniclandLogo(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                // 创建图片选择对话框
+                System.Windows.Forms.OpenFileDialog openFileDialog = new System.Windows.Forms.OpenFileDialog
+                {
+                    Title = "选择灵动岛Logo图片",
+                    Filter = "图片文件 (*.png;*.jpg;*.jpeg;*.bmp;*.gif)|*.png;*.jpg;*.jpeg;*.bmp;*.gif|所有文件 (*.*)|*.*",
+                    Multiselect = false
+                };
+
+                if (openFileDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+                {
+                    MCS.DynamicIslandLogo = openFileDialog.FileName;
+                    MCS.Onchange(nameof(MCS.DynamicIslandLogo));
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("选择灵动岛Logo图片出错\r" + ex.ToString());
+            }
+        }
         #endregion
 
         #region MacroLib
@@ -470,8 +497,9 @@ namespace PowerMill_Helper.Tool
 
 
 
+
         #endregion
 
-       
+     
     }
 }
