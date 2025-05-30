@@ -365,6 +365,20 @@ namespace PowerMill_Helper.Class
         #endregion
 
         #region 宏库
+        private bool? AutoClodeMacroLibPage_ { get; set; } = true;
+        public bool? AutoClodeMacroLibPage
+        {
+            get => AutoClodeMacroLibPage_;
+            set
+            {
+                AutoClodeMacroLibPage_ = value;
+                ConfigINI.WriteSetting(ConfigInitPath, "MacorLib", "AutoClodeMacroLibPage", value == true ? "1" : "0");
+                //MessageBox.Show(value == true ? "1" : "0");
+                OnPropertyChanged();
+            }
+        }
+
+      
 
         private ObservableCollection<string> MacorrLibFolders_ = new ObservableCollection<string>();
         public ObservableCollection<string> MacorLibFolders

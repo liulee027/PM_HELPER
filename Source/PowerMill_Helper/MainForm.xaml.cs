@@ -11,6 +11,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
@@ -18,6 +19,7 @@ using System.Windows.Controls;
 using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media.Animation;
+using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
 using Debug = PowerMill_Helper.Tool.Debug;
 using MessageBox = System.Windows.Forms.MessageBox;
@@ -56,10 +58,12 @@ namespace PowerMill_Helper
                 #region 实现Pm事件
                 ResigerEvent();
                 #endregion
-                #region 主窗口大小
+                #region 主窗体
+                
+                /*
                 Screen[] screens = Screen.AllScreens;
                 MainPage.Width = screens[0].WorkingArea.Width;
-                MainPage.Height = screens[0].WorkingArea.Height;
+                MainPage.Height = screens[0].WorkingArea.Height;*/
                 #endregion
                 #region 加载控件
                 LoadControl();
@@ -383,10 +387,7 @@ namespace PowerMill_Helper
         {
             try
             {
-                DynamicIslaned = new DynamicIslaned(MCS, PmServices);
-                MainFormGrid.Children.Add(DynamicIslaned);
-                DynamicIslaned.UserSelectAppClickEvent += DynamicIslaned_UserSelectAppClickEvent;
-                DynamicIslaned.ONUseropenAppEvent += ExpendDynamicIsland__ONUseropenAppEvent;
+                LoadDynamicIslaned();
 
                 SettingForm_Start();
 
@@ -445,6 +446,24 @@ namespace PowerMill_Helper
 
         #region DynamicIslaned
         private DynamicIslaned DynamicIslaned = null;
+        #region 加载灵动岛
+        public void LoadDynamicIslaned()
+        {
+            DynamicIslaned = new DynamicIslaned(MCS, PmServices);
+            MainFormGrid.Children.Add(DynamicIslaned);
+            DynamicIslaned.UserSelectAppClickEvent += DynamicIslaned_UserSelectAppClickEvent;
+            DynamicIslaned.ONUseropenAppEvent += ExpendDynamicIsland__ONUseropenAppEvent;
+
+            // 跟随水平插件窗口
+            //follower = new ControlFollower(PowerMIlInptr, "水平插件窗口", DynamicIslaned);
+            //follower.Start();
+            //跟随水平插件窗口
+            //DynamicIslanedfollower = new SmoothControlFollower(PowerMIlInptr, "水平插件窗口", DynamicIslaned);
+            //DynamicIslanedfollower.Start();
+        }
+        private SmoothControlFollower DynamicIslanedfollower;
+        private ControlFollower follower;
+        #endregion
         #region 灵动岛打开拓展窗口
         private void DynamicIslaned_UserSelectAppClickEvent(object sender, RoutedEventArgs e)
         {
@@ -696,12 +715,18 @@ namespace PowerMill_Helper
             try
             {
                 PMCom($"Macro '{namePath.FullPath}'");
+                if ((bool)MCS.AutoClodeMacroLibPage)
+                {
+                    MacroLib_.Visibility = Visibility.Hidden;
+                }
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show("MacroLib_Treeview_SelectSomthing\r" + ex.ToString());
             }
         }
+       
         #endregion
 
         #region NCout
@@ -1047,7 +1072,7 @@ namespace PowerMill_Helper
 
         #endregion
 
-     
+
 
 
 

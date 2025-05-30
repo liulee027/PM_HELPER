@@ -148,7 +148,7 @@
 
             <!-- 右侧内容区 -->
             <Grid x:Name="SteetingPage" Grid.Column="1" Margin="20,20,20,20">
-                <StackPanel d:Visibility="Visible" Visibility="Visible">
+                <StackPanel d:Visibility="Hidden" Visibility="Visible">
 
                     <TextBlock Text="灵动岛" FontWeight="Bold" FontSize="25">
                         <TextBlock.Effect>
@@ -165,7 +165,7 @@
                     </StackPanel>
 
                 </StackPanel>
-                <StackPanel Visibility="Hidden" >
+                <StackPanel Visibility="Hidden" d:Visibility="Visible" >
                     
                         <StackPanel>
                         <TextBlock Text="宏库" FontWeight="Bold" FontSize="25">
@@ -192,7 +192,10 @@
                                 </ListBox.ItemTemplate>
                             </ListBox>
                         </StackPanel>
-                   
+                    <StackPanel Orientation="Horizontal" Margin="10,20,0,0">
+                        <TextBlock Text="自动关闭宏库" Margin="0,0,0,0"/>
+                        <CheckBox IsChecked="{Binding AutoClodeMacroLibPage}" Margin="3,0,0,0"/>
+                    </StackPanel>
                 </StackPanel>
                 <StackPanel  Visibility="Hidden" d:Visibility="Hidden" >
                     <StackPanel>

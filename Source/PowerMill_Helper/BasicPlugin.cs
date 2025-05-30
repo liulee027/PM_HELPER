@@ -1,8 +1,11 @@
 ﻿using Delcam.Plugins.Framework;
 using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Forms;
 using System.Windows.Interop;
+using Application = System.Windows.Application;
 using MessageBox = System.Windows.Forms.MessageBox;
 
 namespace PowerMill_Helper
@@ -123,6 +126,15 @@ namespace PowerMill_Helper
                 mainForm.Left = 0;
                 mainForm.Top = 0;
                 mainForm.Show();
+
+                IntPtr currentMonitor = MonitorFromWindow((IntPtr)this.ParentWindow, MONITOR_DEFAULTTONEAREST);
+                MoveWpfWindowToMonitor(currentMonitor);
+                var monitor = new WindowMonitor((IntPtr)this.ParentWindow);
+                monitor.OnMonitorChanged = (newMonitor) =>
+                {
+                    MoveWpfWindowToMonitor(newMonitor);
+                };
+                
             }
             catch (Exception EX)
             {
@@ -139,6 +151,39 @@ namespace PowerMill_Helper
             public int Right;                           //最右坐标
             public int Bottom;                        //最下坐标
         }
+
+        public void MoveWpfWindowToMonitor(IntPtr monitorHandle)
+        {
+            try
+            {
+                var screen = Screen.AllScreens.FirstOrDefault(s =>
+                {
+                    var handle = MonitorFromPoint(s.Bounds.Location, MONITOR_DEFAULTTONEAREST);
+                    return handle == monitorHandle;
+                });
+                if (screen == null) return;
+                mainForm.Left = screen.WorkingArea.Left;
+                mainForm.Top = screen.WorkingArea.Top;
+                mainForm.Width = screen.WorkingArea.Width;
+                mainForm.Height = screen.WorkingArea.Height;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("移动插件窗口出错\r" + ex.ToString());
+            }
+
+        }
+
+
+        [DllImport("user32.dll")]
+        static extern IntPtr MonitorFromPoint(System.Drawing.Point pt, uint dwFlags);
+
+        const uint MONITOR_DEFAULTTONEAREST = 2;
+        [DllImport("user32.dll")]
+        static extern IntPtr MonitorFromWindow(IntPtr hwnd, uint dwFlags);
+
+
+
         #endregion
 
         #region Shutdown

@@ -74,11 +74,15 @@
   <ItemGroup>
     <Compile Include="BasicPlugin.cs" />
     <Compile Include="Class\ConfigINI.cs" />
+    <Compile Include="Class\ControlFollower.cs" />
     <Compile Include="Class\NcoutOpt.cs" />
+    <Compile Include="Class\OldControlFollower.cs" />
     <Compile Include="Class\PMEntity.cs" />
     <Compile Include="Class\FolderSelectDialog.cs" />
     <Compile Include="Class\MainCS.cs" />
     <Compile Include="Class\NamePath.cs" />
+    <Compile Include="Class\WindowMonitor.cs" />
+    <Compile Include="Class\WindowTracker.cs" />
     <Compile Include="MainForm.xaml.cs">
       <DependentUpon>MainForm.xaml</DependentUpon>
     </Compile>

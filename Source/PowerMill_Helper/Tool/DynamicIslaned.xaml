@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:PowerMill_Helper.Tool"
              mc:Ignorable="d" 
               VerticalAlignment="Top"  Visibility="{Binding DynamicIslandOpen}"   
+             HorizontalAlignment="Center"
              >
     <UserControl.Resources>
         <Style x:Key="RBtnStyle" TargetType="{x:Type Button}">
@@ -80,8 +81,8 @@ To="WhiteSmoke" Duration="0:0:0.2" BeginTime="0:0:0"/>
             </Style.Triggers>
         </Style>
     </UserControl.Resources>
-    <Grid>
-        <Border x:Name="DynamicIslanedAppBorder"   Background="Black"    CornerRadius="13,13,13,13"    Margin="0,4,0,0" 
+    <Grid   >
+        <Border x:Name="DynamicIslanedAppBorder"   Background="Black"    CornerRadius="13,13,13,13"   Margin="4,4,0,0"  
                 d:Height="170" Height="28" MinHeight="28" MaxHeight="170"  MinWidth="900" HorizontalAlignment="Center" VerticalAlignment="Top"
                >
             <Border.Effect>

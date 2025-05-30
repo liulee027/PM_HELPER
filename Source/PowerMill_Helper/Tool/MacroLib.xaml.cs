@@ -30,6 +30,7 @@ namespace PowerMill_Helper.Tool
                 foreach (string item in MacorLibFolderslistStr.Split(',')) MCS.MacorLibFolders.Add(item);
                 MCS.DrawMacorLibTreeView();
             }
+            MCS.AutoClodeMacroLibPage = ConfigINI.ReadSetting(MCS.ConfigInitPath, "MacorLib", "AutoClodeMacroLibPage", "1") == "1" ? true : false;
 
         }
 
